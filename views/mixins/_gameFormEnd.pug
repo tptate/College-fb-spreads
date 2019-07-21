@@ -1,0 +1,11 @@
+mixin gameFormEnd(week)
+  div
+    label(for="home") Home Team
+    input.form-control(type="text" name="home" value=week.home)
+    label(for="away") Away Team
+    input.form-control(type="text" name="away" value=week.away)
+    label(for="spread") Point Spread
+    input.form-control(type="Number" name="spread" value=week.spread)
+    label(for="gameDate") Game Date
+    input.form-control(type="Date" name="gameDate" value=week.gameDate)
+  input(type="submit" value="Save Game" class="btn form btn-secondary btn-lg")

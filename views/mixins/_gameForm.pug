@@ -1,0 +1,16 @@
+include _gameFormEnd
+
+mixin gameForm(week)
+  if week.week
+    //- edit the game
+    form.form-group(action=`/games/${week._id}` method="POST")
+      h2 Edit game from #{week.name}    
+      +gameFormEnd(week)
+  else
+    //- adding game to week  
+    form.form-group(action=`/weeks/${week._id}` method="POST")
+      h2 Add game to #{week.name}
+      +gameFormEnd(week)
+    
+
+    

@@ -1,0 +1,10 @@
+extends layout
+
+include mixins/_weekCard
+
+block content
+  .inner
+  h2= title
+  .weeks
+    each week in weeks
+      +weekCard(week)

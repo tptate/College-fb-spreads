@@ -1,0 +1,6 @@
+mixin weekForm(week = {})
+  form.form-group(action=`/add/${week._id || ''}` method="POST" class="card")
+      label(for="name") Form: Week #
+      input.form-control(type="text" name="name" value=week.name)
+
+      input(type="submit" value="Save" class="btn form btn-secondary btn-lg")

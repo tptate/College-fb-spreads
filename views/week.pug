@@ -1,0 +1,43 @@
+extends layout
+
+include mixins/_gameForm
+include mixins/_game
+
+block content
+  - let currentPick
+  - let pickId = ''
+  - let complete;
+  h2= title
+  if week.games
+    if week.picks
+      each pick in week.picks
+        if pick.author.equals(user._id)
+          - pickId = `/${pick._id}`
+          if !editPicks          
+            a(href=`/weeks/${week.slug}/picks${pickId}/edit`)
+              button.btn Click here to update picks
+          - complete = 'yes'
+    if(complete==='yes' && !editPicks)
+      form.form-group.card(name="done")
+        each game, i in week.games
+          if week.picks
+            each pick in week.picks
+              if pick.author.equals(user._id)
+                - currentPick = `${pick[game.ref]}`
+          +game(game, i, currentPick)
+    else
+      form.form-group(action=`/weeks/${week._id}/picks${pickId}` method="POST" class="card")
+        each game, i in week.games
+          if week.picks
+            each pick in week.picks
+              if pick.author.equals(user._id)
+                - currentPick = `${pick[game.ref]}`
+          +game(game, i, currentPick)
+        input(type="submit" value="Submit Picks" class="btn form btn-secondary btn-lg")  
+    
+
+
+  if user && user.isAdmin
+    +gameForm(week)
+
+  script(src="/javascripts/modules/weeklyGames.js")

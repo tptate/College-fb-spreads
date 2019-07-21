@@ -1,0 +1,293 @@
+/* Team Colors */
+
+/* ----------------ACC----------------- */
+/* Boston College #98002E */
+.Boston.College {
+  color: #98002E
+}
+
+.Boston.College.active {
+  background-color: #98002E;
+  color: white;
+}
+
+/* Clemson #F66733 */
+.Clemson {
+  color: #F66733;
+}
+
+.Clemson.active {
+  background-color: #F66733;
+  color: white;
+}
+
+/* Duke #003087 */
+.Duke {
+  color: #003087;
+}
+.Duke.active { 
+  background-color: #003087;
+  color: white;
+}
+
+/* Florida State #782F40 */
+.Florida.State {
+  color: #782F40
+}
+
+.Florida.State.active {
+  background-color: #782F40;
+  color: white;
+}
+
+/* Georgia Tech #B3A369 */
+.Georgia.Tech {
+  color: #B3A369
+}
+
+.Georgia.Tech.active {
+  background-color: #B3A369;
+  color: white;
+}
+
+/* Louisville #AD0000 */
+.Louisville {
+  color: #AD0000;
+}
+
+.Louisville.active {
+  background-color: #AD0000;
+  color: white;
+}
+
+/* Miami #F47321 */
+.Miami {
+  color: #F47321;
+}
+
+.Miami.active {
+  background-color: #F47321;
+  color: white;
+}
+
+/* North Carolina #7BAFD4 */
+.North.Carolina {
+  color: #7BAFD4
+}
+
+.North.Carolina.active {
+  background-color: #7BAFD4;
+  color: white;
+}
+
+/* NC State #CC0000 */
+.NC.State {
+  color: #CC0000
+}
+
+.NC.State.active {
+  background-color: #CC0000;
+  color: white;
+}
+
+/* Notre Dame #0C2340 */
+.Notre.Dame {
+  color: #0C2340
+}
+
+.Notre.Dame.active {
+  background-color: #0C2340;
+  color: white;
+}
+
+/* Pittsburgh #003594 */
+.Pittsburgh {
+  color: #003594;
+}
+
+.Pittsburgh.active {
+  background-color: #003594;
+  color: white;
+}
+
+/* Syracuse #D44500 */
+.Syracuse {
+  color: #D44500;
+}
+
+.Syracuse.active {
+  background-color: #D44500;
+  color: white;
+}
+
+/* Virginia #232D4B */
+.Virginia {
+  color: #232D4B;
+}
+
+.Virginia.active {
+  background-color: #232D4B;
+  color: white;
+}
+
+/* Virginia Tech #630031 */
+.Virginia.Tech {
+  color: #630031
+}
+
+.Virginia.Tech.active {
+  background-color: #630031;
+  color: white;
+}
+
+/* Wake Forest #9E7E38 */
+.Wake.Forest {
+  color: #9E7E38
+}
+
+.Wake.Forest.active {
+  background-color: #9E7E38;
+  color: white;
+}
+
+/* -------------SEC--------------- */
+
+/* Alabama #9E1B32 */
+.Alabama {
+  color: #9E1B32;
+}
+
+.Alabama.active {
+  background-color: #9E1B32;
+  color: white;
+}
+
+/* Arkansas #9D2235 */
+.Arkansas {
+  color: #9D2235;
+}
+
+.Arkansas.active {
+  background-color: #9D2235;
+  color: white;
+}
+
+/* Auburn #0C2340 */
+.Auburn {
+  color: #0C2340;
+}
+
+.Auburn .active {
+  background-color: #0C2340;
+  color: white;
+}
+
+/* Florida #0021A5 */
+.Florida {
+  color: #0021A5;
+}
+
+.Florida.active {
+  background-color: #0021A5;
+  color: white;
+}
+
+/* Georgia #BA0C2F */
+.Georgia {
+  color: #BA0C2F;
+}
+
+.Georgia.active {
+  background-color: #BA0C2F;
+  color: white;
+}
+
+/* Kentucky #0033A0 */
+.Kentucky {
+  color: #0033A0;
+}
+
+.Kentuck.active {
+  background-color: #0033A0;
+  color: white;
+}
+
+/* LSU #461D7C */
+.LSU {
+  color: #461D7C;
+}
+
+.LSU.active {
+  background-color: #461D7C;
+  color: white;
+}
+
+/* Ole Miss #CE1126 */
+.Ole.Miss {
+  color: #CE1126
+}
+
+.Ole.Miss.active {
+  background-color: #CE1126;
+  color: white;
+}
+
+/* Mississippi St #660000 */
+.Mississippi.St {
+  color: #660000
+}
+
+.Mississippi.St.active {
+  background-color: #660000;
+  color: white;
+}
+
+/* Missouri #F1B82D */
+.Missouri {
+  color: #F1B82D;
+}
+
+.Missouri.active {
+  background-color: #F1B82D;
+  color: white;
+}
+
+/* South Carolina #73000A */
+.South.Carolina {
+  color: #73000A
+}
+
+.South.Carolina.active {
+  background-color: #73000A;
+  color: white;
+}
+
+/* Tennessee #FF8200 */
+.Tennessee {
+  color: #FF8200;
+}
+
+.Tennessee.active {
+  background-color: #FF8200;
+  color: white;
+}
+
+/* Texas A&M #500000 */
+.Texas.AM {
+  color: #500000
+}
+
+.Texas.AM.active {
+  background-color: #500000;
+  color: white;
+}
+
+/* Vanderbilt #866D4B */
+.Vanderbilt {
+  color: #866D4B;
+}
+
+.Vanderbilt.active {
+  background-color: #866D4B;
+  color: white;
+}

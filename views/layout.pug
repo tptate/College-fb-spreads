@@ -1,0 +1,71 @@
+doctype html
+html
+  head
+    title= `${title} | ${h.siteName}`
+    link(rel='stylesheet', href='/dist/style-new.css')
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous")
+    link(rel='stylesheet', href='/dist/teams.css')
+    //- link(rel="shortcut icon" type="image/png" href="/images/icons/doughnut.png")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+  body
+    block header
+      header
+        nav.navbar.navbar-expand-lg.navbar-light.bg-light
+          a.navbar-brand(href="/")
+            p College Football Spreads
+          button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+            span.navbar-toggler-icon
+
+          .collapse.navbar-collapse#navbarSupportedContent
+            ul.navbar-nav.mr-auto
+              li.nav-item.active
+                a.nav-link(href="/")
+                  p Home
+              li.nav-item
+                  a.nav-link(href="/weeks")
+                    p Pick Weeks
+              if user && user.isAdmin
+                li.nav-item
+                  a.nav-link(href="/add")
+                    p Add Week
+              li.nav-item
+                  a.nav-link(href="/standings")
+                    p Standings
+        
+            
+            .navbar-text
+              ul.navbar-nav.mr-auto
+                if user
+                  li.nav-item
+                    a.nav-link(href="/logout")
+                      p Logout
+                  li.nav-item
+                    a.nav-link(href="/account")
+                      img.avatar(src=user.gravatar + '&d=retro')
+                else
+                  li.nav-item
+                    a.nav-link(href="/register")
+                      p Register
+                  li.nav-item
+                    a.nav-link(href="/login")
+                      p Log In
+
+    block messages
+      if locals.flashes
+        .inner
+          .flash-messages
+            - const categories = Object.keys(locals.flashes)
+            each category in categories
+              each message in flashes[category]
+                .flash(class=`flash--${category}`)
+                  p.flash__text!= message
+                  button.flash__remove(onClick="this.parentElement.remove()") &times;
+    .container
+      block content
+
+    //- footer
+    //-   block footer
+    //-     p (C) Tommy Tate
+
+    block scripts
+      script(src="/dist/App.bundle.js")

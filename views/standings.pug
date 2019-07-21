@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  .container
+  - let prevI = 0
+  - let prevTotalPoints = 0
+    h2= title
+    table.table
+      thead
+        td Standing
+        td Name
+        td Total Points
+        td Record
+        td Win Percentage
+      each user, i in users
+        tr
+          if user.totalPoints === prevTotalPoints
+            td #{prevI+1}
+          else
+            td #{i+1}
+            - prevI = i
+            - prevTotalPoints = user.totalPoints
+          td= user.name
+          td= user.totalPoints
+          td #{user.totalWins} - #{user.totalLosses}
+          if (!user.totalWins && !user.totalLosses)
+            td N/A
+          else
+            td #{Math.round((user.totalWins/(user.totalWins + user.totalLosses))*100*10)/10} %

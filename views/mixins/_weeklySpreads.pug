@@ -1,0 +1,17 @@
+mixin weeklyStart()
+  form.form(action="/week" method="POST")
+
+mixin weeklyEnd()
+  input.button(type="submit" value="Submit Picks")
+
+mixin matchup(team1, team2, spread)
+  form.form(action="/" method="POST")
+    
+    
+    
+    h2 Login
+    label(for="email") Email Address
+    input(type="email" name="email")
+    label(for="password") Password
+    input(type="password" name="password")
+    input.button(type="submit" value="Log In")
