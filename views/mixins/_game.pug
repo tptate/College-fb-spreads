@@ -1,41 +1,57 @@
 mixin game(game, i, currentPick = '')
-  if user && user.isAdmin
-    a(href=`/games/${game._id}/edit`)
-      p Edit
-      //- != h.icon('pencil')
-
-  .btn-group.btn-group.toggle(id=`${game.home}${game.away}` data-toggle='buttons' name="team")
+  - const months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+  - const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  - const gameWeekDay = days[game.gameDate.getDay()]
+  - const gameMonth = months[game.gameDate.getMonth()]
+  - const gameDay = game.gameDate.getDate()
+  - const gameYear = game.gameDate.getFullYear()
+  - const gameHour = game.gameDate.getHours()
+  - const gameMinutes = game.gameDate.getMinutes()
+  - const gameDate = `${gameWeekDay}, ${gameMonth} ${gameDay}, ${gameYear} at ${gameHour > 12 ? gameHour - 12 : gameHour}:${gameMinutes < 10 ? '0' : ''}${gameMinutes}`
+  - const gameRef = game.ref;
+  
+  .btn-group.btn-group.toggle.row(id=`${game.home}${game.away}` data-toggle='buttons' name="team")
+    .col-sm-12.col-md-4
+      p= gameDate
     if currentPick
       if currentPick === game.home
-        label(class=`btn btn-lg ${game.home} team active` for=`game${i + 1}` name=`game${i + 1}` value=`${game.home}`)
-          p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-        input(type='radio' name=`game${i + 1}` class=`${game.home}` autocomplete='off' value=`${game.home}` checked)
-      
-        label(class=`btn btn-lg ${game.away} team` for=`game${i + 1}` name=`game${i + 1}` value=`${game.away}`)
-          p #{game.away} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-        input(type='radio' name=`game${i + 1}` class=`${game.away}` autocomplete='off' value=`${game.away}`)
+        .col-md-3
+          label(class=`btn btn-lg ${game.home} team active` for=`${gameRef}` name=`${gameRef}` value=`${game.home}`)
+            p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
+          input(type='radio' name=`${gameRef}` class=`${game.home}` autocomplete='off' value=`${game.home}` checked)
+        
+        .col-md-3
+          label(class=`btn btn-lg ${game.away} team` for=`${gameRef}` name=`${gameRef}` value=`${game.away}`)
+            p #{game.away} #{game.spread < 0 ? ' +' : ' '}#{-game.spread}
+          input(type='radio' name=`${gameRef}` class=`${game.away}` autocomplete='off' value=`${game.away}`)
       else if currentPick === game.away
-        label(class=`btn btn-lg ${game.home} team` for=`game${i + 1}` name=`game${i + 1}` value=`${game.home}`)
-          p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-        input(type='radio' name=`game${i + 1}` class=`${game.home}` autocomplete='off' value=`${game.home}`)
+        .col-md-3
+          label(class=`btn btn-lg ${game.home} team` for=`${gameRef}` name=`${gameRef}` value=`${game.home}`)
+            p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
+          input(type='radio' name=`${gameRef}` class=`${game.home}` autocomplete='off' value=`${game.home}`)
       
-        label(class=`btn btn-lg ${game.away} team active` for=`game${i + 1}` name=`game${i + 1}` value=`${game.away}`)
-          p #{game.away} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-        input(type='radio' name=`game${i + 1}` class=`${game.away}` autocomplete='off' value=`${game.away}` checked)
+        .col-md-3
+          label(class=`btn btn-lg ${game.away} team active` for=`${gameRef}` name=`${gameRef}` value=`${game.away}`)
+            p #{game.away} #{game.spread < 0 ? ' +' : ' '}#{-game.spread}
+          input(type='radio' name=`${gameRef}` class=`${game.away}` autocomplete='off' value=`${game.away}` checked)
       else
-        label(class=`btn btn-lg ${game.home} team` for=`game${i + 1}` name=`game${i + 1}` value=`${game.home}`)
-          p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-        input(type='radio' name=`game${i + 1}` class=`${game.home}` autocomplete='off' value=`${game.home}`)
+        .col-md-3
+          label(class=`btn btn-lg ${game.home} team` for=`${gameRef}` name=`${gameRef}` value=`${game.home}`)
+            p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
+          input(type='radio' name=`${gameRef}` class=`${game.home}` autocomplete='off' value=`${game.home}`)
       
-        label(class=`btn btn-lg ${game.away} team` for=`game${i + 1}` name=`game${i + 1}` value=`${game.away}`)
-          p #{game.away} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-        input(type='radio' name=`game${i + 1}` class=`${game.away}` autocomplete='off' value=`${game.away}`)
+        .col-md-3
+          label(class=`btn btn-lg ${game.away} team` for=`${gameRef}` name=`${gameRef}` value=`${game.away}`)
+            p #{game.away} #{game.spread < 0 ? ' +' : ' '}#{-game.spread}
+          input(type='radio' name=`${gameRef}` class=`${game.away}` autocomplete='off' value=`${game.away}`)
 
     else    
-      label(class=`btn btn-lg ${game.home} team` for=`game${i + 1}` name=`game${i + 1}` value=`${game.home}`)
-        p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-      input(type='radio' name=`game${i + 1}` class=`${game.home}` autocomplete='off' value=`${game.home}`)
+      .col-md-3
+        label(class=`btn btn-lg ${game.home} team` for=`${gameRef}` name=`${gameRef}` value=`${game.home}`)
+          p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
+        input(type='radio' name=`${gameRef}` class=`${game.home}` autocomplete='off' value=`${game.home}`)
       
-      label(class=`btn btn-lg ${game.away} team` for=`game${i + 1}` name=`game${i + 1}` value=`${game.away}`) 
-        p #{game.away}#{game.spread < 0 ? ' +' : ' '}#{-game.spread}
-      input(type='radio' name=`game${i + 1}` class=`${game.away}` autocomplete='off' value=`${game.away}`)
+      .col-md-3
+        label(class=`btn btn-lg ${game.away} team` for=`${gameRef}` name=`${gameRef}` value=`${game.away}`) 
+          p #{game.away}#{game.spread < 0 ? ' +' : ' '}#{-game.spread}
+        input(type='radio' name=`${gameRef}` class=`${game.away}` autocomplete='off' value=`${game.away}`)

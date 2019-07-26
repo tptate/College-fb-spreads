@@ -1,0 +1,5 @@
+mixin editGameCard(game)
+  if user && user.isAdmin
+    a(href=`/games/${game._id}/edit`)
+      p Edit
+      //- != h.icon('pencil')

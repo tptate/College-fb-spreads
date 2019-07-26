@@ -41,7 +41,6 @@ function autopopulate(next) {
   next();
 };
 
-// find games where the weeks _id property === games week property
 weekSchema.virtual('picks', {
   ref: 'Pick', // what model to link?
   localField: '_id', // which field on the week?
@@ -53,10 +52,24 @@ function autopopulatePicks(next) {
   next();
 };
 
+weekSchema.virtual('winner', {
+  ref: 'Winner', // what model to link?
+  localField: '_id', // which field on the week?
+  foreignField: 'week' // which field on the game?
+});
+
+function autopopulateWinner(next) {
+  this.populate('winner');
+  next();
+};
+
 weekSchema.pre('find', autopopulate);
 weekSchema.pre('findOne', autopopulate);
 
 weekSchema.pre('find', autopopulatePicks);
 weekSchema.pre('findOne', autopopulatePicks);
+
+weekSchema.pre('find', autopopulateWinner);
+weekSchema.pre('findOne', autopopulateWinner);
 
 module.exports = mongoose.model('Week', weekSchema);

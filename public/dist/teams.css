@@ -8,7 +8,7 @@
 
 .Boston.College.active {
   background-color: #98002E;
-  color: white;
+  color: #BC9B6A;
 }
 
 /* Clemson #F66733 */
@@ -37,7 +37,7 @@
 
 .Florida.State.active {
   background-color: #782F40;
-  color: white;
+  color: #CEB888;
 }
 
 /* Georgia Tech #B3A369 */
@@ -57,7 +57,7 @@
 
 .Louisville.active {
   background-color: #AD0000;
-  color: white;
+  color: black;
 }
 
 /* Miami #F47321 */
@@ -67,7 +67,7 @@
 
 .Miami.active {
   background-color: #F47321;
-  color: white;
+  color: #005030;
 }
 
 /* North Carolina #7BAFD4 */
@@ -107,7 +107,7 @@
 
 .Pittsburgh.active {
   background-color: #003594;
-  color: white;
+  color: #FFB81C;
 }
 
 /* Syracuse #D44500 */
@@ -117,7 +117,7 @@
 
 .Syracuse.active {
   background-color: #D44500;
-  color: white;
+  color: #3E3D3C;
 }
 
 /* Virginia #232D4B */
@@ -127,7 +127,7 @@
 
 .Virginia.active {
   background-color: #232D4B;
-  color: white;
+  color: #F84C1E;
 }
 
 /* Virginia Tech #630031 */
@@ -137,7 +137,7 @@
 
 .Virginia.Tech.active {
   background-color: #630031;
-  color: white;
+  color: #CF4420;
 }
 
 /* Wake Forest #9E7E38 */
@@ -147,7 +147,7 @@
 
 .Wake.Forest.active {
   background-color: #9E7E38;
-  color: white;
+  color: black;
 }
 
 /* -------------SEC--------------- */
@@ -159,7 +159,7 @@
 
 .Alabama.active {
   background-color: #9E1B32;
-  color: white;
+  color: #828A8F;
 }
 
 /* Arkansas #9D2235 */
@@ -177,9 +177,9 @@
   color: #0C2340;
 }
 
-.Auburn .active {
+.Auburn.active {
   background-color: #0C2340;
-  color: white;
+  color: #E87722;
 }
 
 /* Florida #0021A5 */
@@ -189,7 +189,7 @@
 
 .Florida.active {
   background-color: #0021A5;
-  color: white;
+  color: #FA4616;
 }
 
 /* Georgia #BA0C2F */
@@ -199,7 +199,7 @@
 
 .Georgia.active {
   background-color: #BA0C2F;
-  color: white;
+  color: black;
 }
 
 /* Kentucky #0033A0 */
@@ -207,7 +207,7 @@
   color: #0033A0;
 }
 
-.Kentuck.active {
+.Kentucky.active {
   background-color: #0033A0;
   color: white;
 }
@@ -219,7 +219,7 @@
 
 .LSU.active {
   background-color: #461D7C;
-  color: white;
+  color: #FDD023;
 }
 
 /* Ole Miss #CE1126 */
@@ -239,7 +239,7 @@
 
 .Mississippi.St.active {
   background-color: #660000;
-  color: white;
+  color: #14213D;
 }
 
 /* Missouri #F1B82D */
@@ -249,7 +249,7 @@
 
 .Missouri.active {
   background-color: #F1B82D;
-  color: white;
+  color: black;
 }
 
 /* South Carolina #73000A */
@@ -259,7 +259,7 @@
 
 .South.Carolina.active {
   background-color: #73000A;
-  color: white;
+  color: black;
 }
 
 /* Tennessee #FF8200 */
@@ -289,5 +289,25 @@
 
 .Vanderbilt.active {
   background-color: #866D4B;
-  color: white;
+  color: black;
+}
+
+/* -------------Independent--------------- */
+.Notre.Dame {
+  color: #0C2340;
+}
+
+.Notre.Dame.active {
+  background-color: #0C2340;
+  color: #C99700;
+}
+
+/* -------------Pac 12--------------- */
+.Oregon {
+  color: #154733;
+}
+
+.Oregon.active {
+  background-color: #154733;
+  color: #FEE123;
 }

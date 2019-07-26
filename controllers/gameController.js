@@ -2,12 +2,31 @@ const mongoose = require('mongoose');
 const Game = mongoose.model('Game');
 const Week = mongoose.model('Week');
 const Pick = mongoose.model('Pick');
+const Winner = mongoose.model('Winner');
 const User = mongoose.model('User');
+
+const sortByGameDate = (week) => {
+  return week.games.sort(function(a, b) {
+    var dateA = new Date(a._doc.gameDate), dateB = new Date(b._doc.gameDate);
+    return dateA - dateB;
+  });
+};
+
+exports.getGames = async (req, res) => {
+  const week = await Week.findOne({ slug: req.params.slug });
+  if(!week) return next();
+  sortByGameDate(week);
+  res.render('gameWeek', { title: `${week.name} games`, week });
+};
 
 exports.addGame = async (req, res) => {
   req.body.week = req.params.id;
   const week = await Week.findOne({ _id: req.body.week });
   req.body.ref = `game${week.games.length + 1}`;
+  let newSpread = 0;
+  if(parseInt(req.body.spread) > 0) {newSpread = parseInt(req.body.spread) + 0.5};
+  if(parseInt(req.body.spread) < 0) {newSpread = parseInt(req.body.spread) - 0.5};
+  req.body.spread = newSpread;
   const newGame = new Game(req.body);
   await newGame.save();
   req.flash('success', 'Game saved!');
@@ -33,7 +52,7 @@ exports.updateGame = async (req, res) => {
   }).exec();
   const week = await Week.findOne({ _id: game.week });
   req.flash('success', `Successfully updated <strong>${week.name}</strong>.`);
-  res.redirect(`/weeks/${week.slug}`);
+  res.redirect(`/weeks/${week.slug}/addgame`);
   //redirect to the store and tell them it worked
 };
 
@@ -85,9 +104,16 @@ async function updateWinner(reqBody) {
 exports.addPicks = async (req, res) => {
   req.body.week = req.params.id;
   req.body.author = req.user._id;
-  if (req.user.isWinner) {
-    updateWinner(req.body);
-  };
+  //Check to see if gameTime hasn't started
+  const week = await Week.findOne({ _id: req.body.week });
+  const today = new Date();
+  week.games.forEach(game => {
+    if(today>game.gameDate) {
+      req.body[`${game._doc.ref}`] = '';
+      req.flash('info', `It's too late to pick the game of ${game._doc.home} vs ${game._doc.away}!`);
+    }
+  });
+
   const newPick = new Pick(req.body);
   await newPick.save();
   req.flash('success', 'Picks saved!');
@@ -106,24 +132,64 @@ exports.editPicks = async (req, res) => {
   const week = await Week.findOne({ slug: req.params.slug });
   // 2. Confirm they are the owner of the store
   confirmOwner(pick, req.user);
+  sortByGameDate(week);
   // 3. Render out the edit form so the user can update
   res.render('week', { title: `Edit ${week.name} Picks`, week, editPicks: true });
 };
 
 exports.updatePicks = async (req, res) => {
-  if (req.user.isWinner) {
-    req.body.week = req.params.slug;
-    req.body.author = req.user._id;
-    // res.json(req.body);
-    updateWinner(req.body);
-  };
+  const oldPick = await Pick.findOne({ _id: req.params.id });
+  const week = await Week.findOne({ _id: req.params.slug });
+  const today = new Date();
+  week.games.forEach(game => {
+    if(today>game.gameDate) {
+      req.body[`${game._doc.ref}`] = oldPick[`${game._doc.ref}`];
+      req.flash('info', `It's too late to pick the game of ${game._doc.home} vs ${game._doc.away}!`);
+    }
+  });
   // find and update the picks
   const pick = await Pick.findOneAndUpdate({ _id: req.params.id }, req.body, {
     new: true, // return the new picks instead of the old ones
     runValidators: true
   }).exec();
-  const week = await Week.findOne({ _id: pick.week });
-  //redirect to the store and tell them it worked
   req.flash('success', `Successfully updated picks for <strong>${week.name}</strong>.`);
   res.redirect(`/weeks/${week.slug}`);
+};
+
+exports.getWinner = async (req, res) => {
+  const week = await Week.findOne({ slug: req.params.slug });
+  if(!week) return next();
+  sortByGameDate(week);
+  res.render('week', { title: `${week.name} games`, week, addOn: `/winner`, getWinner: true });
+};
+
+exports.addWinnerPicks = async (req, res) => {
+  req.body.week = req.params.id;
+  updateWinner(req.body);
+  const newWinner = new Winner(req.body);
+  await newWinner.save();
+  req.flash('success', 'Picks saved!');
+  res.redirect('back');
+};
+
+exports.editWinnerPicks = async (req, res) => {
+  // 1. Find the winner picks given the ID
+  const week = await Week.findOne({ slug: req.params.slug });
+  sortByGameDate(week);
+  // 2. Render out the edit form so the user can update
+  res.render('week', { title: `Edit ${week.name} Winning Picks`, week, editPicks: true, editWinner: true });
+};
+
+exports.updateWinnerPicks = async (req, res) => {
+  const week = await Week.findOne({ slug: req.params.slug });
+  req.body.week = week._id;
+  updateWinner(req.body);
+  // find and update the picks
+  const winner = await Winner.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    new: true, // return the new picks instead of the old ones
+    runValidators: true
+  }).exec();
+  //redirect to the store and tell them it worked
+  req.flash('success', `Successfully updated picks for <strong>${week.name}</strong>.`);
+  res.redirect(`/weeks/winner/${week.slug}`);
 };

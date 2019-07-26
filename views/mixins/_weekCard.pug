@@ -1,3 +1,3 @@
 mixin weekCard(week = {})
   h2.title
-    a(href=`/weeks/${week.slug}`) #{week.name}
+    a(href=`/weeks${weeks.addOn || ''}/${week.slug}`) #{week.name}

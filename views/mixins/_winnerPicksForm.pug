@@ -1,0 +1,8 @@
+mixin winnerPicksForm()
+  form.form-group(action=`/weeks${addOn || ''}/${week._id}/picks${pickId}` method="POST" class="card")
+          each game, i in week.games
+            //- if week.picks
+            //-   each pick in week.picks
+            //-     - currentPick = `${pick[game.ref]}`
+            +game(game, i)
+          input(type="submit" value="Submit Picks" class="btn form btn-secondary btn-lg") 

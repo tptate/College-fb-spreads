@@ -1,5 +1,5 @@
 mixin weekForm(week = {})
-  form.form-group(action=`/add/${week._id || ''}` method="POST" class="card")
+  form.form-group(action=`/weeks/add/${week._id || ''}` method="POST" class="card")
       label(for="name") Form: Week #
       input.form-control(type="text" name="name" value=week.name)
 

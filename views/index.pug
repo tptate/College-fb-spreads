@@ -1,4 +1,23 @@
 extends layout
 
+include mixins/_standingsCard
+include mixins/_gameForm
+include mixins/_game
+include mixins/_winnerPicksForm
+include mixins/_weeklyGamePicksForm
+
 block content
-  p Hi!
+  .container
+    - let currentPick
+    - let pickId = ''
+    - let complete;
+    if user
+      p= `Welcome ${user.name}!`
+      p= `${week.name} Spread Picks`
+      +weeklyGamePicksForm()
+    else
+      p Please sign in to make picks
+    +standingsCard()
+
+
+    script(src="/javascripts/modules/weeklyGames.js")

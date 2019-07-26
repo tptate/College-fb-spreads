@@ -1118,6 +1118,28 @@ pre.error {
 
 /*# sourceMappingURL=style.css.map*/
 
-input[type="radio"]{
+input[type="radio"] {
+  width: 0;
   visibility:hidden;
+}
+
+.hidden {
+  position: relative;
+  visibility: hidden;
+  top: 0px;
+  offset: none;
+  height: 0;
+  width: 0;
+  padding: 0 !important;
+  border: 0 !important;
+  margin: 0;
+  transition: .5s;
+}
+
+.hiddenPoints {
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  padding: 0;
+  margin: 0;
 }

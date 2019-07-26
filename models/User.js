@@ -25,10 +25,6 @@ const userSchema = new Schema({
     ref: 'isAdmin',
     default: false
   },
-  isWinner: {
-    type: Boolean,
-    default: false
-  },
   totalPoints: {
     type: Number,
     ref: 'TotalPoints',
@@ -49,9 +45,7 @@ const userSchema = new Schema({
 });
 
 userSchema.statics.getTopUsers = function() {
-  
   return this.aggregate([
-    { $group: { '_id': 'isAdmin' }},
     { $sort: { totalPoints: -1 } },
   ]);
 };

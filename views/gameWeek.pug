@@ -1,0 +1,15 @@
+extends layout
+
+include mixins/_gameForm
+include mixins/_game
+include mixins/_editGameCard
+
+block content
+  h2= title
+  if week.games
+    form.form-group.card(name="done")
+      each game, i in week.games
+        +editGameCard(game)
+        +game(game, i, currentPick)
+
+    +gameForm(week)
