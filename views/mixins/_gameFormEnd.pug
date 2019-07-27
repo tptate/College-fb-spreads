@@ -8,6 +8,7 @@ mixin gameFormEnd(week)
     input.form-control(type="Number" name="spread" value=week.spread)
     label(for="gameDate") Game Date
     input.form-control(type="datetime-local" name="gameDate" )
+    p
   input(type="submit" value="Save Game" class="btn form btn-secondary btn-lg")
 
   script(src="/javascripts/modules/spreadAdjustment.js")
