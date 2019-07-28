@@ -18,9 +18,7 @@ require('./models/Game');
 require('./models/Pick');
 require('./models/Winner');
 require('./models/Preseason');
-require('./models/Store');
 require('./models/User');
-require('./models/Review');
 
 // Start our app!
 const app = require('./app');
