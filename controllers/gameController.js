@@ -143,8 +143,10 @@ exports.updatePicks = async (req, res) => {
   const today = new Date();
   week.games.forEach(game => {
     if(today>game.gameDate) {
-      req.body[`${game._doc.ref}`] = oldPick[`${game._doc.ref}`];
-      req.flash('info', `It's too late to pick the game of ${game._doc.home} vs ${game._doc.away}!`);
+      if(req.body[`${game._doc.ref}`] && req.body[`${game._doc.ref}`] !== oldPick[`${game._doc.ref}`]) {
+        req.body[`${game._doc.ref}`] = oldPick[`${game._doc.ref}`];
+        req.flash('info', `It's too late to pick the game of ${game._doc.home} vs ${game._doc.away}!`);
+      }
     }
   });
   // find and update the picks

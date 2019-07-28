@@ -12,8 +12,9 @@ block content
   h2= title
   if getWinner
     if week.winner.length
+      p Don't pick winners here
       a(href=`/weeks/winner/${week.slug}/edit`)
-                button.btn Click here to update winners
+        button.btn Click here to update winners
       form.form-group.card(name="done")
         each game, i in week.games
           - currentPick = `${week.winner[0][game.ref]}`

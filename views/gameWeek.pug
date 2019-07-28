@@ -7,6 +7,7 @@ include mixins/_editGameCard
 block content
   h2= title
   if week.games
+    p Do not pick winners here
     form.form-group.card(name="done")
       each game, i in week.games
         +editGameCard(game)
