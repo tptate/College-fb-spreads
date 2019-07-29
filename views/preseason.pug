@@ -4,6 +4,7 @@ include mixins/_preseasonCard
 include mixins/_preseasonTableRow
 
 block content
+  #main
   - let foundUser = false
   - const currentUser = user._id
   if preseasons
@@ -51,7 +52,6 @@ block content
         +preseasonTableRow('SEC', 'SEC')
 
   else  
-
     - let teams = []
     - let division = ""
     - let conference = ""
@@ -86,3 +86,4 @@ block content
       input(type="submit" value="Submit Picks" class="btn form btn-secondary btn-lg")
 
   script(src="/javascripts/modules/preseason.js")
+  script(src="/javascripts/modules/preseason-react.js" type = "text/babel")

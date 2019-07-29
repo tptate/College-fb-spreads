@@ -17,7 +17,7 @@ const sortByWeeklyPoints = (week) => {
   return week.picks.sort(function(a, b) {
     const pickA = (a._doc.weeklyPoints);
     const pickB = (b._doc.weeklyPoints);
-    return pickA - pickB;
+    return pickB - pickA;
   });
 };
 
@@ -73,5 +73,6 @@ exports.getHomePage = async (req, res) => {
   const weekArray = await Week.find({ slug: `${slugName}`});
   const week = weekArray[0];
   sortByGameDate(week);
+  sortByWeeklyPoints(week);
   res.render('index', { users, week, title: 'Home Page' });
 };

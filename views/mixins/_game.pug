@@ -28,40 +28,40 @@ mixin game(game, i, currentPick = '')
         .col-md-3
           label(class=`btn btn-lg ${game.home} team active` for=`${gameRef}` name=`${gameRef}` value=`${game.home}`)
             p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-          input(type='radio' name=`${gameRef}` class=`${game.home}` autocomplete='off' value=`${game.home}` checked)
+          input(type='radio' name=`${gameRef}` class=`${game.home} hidden` autocomplete='off' value=`${game.home}` checked)
         
         .col-md-3
           label(class=`btn btn-lg ${game.away} team` for=`${gameRef}` name=`${gameRef}` value=`${game.away}`)
             p #{game.away} #{game.spread < 0 ? ' +' : ' '}#{-game.spread}
-          input(type='radio' name=`${gameRef}` class=`${game.away}` autocomplete='off' value=`${game.away}`)
+          input(type='radio' name=`${gameRef}` class=`${game.away} hidden` autocomplete='off' value=`${game.away}`)
       else if currentPick === game.away
         .col-md-3
           label(class=`btn btn-lg ${game.home} team` for=`${gameRef}` name=`${gameRef}` value=`${game.home}`)
             p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-          input(type='radio' name=`${gameRef}` class=`${game.home}` autocomplete='off' value=`${game.home}`)
+          input(type='radio' name=`${gameRef}` class=`${game.home} hidden` autocomplete='off' value=`${game.home}`)
       
         .col-md-3
           label(class=`btn btn-lg ${game.away} team active` for=`${gameRef}` name=`${gameRef}` value=`${game.away}`)
             p #{game.away} #{game.spread < 0 ? ' +' : ' '}#{-game.spread}
-          input(type='radio' name=`${gameRef}` class=`${game.away}` autocomplete='off' value=`${game.away}` checked)
+          input(type='radio' name=`${gameRef}` class=`${game.away} hidden` autocomplete='off' value=`${game.away}` checked)
       else
         .col-md-3
           label(class=`btn btn-lg ${game.home} team` for=`${gameRef}` name=`${gameRef}` value=`${game.home}`)
             p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-          input(type='radio' name=`${gameRef}` class=`${game.home}` autocomplete='off' value=`${game.home}`)
+          input(type='radio' name=`${gameRef}` class=`${game.home} hidden` autocomplete='off' value=`${game.home}`)
       
         .col-md-3
           label(class=`btn btn-lg ${game.away} team` for=`${gameRef}` name=`${gameRef}` value=`${game.away}`)
             p #{game.away} #{game.spread < 0 ? ' +' : ' '}#{-game.spread}
-          input(type='radio' name=`${gameRef}` class=`${game.away}` autocomplete='off' value=`${game.away}`)
+          input(type='radio' name=`${gameRef}` class=`${game.away} hidden` autocomplete='off' value=`${game.away}`)
 
     else    
       .col-md-3
         label(class=`btn btn-lg ${game.home} team` for=`${gameRef}` name=`${gameRef}` value=`${game.home}`)
           p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-        input(type='radio' name=`${gameRef}` class=`${game.home}` autocomplete='off' value=`${game.home}`)
+        input(type='radio' name=`${gameRef}` class=`${game.home} hidden` autocomplete='off' value=`${game.home}`)
       
       .col-md-3
         label(class=`btn btn-lg ${game.away} team` for=`${gameRef}` name=`${gameRef}` value=`${game.away}`) 
           p #{game.away}#{game.spread < 0 ? ' +' : ' '}#{-game.spread}
-        input(type='radio' name=`${gameRef}` class=`${game.away}` autocomplete='off' value=`${game.away}`)
+        input(type='radio' name=`${gameRef}` class=`${game.away} hidden` autocomplete='off' value=`${game.away}`)
