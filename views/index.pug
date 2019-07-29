@@ -16,7 +16,8 @@ block content
       p= `${week.name} Spread Picks`
       +weeklyGamePicksForm()
     else
-      p Please sign in to make picks
+      a(href="/login")
+        p Please sign in to make picks
     +standingsCard()
 
 
