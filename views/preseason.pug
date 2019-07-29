@@ -1,6 +1,7 @@
 extends layout
 
 include mixins/_preseasonCard
+include mixins/_preseasonCardBig12
 include mixins/_preseasonTableRow
 
 block content
@@ -81,8 +82,15 @@ block content
       - division = 'SEC'
       - conference = 'SEC'
       +preseasonCard(teams, division, conference)
+      - teams = [[1, 'Alabama'],[2, 'LSU'], [3, 'Texas AM'], [4, 'Auburn'], [5, 'Mississippi St'], [6, 'Ole Miss'],[7, 'Arkansas']]
+      - division = 'Big12d'
+      - conference = 'Big12d' 
+      +preseasonCardBig12(teams, division, conference)
+      - teams = [[0, 'Big12 Team1'], [0, 'Big12 Team2']];
+      - division = 'Big12c'
+      - conference = 'Big12c'
+      +preseasonCardBig12(teams, division, conference)
 
       input(type="submit" value="Submit Picks" class="btn form btn-secondary btn-lg")
 
   script(src="/javascripts/modules/preseason.js")
-  script(src="/javascripts/modules/preseason-react.js" type = "text/babel")

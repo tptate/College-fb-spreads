@@ -55,7 +55,6 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
 
   // Championship Games
   const championshipTeams = document.querySelectorAll(`.${this.getAttribute('data-conference')}`);
-  console.log(champNum);
   if(champNum !== 0) {
     const divisionLabel = (championshipTeams[(champNum-1)*2]);
     const divisionInput = (championshipTeams[(champNum-1)*2+1]);
@@ -74,13 +73,15 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
     selectWinner(divisionLabel, false);
   
   }
-  
+}));
 
-  // champPoints.forEach(champPoint => champPoint.addEventListener('change', (e) => {
-  //   console.log(e);
-  // }));
-  // champPoints.forEach(champPoint => champPoint.setAttribute('value', `${this.getAttribute('data-points')}`));
-  // const champPointsDisplay = document.getElementById(`${this.getAttribute('data-conference')}`);
-  // champPointsDisplay.innerHTML = `Worth ${this.getAttribute('data-points')} Points`;
+const b12Buttons = document.querySelectorAll('.teamB12');
+let clicks = 0;
+
+b12Buttons.forEach(button => button.addEventListener('click', function(e) {
+  const name = this.getAttribute('name');
+  const teamName = this.getAttribute('value');
+  clicks++;
+  console.log(clicks % 2);
 }));
 
