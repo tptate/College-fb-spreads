@@ -56,7 +56,6 @@ block content
     - let division = ""
     - let conference = ""
     h2= title
-    p= preseasonId
     form.form-group(action=`/weeks/preseason${preseasonId || ''}` method="POST" class="card")
       - teams = [[1, 'Clemson'],[2, 'Syracuse'], [3, 'Florida State'], [4, 'NC State'], [5, 'Boston College'], [6, 'Wake Forest'],[7, 'Louisville']]
       - division = 'ACCa'

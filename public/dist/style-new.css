@@ -780,6 +780,19 @@ pre.error {
   transition: .5s;
 }
 
+.hide {
+  position: relative;
+  visibility: hidden;
+  top: 0px;
+  offset: none;
+  height: 0;
+  width: 0;
+  padding: 0 !important;
+  border: 0 !important;
+  margin: 0;
+  transition: .5s;
+}
+
 .hiddenPoints {
   visibility: hidden;
   height: 0;

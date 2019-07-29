@@ -1,5 +1,5 @@
 mixin preseasonCard(teams, division, conference)
-  - fullNameList = [['ACCa', 'ACC Atlantic', 'ACC'], ['ACCc', 'ACC Coastal', 'ACC'], ['SECe', 'SEC East', 'SEC'],['SECw', 'SEC West', 'SEC']];
+  - fullNameList = [['ACCa', 'ACC Atlantic', 'ACC'], ['ACCc', 'ACC Coastal', 'ACC'], ['SECe', 'SEC East', 'SEC'],['SECw', 'SEC West', 'SEC'],['Big10e','Big10 East', 'Big10'], ['Big10w','Big10 West', 'Big10'], ['Pac12n', 'Pac12 North', 'Pac12'], [['Pac12s', 'Pac12 South', 'Pac12']]];
   - let fullName = "";
   each name in fullNameList
     if division === name[0]
@@ -10,13 +10,13 @@ mixin preseasonCard(teams, division, conference)
       if division !== conference
         each team in teams
           if preseason[division] === team[1]
-            label(class=`btn btn-lg ${team[1]} active team` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
+            label.col-3(class=`btn btn-lg ${team[1]} active team` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
               p= `${team[0]} - ${team[1]}`
-            input(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}` checked)
+            input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}` checked)
           else
-            label(class=`btn btn-lg ${team[1]} hidden team` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
+            label.col-3(class=`btn btn-lg ${team[1]} hidden team` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
               p= `${team[0]} - ${team[1]}`
-            input(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
+            input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
         - divisionPoints = `${division}Points`
         input.hidden(type='number' name=`${division}Points` value=`${preseason[divisionPoints]}`)
         p.points(id=`${division}`) Worth #{preseason[divisionPoints]} Points
@@ -31,23 +31,23 @@ mixin preseasonCard(teams, division, conference)
           - team[1] = `${preseason[divisionPlace]}`
           - pointsPlace = `${divisionPlace}Points`
           if preseason[divisionPlace] === preseason[conferencePlace]
-            label(class=`btn btn-lg ${conference} ${preseason[divisionPlace]} active team` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason[pointsPlace]*2}` value=`${preseason[divisionPlace]}`)
+            label.col-3(class=`btn btn-lg ${conference} ${preseason[divisionPlace]} active team` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason[pointsPlace]*2}` value=`${preseason[divisionPlace]}`)
               p= team[1]
-            input(type='radio' name=`${division}` class=`${divisionPlace} ${conference}` autocomplete='off' value=`${team[1]}` checked)
+            input.hide(type='radio' name=`${division}` class=`${divisionPlace} ${conference}` autocomplete='off' value=`${team[1]}` checked)
           else
-            label(class=`btn btn-lg ${conference} ${preseason[divisionPlace]} hidden team` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason[pointsPlace]*2}` value=`${preseason[divisionPlace]}`)
+            label.col-3(class=`btn btn-lg ${conference} ${preseason[divisionPlace]} hidden team` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason[pointsPlace]*2}` value=`${preseason[divisionPlace]}`)
               p= `${preseason[divisionPlace]}`
-            input(type='radio' name=`${division}` class=`${divisionPlace} ${conference}` autocomplete='off' value=`${team[1]}`)
+            input.hide(type='radio' name=`${division}` class=`${divisionPlace} ${conference}` autocomplete='off' value=`${team[1]}`)
           
         - divisionPoints = `${division}Points`
-        input(type='number' name=`${division}Points` value=`${preseason[divisionPoints]}`)
+        input.hidden(type='number' name=`${division}Points` value=`${preseason[divisionPoints]}`)
         p.points(id=`${division}` class=`${conference}`) Worth #{preseason[divisionPoints]} Points
     else
       each team in teams
-        label(class=`btn btn-lg ${team[1]} team` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
+        label.col-3(class=`btn btn-lg ${team[1]} team` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
           p= `${team[0]} - ${team[1]}`
-        input(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
-      input(type='number' name=`${division}Points`)
+        input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
+      input.hidden(type='number' name=`${division}Points`)
 
       p.points.hiddenPoints(id=`${division}`) Worth X Points
 
