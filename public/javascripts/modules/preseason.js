@@ -69,19 +69,72 @@ buttons.forEach(button => button.addEventListener('click', function(e) {
     };
     divisionLabel.classList.remove('active');
     divisionInput.value = `${teamName}`;
-    console.log(divisionLabel);
     selectWinner(divisionLabel, false);
   
   }
 }));
 
-const b12Buttons = document.querySelectorAll('.teamB12');
-let clicks = 0;
+const b12Buttons = document.querySelectorAll('[data-conference="Big12d"]');
+const b12ChampButtons = document.querySelectorAll('[data-conference="Big12c"]');
+let b12ChampTeams = [];
+let b12ChampPoints = [];
+b12ChampButtons.forEach(champ => {
+  b12ChampTeams.push(champ.innerText)
+  b12ChampPoints.push(champ.getAttribute('data-points'));
+
+  champ.addEventListener('click', (e) => {
+    const matchUp = document.querySelectorAll('[data-conference="Big12c"]');
+    matchUp.forEach(team => {
+      team.classList.remove('active');
+      team.classList.toggle('hidden');
+    });
+    champ.classList.add('active');
+    champ.classList.toggle('hidden');
+  })
+});
 
 b12Buttons.forEach(button => button.addEventListener('click', function(e) {
+  this.classList.toggle('active');
   const name = this.getAttribute('name');
   const teamName = this.getAttribute('value');
-  clicks++;
-  console.log(clicks % 2);
-}));
 
+  if(!b12ChampTeams.includes(teamName)){
+    const index = b12ChampTeams.indexOf('0 - Big12 Team');
+    if(index) {
+      b12ChampTeams[index] = teamName;
+      b12ChampPoints[index] = this.getAttribute('data-points');
+    } else {
+      b12ChampTeams[0] = b12ChampTeams[1];
+      b12ChampPoints[0] = b12ChampPoints[1];
+      b12ChampTeams[1] = teamName;
+      b12ChampPoints[1] = this.getAttribute('data-points');
+    }
+  } else {
+    const index = b12ChampTeams.indexOf(teamName);
+    b12ChampTeams[index] = '0 - Big12 Team';
+    b12ChampPoints[index] = '0';
+  }
+
+  const matchUp = document.querySelectorAll('[data-conference="Big12d"]');
+  matchUp.forEach(team => {
+    if (!b12ChampTeams.includes('0 - Big12 Team')) {
+      if (!b12ChampTeams.includes(`${team.getAttribute('value')}`)) {
+        team.classList.add('hide');
+      }
+    } else {
+      team.classList.remove('hide');
+    }
+  });
+  
+  b12ChampButtons.forEach((champButton, i) => {
+    champButton.innerHTML = `<p>${b12ChampTeams[i]}</p>`
+    champButton.classList = 'col-lg-3 btn btn-lg Big12 Team teamB12';
+    if(`${b12ChampTeams[i].split(" ").length}` > 1) {
+      champButton.classList.add(`${b12ChampTeams[i].split(" ")[0]}`);
+      champButton.classList.add(`${b12ChampTeams[i].split(" ")[1]}`);
+    } else {
+      champButton.classList.add(`${b12ChampTeams[i]}`);
+    };
+    champButton.setAttribute('data-points', `${this.getAttribute('data-points')*2}`);
+  })
+}));
