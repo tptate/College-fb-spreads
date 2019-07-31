@@ -11,47 +11,93 @@ mixin preseasonCardBig12(teams, division, conference)
   .btn-group-vertical
     if preseason
       if division !== conference
-        p= preseason['Big12d1']
         each team in teams
-          if preseason['Big12d1'] === team[1] || preseason['Big12d2'] === team[1]
-            label.col-lg-3(class=`btn btn-lg ${team[1]} active teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
-              p= `${team[0]} - ${team[1]}`
-            input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
+          if preseason['Big12d1'] && preseason['Big12d2']
+            if preseason['Big12d1'] === team[1] || preseason['Big12d2'] === team[1]
+              label.col-lg-3(class=`btn btn-lg ${team[1]} active teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
+                p= `${team[0]} - ${team[1]}`
+              input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
+            else
+              label.col-lg-3(class=`btn btn-lg ${team[1]} hidden teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
+                p= `${team[0]} - ${team[1]}`
+              input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
+          else if preseason['Big12d1']
+            if preseason['Big12d1'] === team[1]
+              label.col-lg-3(class=`btn btn-lg ${team[1]} active teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
+                p= `${team[0]} - ${team[1]}`
+              input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
+            else
+              label.col-lg-3(class=`btn btn-lg ${team[1]} teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
+                p= `${team[0]} - ${team[1]}`
+              input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
+          else if preseason['Big12d2']
+            
           else
-            label.col-lg-3(class=`btn btn-lg ${team[1]} hidden teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
+            label.col-lg-3(class=`btn btn-lg ${team[1]} teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
               p= `${team[0]} - ${team[1]}`
             input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
-        input.hide(type='text' name=`${division}1` value=`${preseason['Big12d1']}`)
-        input.hide(type='text' name=`${division}2` value=`${preseason['Big12d2']}`)        
-        input.hide(type='number' name=`${division}1Points` value=`${preseason['Big12d1Points']}`)
-        input.hide(type='number' name=`${division}2Points` value=`${preseason['Big12d2Points']}`)
-        p.points(id=`${division}`) #{preseason['Big12d1']} is Worth #{preseason['Big12d1Points']} Points
-        p.points(id=`${division}`) #{preseason['Big12d2']} is Worth #{preseason['Big12d2Points']} Points
+        
+        
+        if preseason['Big12d1'] && preseason['Big12d1']
+          input.hide(type='text' name=`${division}1` value=`${preseason['Big12d1']}`)
+          input.hide(type='text' name=`${division}2` value=`${preseason['Big12d2']}`)        
+          input.hide(type='number' name=`${division}1Points` value=`${preseason['Big12d1Points']}`)
+          input.hide(type='number' name=`${division}2Points` value=`${preseason['Big12d2Points']}`)
+          p.points(class=`${division}`) #{preseason['Big12d1']} is Worth #{preseason['Big12d1Points']} Points
+          p.points(class=`${division}`) #{preseason['Big12d2']} is Worth #{preseason['Big12d2Points']} Points
+        else if preseason['Big12d1']
+          input.hide(type='text' name=`${division}1` value=`${preseason['Big12d1']}`)
+          input.hide(type='text' name=`${division}2` value=``)
+          input.hide(type='number' name=`${division}1Points` value=`${preseason['Big12d1Points']}`)
+          input.hide(type='number' name=`${division}2Points` value=``)
+          p.points(class=`${division}`) #{preseason['Big12d1']} is Worth #{preseason['Big12d1Points']} Points
+          p.points.hiddenPoints(class=`${division}`) Worth X Points
+        else if preseason['Big12d2']
 
-      else
-        if preseason['Big12'] === preseason['Big12d1']
-          label.col-lg-3(class=`btn btn-lg ${preseason['Big12d1']} active teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason['Big12d1Points']*2}` value=`${preseason['Big12d1']}`)
-            p= `${preseason['Big12d1']}`
-          input.hide(type='radio' name=`${division}` class=`${preseason['Big12d1']}` autocomplete='off' value=`${preseason['Big12d1']}`)
-
-          label.col-lg-3(class=`btn btn-lg ${preseason['Big12d2']} hidden teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason['Big12d2Points']*2}` value=`${preseason['Big12d2']}`)
-            p= `${preseason['Big12d2']}`
-          input.hide(type='radio' name=`${division}` class=`${preseason['Big12d2']}` autocomplete='off' value=`${preseason['Big12d2']}`)
-
-          input.hide(type='number' name=`${division}Points` value=`${preseason['Big12d1Points']*2}`)
-          p.points(id=`${division}` class=`${conference}`) #{preseason['Big12d1']} is Worth #{preseason['Big12d1Points']*2} Points
         else
-          label.col-lg-3(class=`btn btn-lg ${preseason['Big12d1']} hidden teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason['Big12d1Points']*2}` value=`${preseason['Big12d1']}`)
-            p= `${preseason['Big12d1']}`
-          input.hide(type='radio' name=`${division}` class=`${preseason['Big12d1']}` autocomplete='off' value=`${preseason['Big12d1']}`)
+          input.hide(type='text' name=`${division}1` value=``)
+          input.hide(type='text' name=`${division}2` value=``)
+          input.hide(type='number' name=`${division}1Points` value=``)
+          input.hide(type='number' name=`${division}2Points` value=``)
+          p.points.hiddenPoints(class=`${division}`) Worth X Points
+          p.points.hiddenPoints(class=`${division}`) Worth X Points
+      else
+        if preseason['Big12']
+          if preseason['Big12'] === preseason['Big12d1']
+            label.col-lg-3(class=`btn btn-lg ${preseason['Big12d1']} active teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason['Big12d1Points']*2}` value=`${preseason['Big12d1']}`)
+              p= `${preseason['Big12d1']}`
+            input.hide(type='radio' name=`${division}` class=`${preseason['Big12d1']}` autocomplete='off' value=`${preseason['Big12d1']}`)
 
-          label.col-lg-3(class=`btn btn-lg ${preseason['Big12d2']} active teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason['Big12d2Points']*2}` value=`${preseason['Big12d2']}`)
-            p= `${preseason['Big12d2']}`
-          input.hide(type='radio' name=`${division}` class=`${preseason['Big12d2']}` autocomplete='off' value=`${preseason['Big12d2']}`)
+            label.col-lg-3(class=`btn btn-lg ${preseason['Big12d2']} hidden teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason['Big12d2Points']*2}` value=`${preseason['Big12d2']}`)
+              p= `${preseason['Big12d2']}`
+            input.hide(type='radio' name=`${division}` class=`${preseason['Big12d2']}` autocomplete='off' value=`${preseason['Big12d2']}`)
 
-          input.hide(type='number' name=`${division}Points` value=`${preseason['Big12d2Points']*2}`)
-          p.points(id=`${division}` class=`${conference}`) #{preseason['Big12d2']} is Worth #{preseason['Big12d2Points']*2} Points
+            input.hide(type='number' name=`${division}Points` value=`${preseason['Big12d1Points']*2}`)
+            p.points(id=`${division}` class=`${conference}`) #{preseason['Big12d1']} is Worth #{preseason['Big12d1Points']*2} Points
+          else
+            label.col-lg-3(class=`btn btn-lg ${preseason['Big12d1']} hidden teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason['Big12d1Points']*2}` value=`${preseason['Big12d1']}`)
+              p= `${preseason['Big12d1']}`
+            input.hide(type='radio' name=`${division}` class=`${preseason['Big12d1']}` autocomplete='off' value=`${preseason['Big12d1']}`)
 
+            label.col-lg-3(class=`btn btn-lg ${preseason['Big12d2']} active teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason['Big12d2Points']*2}` value=`${preseason['Big12d2']}`)
+              p= `${preseason['Big12d2']}`
+            input.hide(type='radio' name=`${division}` class=`${preseason['Big12d2']}` autocomplete='off' value=`${preseason['Big12d2']}`)
+
+            input.hide(type='number' name=`${division}Points` value=`${preseason['Big12d2Points']*2}`)
+            p.points(id=`${division}` class=`${conference}`) #{preseason['Big12d2']} is Worth #{preseason['Big12d2Points']*2} Points
+        else
+          if preseason['Big12d1'] && preseason['Big12d1']
+
+          else if preseason['Big12d1']
+
+          else
+            label.col-lg-3(class=`btn btn-lg teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`0` value=`Big12`)
+              p= `Big 12 Team`
+            input.hide(type='radio' name=`${division}` class=`Big12` autocomplete='off' value=`Big12`)
+
+            label.col-lg-3(class=`btn btn-lg teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`0` value=`Big12`)
+              p= `Big 12 Team`
+            input.hide(type='radio' name=`${division}` class=`Big12` autocomplete='off' value=`Big12`)
     else
       each team in teams
         label.col-lg-3(class=`btn btn-lg ${team[1]} teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
