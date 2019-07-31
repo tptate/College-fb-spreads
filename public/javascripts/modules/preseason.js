@@ -74,6 +74,8 @@ buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   }
 }));
 
+// Big 12 Games
+
 const b12Buttons = document.querySelectorAll('[data-conference="Big12d"]');
 const b12ChampButtons = document.querySelectorAll('[data-conference="Big12c"]');
 let b12ChampTeams = [];
@@ -94,20 +96,20 @@ b12ChampButtons.forEach(champ => {
 });
 
 b12Buttons.forEach(button => button.addEventListener('mousedown', function(e) {
-  this.classList.toggle('active');
-  const name = this.getAttribute('name');
-  const teamName = this.getAttribute('value');
+  button.classList.toggle('active');
+  const name = button.getAttribute('name');
+  const teamName = button.getAttribute('value');
 
   if(!b12ChampTeams.includes(teamName)){
     const index = b12ChampTeams.indexOf('0 - Big12 Team');
     if(index) {
       b12ChampTeams[index] = teamName;
-      b12ChampPoints[index] = this.getAttribute('data-points');
+      b12ChampPoints[index] = button.getAttribute('data-points');
     } else {
       b12ChampTeams[0] = b12ChampTeams[1];
       b12ChampPoints[0] = b12ChampPoints[1];
       b12ChampTeams[1] = teamName;
-      b12ChampPoints[1] = this.getAttribute('data-points');
+      b12ChampPoints[1] = button.getAttribute('data-points');
     }
   } else {
     const index = b12ChampTeams.indexOf(teamName);
