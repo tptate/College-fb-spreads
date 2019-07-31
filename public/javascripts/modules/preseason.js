@@ -47,7 +47,7 @@ function selectWinner(button, hide=true) {
   });
 }
 
-buttons.forEach(button => button.addEventListener('click', function(e) {
+buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   e.preventDefault;
   const name = this.getAttribute('name');
   const teamName = this.getAttribute('value');
@@ -82,7 +82,7 @@ b12ChampButtons.forEach(champ => {
   b12ChampTeams.push(champ.innerText)
   b12ChampPoints.push(champ.getAttribute('data-points'));
 
-  champ.addEventListener('click', (e) => {
+  champ.addEventListener('mousedown', (e) => {
     const matchUp = document.querySelectorAll('[data-conference="Big12c"]');
     matchUp.forEach(team => {
       team.classList.remove('active');
@@ -93,7 +93,7 @@ b12ChampButtons.forEach(champ => {
   })
 });
 
-b12Buttons.forEach(button => button.addEventListener('click', function(e) {
+b12Buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   this.classList.toggle('active');
   const name = this.getAttribute('name');
   const teamName = this.getAttribute('value');
