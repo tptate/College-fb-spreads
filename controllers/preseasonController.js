@@ -33,7 +33,7 @@ exports.editPreseason = async (req, res) => {
   // res.json(preseason)
   // 2. Confirm they are the owner of the store
   confirmOwner(preseason, req.user);
-  // 3. Render out the edit form so the user can update
+  // // 3. Render out the edit form so the user can update
   res.render('preseason', { title: `Edit Preseason Picks`, preseason, editPicks: true, preseasonId: `/${req.params.id}` });
 };
 

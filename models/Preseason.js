@@ -50,6 +50,78 @@ const preseasonSchema = new mongoose.Schema({
     type: Number,
     ref: 'SECPoints'
   },
+  Big10e: {
+    type: String,
+    ref: 'Big10e',
+  },
+  Big10ePoints: {
+    type: Number,
+    ref: 'Big10ePoints'
+  },
+  Big10w: {
+    type: String,
+    ref: 'Big10w',
+  },
+  Big10wPoints: {
+    type: Number,
+    ref: 'Big10wPoints'
+  },
+  Big10: {
+    type: String,
+    ref: 'Big10',
+  },
+  Big10Points: {
+    type: Number,
+    ref: 'Big10Points'
+  },
+  Pac12n: {
+    type: String,
+    ref: 'Pac12n',
+  },
+  Pac12nPoints: {
+    type: Number,
+    ref: 'Pac12nPoints'
+  },
+  Pac12s: {
+    type: String,
+    ref: 'Pac12s',
+  },
+  Pac12sPoints: {
+    type: Number,
+    ref: 'Pac12sPoints'
+  },
+  Pac12: {
+    type: String,
+    ref: 'Pac12',
+  },
+  Pac12Points: {
+    type: Number,
+    ref: 'Pac12Points'
+  },
+  Big12d1: {
+    type: String,
+    ref: 'Big12d1',
+  },
+  Big12d1Points: {
+    type: Number,
+    ref: 'Big12d1Points'
+  },
+  Big12d2: {
+    type: String,
+    ref: 'Big12d2',
+  },
+  Big12d2Points: {
+    type: Number,
+    ref: 'Big12d2Points'
+  },
+  Big12: {
+    type: String,
+    ref: 'Big12',
+  },
+  Big12Points: {
+    type: Number,
+    ref: 'Big12Points'
+  },
   author: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
