@@ -51,12 +51,14 @@ mixin preseasonCardBig12(teams, division, conference)
           p= `${team[0]} - ${team[1]}`
         input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
       if division==='Big12d'
-        input.hidden(type='number' name=`${division}Points`)
-        input.hidden(type='number' name=`${division}Points`)
+        input.hidden(type='text' name=`${division}1`)
+        input.hidden(type='text' name=`${division}2`)        
+        input.hidden(type='number' name=`${division}Points1`)
+        input.hidden(type='number' name=`${division}Points2`)
       else
         input.hidden(type='number' name=`${division}Points`)
     if division==='Big12d'
-      p.points.hiddenPoints(id=`${division}`) Worth X Points
-      p.points.hiddenPoints(id=`${division}`) Worth X Points
+      p.points.hiddenPoints(class=`${division}`) Worth X Points
+      p.points.hiddenPoints(class=`${division}`) Worth X Points
     else
       p.points.hiddenPoints(id=`${division}`) Worth X Points
