@@ -97,7 +97,6 @@ b12ChampButtons.forEach(champ => {
 
 b12Buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   this.classList.toggle('active');
-  const name = this.getAttribute('name');
   const teamName = this.getAttribute('value');
 
   if(!b12ChampTeams.includes(teamName)){
@@ -121,7 +120,7 @@ b12Buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   matchUp.forEach(team => {
     if (!b12ChampTeams.includes('0 - Big12 Team')) {
       if (!b12ChampTeams.includes(`${team.getAttribute('value')}`)) {
-        team.classList.remove('hide');
+        team.classList.add('hide');
       }
     } else {
       team.classList.remove('hide');
