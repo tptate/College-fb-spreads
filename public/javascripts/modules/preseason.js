@@ -96,20 +96,20 @@ b12ChampButtons.forEach(champ => {
 });
 
 b12Buttons.forEach(button => button.addEventListener('mousedown', function(e) {
-  button.classList.toggle('active');
-  const name = button.getAttribute('name');
-  const teamName = button.getAttribute('value');
+  this.classList.toggle('active');
+  const name = this.getAttribute('name');
+  const teamName = this.getAttribute('value');
 
   if(!b12ChampTeams.includes(teamName)){
     const index = b12ChampTeams.indexOf('0 - Big12 Team');
     if(index) {
       b12ChampTeams[index] = teamName;
-      b12ChampPoints[index] = button.getAttribute('data-points');
+      b12ChampPoints[index] = this.getAttribute('data-points');
     } else {
       b12ChampTeams[0] = b12ChampTeams[1];
       b12ChampPoints[0] = b12ChampPoints[1];
       b12ChampTeams[1] = teamName;
-      b12ChampPoints[1] = button.getAttribute('data-points');
+      b12ChampPoints[1] = this.getAttribute('data-points');
     }
   } else {
     const index = b12ChampTeams.indexOf(teamName);
@@ -121,7 +121,7 @@ b12Buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   matchUp.forEach(team => {
     if (!b12ChampTeams.includes('0 - Big12 Team')) {
       if (!b12ChampTeams.includes(`${team.getAttribute('value')}`)) {
-        team.classList.add('hide');
+        team.classList.remove('hide');
       }
     } else {
       team.classList.remove('hide');
