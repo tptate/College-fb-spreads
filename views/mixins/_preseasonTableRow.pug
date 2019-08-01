@@ -2,18 +2,24 @@ mixin preseasonTableRow(divisionName, division)
   - const divisionPoints = `${division}Points`
   tr
     td= divisionName
-    td Enter weekly if here
+    td Enter winner if here
     each user in users
       if currentUser.equals(user._id)
         each preseason in preseasons
           if preseason.author.equals(currentUser)
-            td(class=`${preseason[division]}`) #{preseason[division]} (#{preseason[divisionPoints]})
+            if preseason[division]
+              td(class=`${preseason[division]}`) #{preseason[division]} (#{preseason[divisionPoints]})
+            else
+              td
     each user in users
       - foundUser = false
       if !currentUser.equals(user._id)
         each preseason in preseasons
           if preseason.author.equals(user._id)
             - foundUser = true
-            td(class=`${preseason[division]}`) #{preseason[division]} (#{preseason[divisionPoints]})
+            if preseason[division]
+              td(class=`${preseason[division]}`) #{preseason[division]} (#{preseason[divisionPoints]})
+            else
+              td
         if !foundUser
           td

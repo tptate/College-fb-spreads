@@ -57,7 +57,7 @@
 
 .Louisville.active {
   background-color: #AD0000;
-  color: black;
+  color: white;
 }
 
 /* Miami #F47321 */
@@ -117,7 +117,7 @@
 
 .Syracuse.active {
   background-color: #D44500;
-  color: #3E3D3C;
+  color: white;
 }
 
 /* Virginia #232D4B */
@@ -199,7 +199,7 @@
 
 .Georgia.active {
   background-color: #BA0C2F;
-  color: black;
+  color: white;
 }
 
 /* Kentucky #0033A0 */
@@ -239,7 +239,7 @@
 
 .Mississippi.St.active {
   background-color: #660000;
-  color: #14213D;
+  color: white;
 }
 
 /* Missouri #F1B82D */
@@ -259,7 +259,7 @@
 
 .South.Carolina.active {
   background-color: #73000A;
-  color: black;
+  color: white;
 }
 
 /* Tennessee #FF8200 */
@@ -303,6 +303,42 @@
 }
 
 /* -------------Pac 12--------------- */
+.Arizona {
+  color: #CC0033;
+}
+
+.Arizona.active {
+  background-color: #CC0033;
+  color: white;
+}
+
+.Arizona.State {
+  color: #8C1D40;
+}
+
+.Arizona.State.active {
+  background-color: #8C1D40;
+  color: #FFC627;
+}
+
+.California {
+  color: #003262;
+}
+
+.California.active {
+  background-color: #003262;
+  color: #FDB515;
+}
+
+.Colorado {
+  color: #CFB87C;
+}
+
+.Colorado.active {
+  background-color: #CFB87C;
+  color: #000000;
+}
+
 .Oregon {
   color: #154733;
 }
@@ -310,4 +346,285 @@
 .Oregon.active {
   background-color: #154733;
   color: #FEE123;
+}
+
+.Oregon.State {
+  color: #DC4405;
+}
+
+.Oregon.State.active {
+  background-color: #DC4405;
+  color: #000000;
+}
+
+.Stanford {
+  color: #8C1515;
+}
+
+.Stanford.active {
+  background-color: #8C1515;
+  color: white;
+}
+
+.OregUCLAon {
+  color: #2D68C4;
+}
+
+.UCLA.active {
+  background-color: #2D68C4;
+  color: #F2A900;
+}
+
+.USC {
+  color: #990000;
+}
+
+.USC.active {
+  background-color: #990000;
+  color: #FFC72C;
+}
+
+.Utah {
+  color: #CC0000;
+}
+
+.Utah.active {
+  background-color: #CC0000;
+  color: white;
+}
+
+.Washington {
+  color: #4B2E83;
+}
+
+.Washington.active {
+  background-color: #4B2E83;
+  color: #B7A57A;
+}
+
+.Washington.State {
+  color: #981E32;
+}
+
+.Washington.State.active {
+  background-color: #981E32;
+  color: white;
+}
+
+/* -------------Big 10--------------- */
+.Illinois {
+  color: #13294B;
+}
+
+.Illinois.active {
+  background-color: #13294B;
+  color: #E84A27;
+}
+
+.Indiana {
+  colo990000r: #990000;
+}
+
+.Indiana.active {
+  background-color: #990000;
+  color: #EEEDEB;
+}
+
+.Iowa {
+  color: #FFCD00;
+}
+
+.Iowa.active {
+  background-color: #FFCD00;
+  color: black;
+}
+
+.Maryland {
+  color: #E03A3E;
+}
+
+.Maryland.active {
+  background-color: #E03A3E;
+  color: #FFD520;
+}
+
+.Michigan {
+  color: #00274C;
+}
+
+.Michigan.active {
+  background-color: #00274C;
+  color: #FFCB05;
+}
+
+.Michigan.State {
+  color: #18453B;
+}
+
+.Michigan.State.active {
+  background-color: #18453B;
+  color: white;
+}
+
+.Minnesota {
+  color: #7A0019;
+}
+
+.Minnesota.active {
+  background-color: #7A0019;
+  color: #FFCC33;
+}
+
+.Nebraska {
+  color: #E41C38;
+}
+
+.Nebraska.active {
+  background-color: #E41C38;
+  color: white;
+}
+
+.Northwestern {
+  color: #4E2A84;
+}
+
+.Northwestern.active {
+  background-color: #4E2A84;
+  color: white;
+}
+
+.Ohio.State {
+  color: #BB0000;
+}
+
+.Ohio.State.active {
+  background-color: #BB0000;
+  color: white;
+}
+
+.Penn.State {
+  color: #041E42;
+}
+
+.Penn.State.active {
+  background-color: #041E42;
+  color: white;
+}
+
+.Purdue {
+  color: #CEB888;
+}
+
+.Purdue.active {
+  background-color: #CEB888;
+  color: black;
+}
+
+.Rutgers {
+  color: #CC0033;
+}
+
+.Rutgers.active {
+  background-color: #CC0033;
+  color: white;
+}
+
+.Wisconsin {
+  color: #C5050C;
+}
+
+.Wisconsin.active {
+  background-color: #C5050C;
+  color: white;
+}
+
+/* -------------Big 12--------------- */
+.Baylor {
+  color: #003015;
+}
+
+.Baylor.active {
+  background-color: #003015;
+  color: #FECB00;
+}
+
+.Iowa.State {
+  color: #C8102E;
+}
+
+.Iowa.State.active {
+  background-color: #C8102E;
+  color: #F1BE48;
+}
+
+.Kansas {
+  color: #0051Ba;
+}
+
+.Kansas.active {
+  background-color: #0051Ba;
+  color: #E8000D;
+}
+
+.Kansas.State {
+  color: #512888;
+}
+
+.Kansas.State.active {
+  background-color: #512888;
+  color: #D1D1D1;
+}
+
+.Oklahoma {
+  color: #841617;
+}
+
+.Oklahoma.active {
+  background-color: #841617;
+  color: #FDF9D8;
+}
+
+.Oklahoma.State {
+  color: #FF7300;
+}
+
+.Oklahoma.State.active {
+  background-color: #FF7300;
+  color: black;
+}
+
+.Texas {
+  color: #Bf5700;
+}
+
+.Texas.active {
+  background-color: #Bf5700;
+  color: white;
+}
+
+.TCU {
+  color: #4D1979;
+}
+
+.TCU.active {
+  background-color: #4D1979;
+  color: #A3A9AC;
+}
+
+.Texas.Tech {
+  color: #CC0000;
+}
+
+.Texas.Tech.active {
+  background-color: #CC0000;
+  color: white;
+}
+
+.West.Virginia {
+  color: #002855;
+}
+
+.West.Virginia.active {
+  background-color: #002855;
+  color: #EAAA00;
 }

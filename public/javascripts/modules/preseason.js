@@ -20,6 +20,13 @@ function selectWinner(button, hide=true) {
       team.classList.remove('hidden');
     });
   }
+  if((button.getAttribute('name') === button.getAttribute('data-conference')) && !hide) {
+    const conference = button.getAttribute('data-conference')
+    const radioButtons = document.querySelectorAll(`input[name="${conference}"]`);
+    const pointsInput = document.querySelector(`input[name="${conference}Points"]`)
+    radioButtons.forEach(radio => radio.checked = false);
+    pointsInput.value = '';
+  }
 
   const pointsDisplay = document.querySelectorAll('.points');
   pointsDisplay.forEach((pointDisplay, i) => {
@@ -68,8 +75,7 @@ buttons.forEach(button => button.addEventListener('mousedown', function(e) {
     };
     divisionLabel.classList.remove('active');
     divisionInput.value = `${teamName}`;
-    selectWinner(divisionLabel, false);
-  
+    selectWinner(divisionLabel, false); 
   }
 }));
 
@@ -118,7 +124,7 @@ b12Buttons.forEach(button => button.addEventListener('mousedown', function(e) {
       b12Champ.classList.remove('active');
       if(teamName === b12Champ.getAttribute('value')) {
         if(i===0) {
-          b12ChampUpdate(b12ChampButtons[0], b12ChampButtons[1].getAttribute('value'), b12ChampButtons[1].getAttribute('data-points'));
+          b12ChampUpdate(b12ChampButtons[0], b12ChampButtons[1].getAttribute('value'), (b12ChampButtons[1].getAttribute('data-points')/2));
           b12DivisionInput1.value = b12DivisionInput2.value;
           b12DivisionPointsInput1.value = b12DivisionPointsInput2.value;
         } 
@@ -130,6 +136,10 @@ b12Buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   } else {
     // team being selected
     this.classList.add('active');
+    b12ChampButtons.forEach(b12Champ => b12Champ.classList.remove('active'));
+    b12RadioButtons.forEach(b12Radio => b12Radio.checked = false);
+    const pointInput = document.querySelector('[name="Big12Points"]');
+    pointInput.value = '';
     if (b12NumTeams === 0) {
       // first team is selected
       b12ChampUpdate(b12ChampButtons[0], teamName, this.getAttribute('data-points'));

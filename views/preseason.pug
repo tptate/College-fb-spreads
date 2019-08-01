@@ -32,8 +32,8 @@ block content
         each user in users
           if currentUser.equals(user._id)
             each preseason in preseasons
-              if preseason.author.equals(preseason.author)
-                td= `total points: X`
+              if preseason.author.equals(user._id)
+                td= `total points: Y`
         each user in users
           - foundUser = false
           if !currentUser.equals(user._id)
@@ -43,22 +43,21 @@ block content
                 td= `total points: X`
             if !foundUser
               td
-      each preseason in preseasons
-        +preseasonTableRow('ACC Atlantic', 'ACCa')
-        +preseasonTableRow('ACC Coastal', 'ACCc')
-        +preseasonTableRow('ACC', 'ACC')
-        +preseasonTableRow('SEC East', 'SECe')
-        +preseasonTableRow('SEC West', 'SECw')
-        +preseasonTableRow('SEC', 'SEC')
-        +preseasonTableRow('Big 10 East', 'Big10e')
-        +preseasonTableRow('Big 10 West', 'Big10w')
-        +preseasonTableRow('Big 10', 'Big10')
-        +preseasonTableRow('Pac 12 North', 'Pac12n')
-        +preseasonTableRow('Pac 12 South', 'Pac12s')
-        +preseasonTableRow('Pac 12', 'Pac12')
-        +preseasonTableRow('Big 12 Team 1', 'Big12d1')
-        +preseasonTableRow('Big 12 Team 2', 'Big12d2')
-        +preseasonTableRow('Big 12', 'Big12')
+      +preseasonTableRow('ACC Atlantic', 'ACCa')
+      +preseasonTableRow('ACC Coastal', 'ACCc')
+      +preseasonTableRow('ACC', 'ACC')
+      +preseasonTableRow('SEC East', 'SECe')
+      +preseasonTableRow('SEC West', 'SECw')
+      +preseasonTableRow('SEC', 'SEC')
+      +preseasonTableRow('Big 10 East', 'Big10e')
+      +preseasonTableRow('Big 10 West', 'Big10w')
+      +preseasonTableRow('Big 10', 'Big10')
+      +preseasonTableRow('Pac 12 North', 'Pac12n')
+      +preseasonTableRow('Pac 12 South', 'Pac12s')
+      +preseasonTableRow('Pac 12', 'Pac12')
+      +preseasonTableRow('Big 12 Team 1', 'Big12d1')
+      +preseasonTableRow('Big 12 Team 2', 'Big12d2')
+      +preseasonTableRow('Big 12', 'Big12')
   else  
     - let teams = []
     - let division = ""
