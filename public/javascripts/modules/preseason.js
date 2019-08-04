@@ -9,25 +9,20 @@ function selectWinner(button, divisionTeam = true) {
   const teamRadios = document.querySelectorAll(`input[value="${teamName}"]`);
   teamRadios.forEach(teamRadio => teamRadio.checked = true);
   if(divisionTeam) {
-    if(button.classList.contains('active')) {
-      selected = false;
-    } else {
-      selected = true;
-    }
-    matchUp.forEach(team => {
-      team.classList.remove('active');
-      team.classList.toggle('hidden');
-    });
+    button.classList.contains('active') ? selected = false : selected = true;
+
+    matchUp.forEach(team => selected ? team.classList.add('hidden') : team.classList.remove('hidden'));
+    
+    const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
     if(selected) {
       button.classList.add('active');
-      const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
       pointInput.value = `${button.getAttribute('data-points')}`;
     } else {
       button.classList.remove('active');
-      const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
       pointInput.value = '';
     }
-    button.classList.toggle('hidden');
+    console.log(pointInput);
+    button.classList.remove('hidden');
   } else {
     matchUp.forEach(team => {
       team.classList.remove('active');
