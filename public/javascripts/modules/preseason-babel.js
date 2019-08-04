@@ -95,17 +95,23 @@ function selectWinner(button) {
 
 function selectedTeam(button) {
   button.classList.add('active');
+};
+
+function deselectedTeam(button) {
+  button.classList.remove('active');
 }
 
 buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   const name = this.getAttribute('name');
   const matchUp = document.getElementsByName(name);
   const teamName = this.getAttribute('value');
-  this.classList.contains('active') ? selected = true : selected = false;
+  this.classList.contains('active') ? selected = false : selected = true;
   if (selected) {
     selectedTeam(this);
+  } else {
+    deselectedTeam(this);
   }
-  
+
   // if (this.classList.contains('active')) {
   //   matchUp.forEach(team => {
   //     if team
