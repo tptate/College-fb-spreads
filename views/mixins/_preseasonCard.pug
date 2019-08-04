@@ -62,7 +62,7 @@ mixin preseasonCard(teams, division, conference)
         label.col-lg-3(class=`btn btn-lg ${team[1]} team` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
           p= `${team[0]} - ${team[1]}`
         input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
-      input(type='number' name=`${division}Points`)
+      input.hidden(type='number' name=`${division}Points`)
 
       p.points.hiddenPoints(id=`${division}`) Worth X Points
 
