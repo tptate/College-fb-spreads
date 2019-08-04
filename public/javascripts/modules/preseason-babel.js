@@ -56,7 +56,7 @@ function selectWinner(button) {
     };
     pointDisplay.innerHTML = `Worth ${button.getAttribute('data-points')} Point(s)`;
   } else {
-    button.classList.remove('active');
+    button.classList.add('active');
     pointInput.value = '';
     teamRadio.checked = false;
     pointDisplay.innerHTML = `Worth X Point(s)`;
