@@ -26,13 +26,13 @@ function selectWinner(button) {
   });
   const teamRadio = document.querySelector(`input[value="${teamName}"][name="${division}"]`);
   button.classList.contains('active') ? selected = false : selected = true;
-  matchUp.forEach(team => {
-    if(selected){
-      team.classList.add('hidden');
-    } else {
-      team.classList.remove('hidden');
-    }
-  });
+  // matchUp.forEach(team => {
+  //   if(selected){
+  //     team.classList.add('hidden');
+  //   } else {
+  //     team.classList.remove('hidden');
+  //   }
+  // });
   const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
   
   const champTeams = document.getElementsByName(`${conference}`);
@@ -45,7 +45,7 @@ function selectWinner(button) {
   } 
   if(selected) {
     button.classList.add('active');
-    button.classList.remove('hidden');
+    // button.classList.remove('hidden');
     pointInput.value = `${button.getAttribute('data-points')}`;
     teamRadio.checked = true;
     if(`${teamName.split(" ").length}` > 1) {
@@ -77,7 +77,7 @@ function selectWinner(button) {
         if(i%2 === 0) {
           // show label
           champTeam.classList.remove('active');
-          champTeam.classList.remove('hidden');
+          // champTeam.classList.remove('hidden');
         } else {
           // uncheck radio
           champTeam.checked = false;
