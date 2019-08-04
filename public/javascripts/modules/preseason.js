@@ -1,18 +1,32 @@
 const buttons = document.querySelectorAll('.team');
 let champNum = 0;
+let selected;
 
-function selectWinner(button, hide=true) {
+function selectWinner(button, divisionTeam = true) {
   const name = button.getAttribute('name');
   const matchUp = document.getElementsByName(name);
   const teamName = button.getAttribute('value');
   const teamRadios = document.querySelectorAll(`input[value="${teamName}"]`);
   teamRadios.forEach(teamRadio => teamRadio.checked = true);
-  if(hide) {
+  if(divisionTeam) {
+    if(button.classList.contains('active')) {
+      selected = false;
+    } else {
+      selected = true;
+    }
     matchUp.forEach(team => {
       team.classList.remove('active');
       team.classList.toggle('hidden');
     });
-    button.classList.add('active');
+    if(selected) {
+      button.classList.add('active');
+      const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
+      pointInput.value = `${button.getAttribute('data-points')}`;
+    } else {
+      button.classList.remove('active');
+      const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
+      pointInput.value = '';
+    }
     button.classList.toggle('hidden');
   } else {
     matchUp.forEach(team => {
@@ -20,9 +34,11 @@ function selectWinner(button, hide=true) {
       team.classList.remove('hidden');
     });
   }
-  const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
-  pointInput.value = `${button.getAttribute('data-points')}`;
-  if((button.getAttribute('name') === button.getAttribute('data-conference')) && !hide) {
+
+  // const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
+  // pointInput.value = `${button.getAttribute('data-points')}`;
+  
+  if((button.getAttribute('name') === button.getAttribute('data-conference')) && !divisionTeam) {
     const conference = button.getAttribute('data-conference')
     const radioButtons = document.querySelectorAll(`input[name="${conference}"]`);
     const pointsInput = document.querySelector(`input[name="${conference}Points"]`)
@@ -43,16 +59,15 @@ function selectWinner(button, hide=true) {
       pointDisplay.innerHTML = `Worth ${button.getAttribute('data-points')} Point(s)`;
       champNum = ((i+1) % 3);
 
-      if(!hide) {
+      if(!divisionTeam) {
         pointDisplay.classList = 'points hiddenPoints';
       }
     }
-    
   });
 }
 
 buttons.forEach(button => button.addEventListener('mousedown', function(e) {
-  e.preventDefault;
+  // e.preventDefault;
   const teamName = this.getAttribute('value');
   selectWinner(this);
 
