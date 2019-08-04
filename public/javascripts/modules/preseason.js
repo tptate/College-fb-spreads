@@ -11,7 +11,7 @@ function selectWinner(button, divisionTeam = true) {
   if(divisionTeam) {
     button.classList.contains('active') ? selected = false : selected = true;
 
-    matchUp.forEach(team => selected ? team.classList.add('hidden') : team.classList.remove('hidden'));
+    // matchUp.forEach(team => selected ? team.classList.add('hidden') : team.classList.remove('hidden'));
     
     const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
     if(selected) {
@@ -22,11 +22,11 @@ function selectWinner(button, divisionTeam = true) {
       pointInput.value = '';
     }
     console.log(pointInput);
-    button.classList.remove('hidden');
+    // button.classList.remove('hidden');
   } else {
     matchUp.forEach(team => {
       team.classList.remove('active');
-      team.classList.remove('hidden');
+      // team.classList.remove('hidden');
     });
   }
 
