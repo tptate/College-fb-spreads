@@ -24,10 +24,7 @@ function checkSelections(reqBody) {
   [reqBody.Big10w, reqBody.Big10wPoints] = noSelection(reqBody.Big10w, reqBody.Big10wPoints);
   [reqBody.Big10, reqBody.Big10Points] = noSelection(reqBody.Big10, reqBody.Big10Points);
   [reqBody.Pac12n, reqBody.Pac12nPoints] = noSelection(reqBody.Pac12n, reqBody.Pac12nPoints);
-  [reqBody.Pac12s, reqBody.Pac12sPoints] = noSelection(reqBody.Pac12, reqBody.Pac12sPoints);
-  [reqBody.Pac12, reqBody.Pac12Points] = noSelection(reqBody.Pac12, reqBody.Pac12Points);
-  [reqBody.Pac12, reqBody.Pac12Points] = noSelection(reqBody.Pac12, reqBody.Pac12Points);
-  [reqBody.Pac12, reqBody.Pac12Points] = noSelection(reqBody.Pac12, reqBody.Pac12Points);
+  [reqBody.Pac12s, reqBody.Pac12sPoints] = noSelection(reqBody.Pac12s, reqBody.Pac12sPoints);
   [reqBody.Pac12, reqBody.Pac12Points] = noSelection(reqBody.Pac12, reqBody.Pac12Points);
   [reqBody.Big12d1, reqBody.Big12d1Points] = noSelection(reqBody.Big12d1, reqBody.Big12d1Points);
   [reqBody.Big12d2, reqBody.Big12d2Points] = noSelection(reqBody.Big12d2, reqBody.Big12d2Points);

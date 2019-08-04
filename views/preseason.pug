@@ -76,8 +76,8 @@ block content
       - teams = [[0, 'ACC Atlantic'], [0, 'ACC Coastal']];
       - division = 'ACC'
       - conference = 'ACC'
-      //- SEC
       +preseasonCard(teams, division, conference)
+      //- SEC
       - teams = [[1, 'Georgia'],[2, 'Florida'], [3, 'Missouri'], [4, 'South Carolina'], [5, 'Tennessee'], [6, 'Kentucky'],[7, 'Vanderbilt']];
       - division = 'SECe'
       - conference = 'SEC'  
@@ -125,6 +125,36 @@ block content
       - division = 'Big12'
       - conference = 'Big12'
       +preseasonCardBig12(teams, division, conference)
+      - 
+        teams = [
+          [1, 'Clemson'],
+          [2, 'Alabama'],
+          [3, 'Georgia'],
+          [4, 'Oklahoma'],
+          [5, 'Team5'],
+          [6, 'Team6'],
+          [7, 'Team7'],
+          [8, 'Team8'],
+          [9, 'Team9'],
+          [10, 'Team10'],
+          [11, 'Team11'],
+          [12, 'Team12'],
+          [13, 'Team13'],
+          [14, 'Team14'],
+          [15, 'Team15'],
+          [16, 'Team16'],
+          [17, 'Team17'],
+          [18, 'Team18'],
+          [19, 'Team19'],
+          [20, 'Team20'],
+          [21, 'Team21'],
+          [22, 'Team22'],
+          [23, 'Team23'],
+          [24, 'Team24'],
+          [25, 'Team25'],
+        ]
+      each team in teams
+        p= team[1]
 
       input(type="submit" value="Submit Picks" class="btn form btn-secondary btn-lg")
 

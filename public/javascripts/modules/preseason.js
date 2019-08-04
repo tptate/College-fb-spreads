@@ -20,6 +20,8 @@ function selectWinner(button, hide=true) {
       team.classList.remove('hidden');
     });
   }
+  const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
+  pointInput.value = `${button.getAttribute('data-points')}`;
   if((button.getAttribute('name') === button.getAttribute('data-conference')) && !hide) {
     const conference = button.getAttribute('data-conference')
     const radioButtons = document.querySelectorAll(`input[name="${conference}"]`);
@@ -39,18 +41,13 @@ function selectWinner(button, hide=true) {
         pointDisplay.classList.toggle(`${teamName}`);
       };
       pointDisplay.innerHTML = `Worth ${button.getAttribute('data-points')} Point(s)`;
-      champNum = ((i+1) % 3)
+      champNum = ((i+1) % 3);
 
       if(!hide) {
         pointDisplay.classList = 'points hiddenPoints';
       }
     }
     
-  });
-
-  const pointsInput = document.getElementsByName(`${name}Points`);
-  pointsInput.forEach(point => {
-    point.setAttribute('value', `${button.getAttribute('data-points')}`);
   });
 }
 
