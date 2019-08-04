@@ -94,8 +94,12 @@ function selectWinner(button) {
 }
 
 function selectedTeam(button) {
-  button.classList.add('active');
-};
+  button.classList.toggle('active');
+}
+
+function hideTeam(button) {
+  button.classList.toggle('hidden');
+}
 
 function deselectedTeam(button) {
   button.classList.remove('active');
@@ -106,11 +110,10 @@ buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   const matchUp = document.getElementsByName(name);
   const teamName = this.getAttribute('value');
   this.classList.contains('active') ? selected = false : selected = true;
-  if (selected) {
-    selectedTeam(this);
-  } else {
-    deselectedTeam(this);
-  }
+  // if (selected) {
+    matchUp.forEach(team => {
+      team === this ? selectedTeam(this) : hideTeam(team);
+    });
 
   // if (this.classList.contains('active')) {
   //   matchUp.forEach(team => {
