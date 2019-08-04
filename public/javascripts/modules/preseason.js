@@ -2,88 +2,146 @@ const buttons = document.querySelectorAll('.team');
 let champNum = 0;
 let selected;
 
-function selectWinner(button, divisionTeam = true) {
+function selectWinner(button) {
+  console.log(button);
   const name = button.getAttribute('name');
   const matchUp = document.getElementsByName(name);
   const teamName = button.getAttribute('value');
-  const teamRadios = document.querySelectorAll(`input[value="${teamName}"]`);
-  teamRadios.forEach(teamRadio => teamRadio.checked = true);
-  if(divisionTeam) {
-    button.classList.contains('active') ? selected = false : selected = true;
-
-    // matchUp.forEach(team => selected ? team.classList.add('hidden') : team.classList.remove('hidden'));
-    
-    const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
-    if(selected) {
-      button.classList.add('active');
-      pointInput.value = `${button.getAttribute('data-points')}`;
-    } else {
-      button.classList.remove('active');
-      pointInput.value = '';
+  const division = button.getAttribute('for');
+  const conference = button.getAttribute('data-conference');
+  let divisionTeam;
+  conference === division ? divisionTeam = false : divisionTeam = true;
+  const pointDisplay = document.querySelector(`#${division}`);
+  pointDisplay.classList.toggle('hiddenPoints');
+  const pointDisplays = document.querySelectorAll('input[type="number"]');
+  let pointIndex;
+  pointDisplays.forEach((point, i) => {
+    if(point.name === `${pointDisplay.id}Points`) {
+      pointIndex = i % 3;
     }
-    console.log(pointInput);
-    // button.classList.remove('hidden');
+  });
+  const teamRadio = document.querySelector(`input[value="${teamName}"][name="${division}"]`);
+  button.classList.contains('active') ? selected = false : selected = true;
+  matchUp.forEach(team => selected ? team.classList.add('hidden') : team.classList.remove('hidden'));
+  const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
+  
+  const champTeams = document.getElementsByName(`${conference}`);
+  if(selected && divisionTeam) {
+    if(`${teamName.split(" ").length}` > 1) {
+      champTeams[pointIndex*2].classList = `col-lg-3 btn btn-lg ${teamName.split(" ")[0]} ${teamName.split(" ")[1]} team`;
+    } else {
+      champTeams[pointIndex*2].classList = `col-lg-3 btn btn-lg ${teamName} team`
+    }
+  } 
+  if(selected) {
+    button.classList.add('active');
+    button.classList.remove('hidden');
+    pointInput.value = `${button.getAttribute('data-points')}`;
+    teamRadio.checked = true;
+    if(`${teamName.split(" ").length}` > 1) {
+      pointDisplay.classList.toggle(`${teamName.split(" ")[0]}`);
+      pointDisplay.classList.toggle(`${teamName.split(" ")[1]}`);
+    } else {
+      pointDisplay.classList.toggle(`${teamName}`);
+    };
+    pointDisplay.innerHTML = `Worth ${button.getAttribute('data-points')} Point(s)`;
   } else {
-    matchUp.forEach(team => {
-      team.classList.remove('active');
-      // team.classList.remove('hidden');
-    });
+    button.classList.remove('active');
+    pointInput.value = '';
+    teamRadio.checked = false;
+    pointDisplay.innerHTML = `Worth X Point(s)`;
+  }
+  if(divisionTeam) {
+    if(selected) {
+      champTeams[pointIndex*2].innerHTML = `<p>${teamName}</p>`;
+      champTeams[pointIndex*2].setAttribute('value', teamName);
+      champTeams[pointIndex*2+1].setAttribute('value', teamName);
+      champTeams[pointIndex*2].setAttribute('data-points', `${button.getAttribute('data-points') *2}`);
+    } else {
+      champTeams[pointIndex*2].innerHTML = `<p>ACC Team</p>`;
+      champTeams[pointIndex*2].classList = 'col-lg-3 btn btn-lg ACC Atlantic team'
+      champTeams[pointIndex*2].setAttribute('value', 'ACC Team');
+      champTeams[pointIndex*2+1].setAttribute('value', 'ACC Team');
+      champTeams[pointIndex*2].setAttribute('data-points', '0');
+      champTeams.forEach((champTeam,i) => {
+        if(i%2 === 0) {
+          // show label
+          champTeam.classList.remove('active');
+          champTeam.classList.remove('hidden');
+        } else {
+          // uncheck radio
+          champTeam.checked = false;
+        }
+      });
+      const champPointDisplay = document.querySelector(`#${conference}`);
+      const champPointInput = document.querySelector(`input[name="${conference}Points"]`)
+      champPointDisplay.innerHTML = `<p>Worth X Points</p>`;
+      champPointDisplay.classList = 'points hiddenPoints';
+      champPointInput.value = '';
+
+    }
+    // button.classList.remove('hidden');
+  // } else {
+  //   matchUp.forEach(team => {
+  //     team.classList.remove('active');
+  //     team.classList.remove('hidden');
+  //   });
   }
 
   // const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
   // pointInput.value = `${button.getAttribute('data-points')}`;
   
-  if((button.getAttribute('name') === button.getAttribute('data-conference')) && !divisionTeam) {
-    const conference = button.getAttribute('data-conference')
-    const radioButtons = document.querySelectorAll(`input[name="${conference}"]`);
-    const pointsInput = document.querySelector(`input[name="${conference}Points"]`)
-    radioButtons.forEach(radio => radio.checked = false);
-    pointsInput.value = '';
-  }
+  // if((button.getAttribute('name') === button.getAttribute('data-conference')) && !divisionTeam) {
+  //   const conference = button.getAttribute('data-conference')
+  //   const radioButtons = document.querySelectorAll(`input[name="${conference}"]`);
+  //   const pointsInput = document.querySelector(`input[name="${conference}Points"]`)
+  //   radioButtons.forEach(radio => radio.checked = false);
+  //   pointsInput.value = '';
+  // }
 
-  const pointsDisplay = document.querySelectorAll('.points');
-  pointsDisplay.forEach((pointDisplay, i) => {
-    if(pointDisplay.getAttribute('id') === button.getAttribute('name')) {
-      pointDisplay.classList.toggle('hiddenPoints');
-      if(`${teamName.split(" ").length}` > 1) {
-        pointDisplay.classList.toggle(`${teamName.split(" ")[0]}`);
-        pointDisplay.classList.toggle(`${teamName.split(" ")[1]}`);
-      } else {
-        pointDisplay.classList.toggle(`${teamName}`);
-      };
-      pointDisplay.innerHTML = `Worth ${button.getAttribute('data-points')} Point(s)`;
-      champNum = ((i+1) % 3);
+  // const pointsDisplay = document.querySelectorAll('.points');
+  // pointsDisplay.forEach((pointDisplay, i) => {
+  //   if(pointDisplay.getAttribute('id') === button.getAttribute('name')) {
+  //     pointDisplay.classList.toggle('hiddenPoints');
+  //     if(`${teamName.split(" ").length}` > 1) {
+  //       pointDisplay.classList.toggle(`${teamName.split(" ")[0]}`);
+  //       pointDisplay.classList.toggle(`${teamName.split(" ")[1]}`);
+  //     } else {
+  //       pointDisplay.classList.toggle(`${teamName}`);
+  //     };
+  //     pointDisplay.innerHTML = `Worth ${button.getAttribute('data-points')} Point(s)`;
+  //     champNum = ((i+1) % 3);
 
-      if(!divisionTeam) {
-        pointDisplay.classList = 'points hiddenPoints';
-      }
-    }
-  });
+  //     if(!divisionTeam) {
+  //       pointDisplay.classList = 'points hiddenPoints';
+  //     }
+  //   }
+  // });
 }
 
 buttons.forEach(button => button.addEventListener('mousedown', function(e) {
-  // e.preventDefault;
+  e.preventDefault;
   const teamName = this.getAttribute('value');
   selectWinner(this);
 
   // Championship Games
-  const championshipTeams = document.querySelectorAll(`.${this.getAttribute('data-conference')}`);
-  if(champNum !== 0) {
-    const divisionLabel = (championshipTeams[(champNum-1)*2]);
-    const divisionInput = (championshipTeams[(champNum-1)*2+1]);
-    divisionLabel.innerHTML = `<p>${teamName}</p>`;
-    divisionLabel.setAttribute('value', `${teamName}`);
-    divisionLabel.setAttribute('data-points', `${this.getAttribute('data-points')*2}`);
-    if(`${teamName.split(" ").length}` > 1) {
-      divisionLabel.classList.toggle(`${teamName.split(" ")[0]}`);
-      divisionLabel.classList.toggle(`${teamName.split(" ")[1]}`);
-    } else {
-      divisionLabel.classList.toggle(`${teamName}`);
-    };
-    divisionLabel.classList.remove('active');
-    divisionInput.value = `${teamName}`;
-    selectWinner(divisionLabel, false); 
-  }
+  // const championshipTeams = document.querySelectorAll(`.${this.getAttribute('data-conference')}`);
+  // if(champNum !== 0) {
+  //   const divisionLabel = (championshipTeams[(champNum-1)*2]);
+  //   const divisionInput = (championshipTeams[(champNum-1)*2+1]);
+  //   divisionLabel.innerHTML = `<p>${teamName}</p>`;
+  //   divisionLabel.setAttribute('value', `${teamName}`);
+  //   divisionLabel.setAttribute('data-points', `${this.getAttribute('data-points')*2}`);
+  //   if(`${teamName.split(" ").length}` > 1) {
+  //     divisionLabel.classList.toggle(`${teamName.split(" ")[0]}`);
+  //     divisionLabel.classList.toggle(`${teamName.split(" ")[1]}`);
+  //   } else {
+  //     divisionLabel.classList.toggle(`${teamName}`);
+  //   };
+  //   divisionLabel.classList.remove('active');
+  //   divisionInput.value = `${teamName}`;
+  //   selectWinner(divisionLabel, false); 
+  // }
 }));
 
 // Big 12 Games
