@@ -43,7 +43,9 @@ function selectWinner(button) {
   //     champTeams[pointIndex*2].classList = `col-lg-3 btn btn-lg ${teamName} team`
   //   }
   // } 
+  alert('here');
   if(selected) {
+    alert('now here');
     button.classList.add('active');
     // button.classList.remove('hidden');
     pointInput.value = `${button.getAttribute('data-points')}`;
