@@ -36,13 +36,13 @@ function selectWinner(button) {
   const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
   
   const champTeams = document.getElementsByName(`${conference}`);
-  if(selected && divisionTeam) {
-    if(`${teamName.split(" ").length}` > 1) {
-      champTeams[pointIndex*2].classList = `col-lg-3 btn btn-lg ${teamName.split(" ")[0]} ${teamName.split(" ")[1]} team`;
-    } else {
-      champTeams[pointIndex*2].classList = `col-lg-3 btn btn-lg ${teamName} team`
-    }
-  } 
+  // if(selected && divisionTeam) {
+  //   if(`${teamName.split(" ").length}` > 1) {
+  //     champTeams[pointIndex*2].classList = `col-lg-3 btn btn-lg ${teamName.split(" ")[0]} ${teamName.split(" ")[1]} team`;
+  //   } else {
+  //     champTeams[pointIndex*2].classList = `col-lg-3 btn btn-lg ${teamName} team`
+  //   }
+  // } 
   if(selected) {
     button.classList.add('active');
     // button.classList.remove('hidden');
@@ -56,7 +56,7 @@ function selectWinner(button) {
     };
     pointDisplay.innerHTML = `Worth ${button.getAttribute('data-points')} Point(s)`;
   } else {
-    button.classList.add('active');
+    button.classList.remove('active');
     pointInput.value = '';
     teamRadio.checked = false;
     pointDisplay.innerHTML = `Worth X Point(s)`;
