@@ -120,7 +120,8 @@ buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   const teamRadio = document.querySelector(`input[value="${teamName}"][name="${division}"]`);
   const pointDisplay = document.querySelector(`#${division}`);
   const points = this.getAttribute('data-points');
-  const pointInput = document.querySelector(`input[name=${this.getAttribute('for')}Points`);
+  const divisionPoints = `${division}Points`;
+  const pointInput = document.querySelector(`${divisionPoints}`);
   
   this.classList.contains('active') ? selected = false : selected = true;
   matchUp.forEach(team => {
