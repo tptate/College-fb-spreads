@@ -19,6 +19,9 @@ mixin playoffCard(teams, division)
       input.hide(type="text" name=`ChampTeam2` data-name=`${division}`)
       input.hide(type="Number" name=`ChampTeam1Points` data-name=`${division}Points`)
       input.hide(type="Number" name=`ChampTeam2Points` data-name=`${division}Points`)
+    else if division === 'ChampTeam'
+      input.hide(type="text" name=`Champs` data-name=`${division}`)
+      input.hide(type="Number" name=`ChampsPoints` data-name=`${division}Points`)
   if division === 'Top25'
     p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
     p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
@@ -27,3 +30,6 @@ mixin playoffCard(teams, division)
   else if division === 'Playoff'
     p.points.hiddenPoints(class=`${division}` name='PlayoffDisplay') Worth X Points
     p.points.hiddenPoints(class=`${division}` name='PlayoffDisplay') Worth X Points
+  else if division === 'ChampTeam'
+    p.points.hiddenPoints(class=`${division}` name='ChampTeamDisplay') Worth X Points
+    

@@ -222,6 +222,19 @@ b12ChampButtons.forEach((button, i) => button.addEventListener('click', function
 
 
 // Playoff Games
+function deselectPlayoffTeam(nextLevel) {
+  const matchUp = document.getElementsByName(`${nextLevel}`);
+  const nextLevelDisplay = `${nextLevel}Display`;
+  const pointsDisplay = document.getElementsByName(`${nextLevelDisplay}`);
+  const nextLevelPoints = `${nextLevel}Points`
+  const nextLevelInputs = document.querySelectorAll(`input[data-name="${nextLevel}"]`);
+  const nextLevelPointInputs = document.querySelectorAll(`input[data-name="${nextLevelPoints}"]`);
+  matchUp.forEach(team => team.classList = `btn btn-lg ${team.getAttribute('value')} Playoff`);
+  pointsDisplay.forEach(display => display.classList = 'points hiddenPoints');
+  nextLevelInputs.forEach(input => input.setAttribute('value', ''));
+  nextLevelPointInputs.forEach(input => input.setAttribute('value', ''));
+}
+
 function selectPlayoffTeam(button, division, maxTeams, nextLevel) {
   const teamName = button.getAttribute('value');
   const points = button.getAttribute('data-points');
@@ -243,14 +256,15 @@ function selectPlayoffTeam(button, division, maxTeams, nextLevel) {
     if(numTeams > (maxTeams-1)) {
       matchUp.forEach(team => !team.classList.contains('active') ? team.classList.add('hidden') : '');
     }
-    nextButtons[numTeams-1].innerHTML = `<p>${points*2} - ${teamName}</p>`;
-    nextButtons[numTeams-1].classList = `btn btn-lg ${teamName} ${nextLevel}`;
-    nextButtons[numTeams-1].setAttribute('value', `${teamName}`);
-    nextButtons[numTeams-1].setAttribute('data-points', `${points*2}`);
+    nextLevel ? nextButtons[numTeams-1].innerHTML = `<p>${points*2} - ${teamName}</p>` : '';
+    nextLevel ? nextButtons[numTeams-1].classList = `btn btn-lg ${teamName} ${nextLevel}` : '';
+    nextLevel ? nextButtons[numTeams-1].setAttribute('value', `${teamName}`) : '';
+    nextLevel ? nextButtons[numTeams-1].setAttribute('data-points', `${points*2}`) : '';
     pointsDisplay[numTeams-1].innerHTML = `<p>${teamName} is worth ${points} point(s)</p>`;
     pointsDisplay[numTeams-1].classList = `points ${teamName}`;
   } else {
-    // numTeams--;
+    nextLevel ? deselectPlayoffTeam(nextLevel) : '';
+    nextLevel==='Playoff' ? deselectPlayoffTeam('ChampTeam') : '';
     let oldTeam = '';
     let oldValue = '';
     let newTeam = '';
@@ -260,10 +274,10 @@ function selectPlayoffTeam(button, division, maxTeams, nextLevel) {
       if(button.getAttribute('value') === team.getAttribute('value')){
         team.setAttribute('value', oldTeam);
         divisionPointInputs[(maxTeams-1) - i].setAttribute('value', oldValue);
-        nextButtons[(maxTeams-1)-i].innerHTML=`<p>${oldValue*2 || '0'} - ${oldTeam || 'Team'}</p>`;
-        nextButtons[(maxTeams-1)-i].classList = `btn btn-lg ${oldTeam || 'Team'} playoff`;
-        nextButtons[(maxTeams-1)-i].setAttribute('value', `${oldTeam || ''}`);
-        nextButtons[(maxTeams-1)-i].setAttribute('data-points', `${oldValue*2 || 0}`);
+        nextLevel ? nextButtons[(maxTeams-1)-i].innerHTML=`<p>${oldValue*2 || '0'} - ${oldTeam || 'Team'}</p>` : '';
+        nextLevel ? nextButtons[(maxTeams-1)-i].classList = `btn btn-lg ${oldTeam || 'Team'} playoff` : '';
+        nextLevel ? nextButtons[(maxTeams-1)-i].setAttribute('value', `${oldTeam || ''}`) : '';
+        nextLevel ? nextButtons[(maxTeams-1)-i].setAttribute('data-points', `${oldValue*2 || 0}`) : '';
         pointsDisplay[(maxTeams-1)-i].innerHTML = `<p>${oldTeam} is worth ${oldValue} point(s)</p>`;
         pointsDisplay[(maxTeams-1)-i].classList = `points ${oldTeam || 'hiddenPoints'}`;
         foundTeam = true;
@@ -272,10 +286,10 @@ function selectPlayoffTeam(button, division, maxTeams, nextLevel) {
         newValue = divisionPointInputs[(maxTeams-1) - i].getAttribute('value') || '';
         team.setAttribute('value', oldTeam);
         divisionPointInputs[(maxTeams-1) - i].setAttribute('value', oldValue);
-        nextButtons[(maxTeams-1)-i].innerHTML=`<p>${oldValue*2 || '0'} - ${oldTeam || 'Team'}</p>`
-        nextButtons[(maxTeams-1)-i].classList = `btn btn-lg ${oldTeam} playoff`;
-        nextButtons[(maxTeams-1)-i].setAttribute('value', `${oldTeam || ''}`);
-        nextButtons[(maxTeams-1)-i].setAttribute('data-points', `${oldValue*2 || 0}`);
+        nextLevel ? nextButtons[(maxTeams-1)-i].innerHTML=`<p>${oldValue*2 || '0'} - ${oldTeam || 'Team'}</p>` : '';
+        nextLevel ? nextButtons[(maxTeams-1)-i].classList = `btn btn-lg ${oldTeam} playoff` : '';
+        nextLevel ? nextButtons[(maxTeams-1)-i].setAttribute('value', `${oldTeam || ''}`) : '';
+        nextLevel ? nextButtons[(maxTeams-1)-i].setAttribute('data-points', `${oldValue*2 || 0}`) : '';
         pointsDisplay[(maxTeams-1)-i].innerHTML = `<p>${oldTeam} is worth ${oldValue} point(s)</p>`;
         pointsDisplay[(maxTeams-1)-i].classList = `points ${oldTeam || 'hiddenPoints'}`;
         oldTeam = newTeam;
@@ -301,11 +315,13 @@ const playoffButtons = document.getElementsByName('Playoff');
 playoffButtons.forEach(playoff => playoff.addEventListener('mousedown', function() {
   const division = this.getAttribute('name');
   const maxTeams = 2;
-  const nextLevel = 'Championship'
+  const nextLevel = 'ChampTeam'
   selectPlayoffTeam(this, division, maxTeams, nextLevel);
 }));
 
-const championshipButtons = document.getElementsByName('Championship');
+const championshipButtons = document.getElementsByName('ChampTeam');
 championshipButtons.forEach(champTeam => champTeam.addEventListener('mousedown', function() {
-  console.log(this);
+  const division = this.getAttribute('name');
+  const maxTeams = 1;
+  selectPlayoffTeam(this, division, maxTeams);
 }))
