@@ -40,19 +40,19 @@ exports.getPreseason = async (req, res) => {
 };
 
 exports.addPreseason = async (req, res) => {
-  // res.json(req.body);
   req.body = checkSelections(req.body);
   req.body.week = req.params.id;
   req.body.author = req.user._id;
-  const newPreseason = new Preseason(req.body);
-  await newPreseason.save();
-  req.flash('success', 'Preseason picks saved!');
-  res.redirect('back');
+  res.json(req.body);
+  // const newPreseason = new Preseason(req.body);
+  // await newPreseason.save();
+  // req.flash('success', 'Preseason picks saved!');
+  // res.redirect('back');
 };
 
 const confirmOwner = (preseason, user) => {
   if (!preseason.author.equals(user._id)) {
-    throw Error('You must own a store in order to edit it!');
+    throw Error('You must own the picks in order to edit!');
   }
 };
 

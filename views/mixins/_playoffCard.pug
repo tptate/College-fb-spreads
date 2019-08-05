@@ -1,0 +1,21 @@
+mixin playoffCard(teams, division)
+  .row
+    each team in teams
+      .col-md-3.col-6
+        label(class=`btn btn-lg ${team[1]} playoff` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
+          p= `${team[0]} - ${team[1]}`
+        //- input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
+    if division === 'Top25'
+      input.hide(type="text" name=`Playoff1` data-name=`${division}`)
+      input.hide(type="text" name=`Playoff2` data-name=`${division}`)
+      input.hide(type="text" name=`Playoff3` data-name=`${division}`)
+      input.hide(type="text" name=`Playoff4` data-name=`${division}`)
+      input.hide(type="Number" name=`Playoff1Points` data-name=`${division}Points`)
+      input.hide(type="Number" name=`Playoff2Points` data-name=`${division}Points`)
+      input.hide(type="Number" name=`Playoff3Points` data-name=`${division}Points`)
+      input.hide(type="Number" name=`Playoff4Points` data-name=`${division}Points`)
+  if division==='Top25'
+    p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
+    p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
+    p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
+    p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points

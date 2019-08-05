@@ -219,3 +219,67 @@ b12ChampButtons.forEach((button, i) => button.addEventListener('click', function
     });
   }
 }));
+
+
+// Playoff Games
+let playoffNumTeams = 0;
+const top25Buttons = document.getElementsByName('Top25');
+
+
+top25Buttons.forEach((top25, i) => top25.addEventListener('mousedown', function() {
+  const teamName = this.getAttribute('value');
+  const points = this.getAttribute('data-points');
+  const matchUp = document.getElementsByName('Top25');
+  const top25Inputs = document.querySelectorAll(`input[data-name="Top25"]`);
+  const top25PointInputs = document.querySelectorAll(`input[data-name="Top25Points"]`);
+  this.classList.toggle('active');
+  this.classList.contains('active') ? selected = true : selected = false;
+  const playoffButtons = document.getElementsByName('Playoff');
+  const pointsDisplay = document.getElementsByName('Top25Display');
+
+  if (selected) {
+    playoffNumTeams++;
+    top25Inputs[playoffNumTeams-1].setAttribute('value', `${teamName}`);
+    top25PointInputs[playoffNumTeams-1].setAttribute('value', `${points}`);    
+    if(playoffNumTeams > 3) {
+      matchUp.forEach(team => !team.classList.contains('active') ? team.classList.add('hidden') : '');
+    }
+    playoffButtons[playoffNumTeams-1].innerHTML = `<p>${points*2} - ${teamName}</p>`;
+    playoffButtons[playoffNumTeams-1].classList = `btn btn-lg ${teamName} playoff`;
+    pointsDisplay[playoffNumTeams-1].innerHTML = `<p>${teamName} is worth ${points} point(s)</p>`;
+    pointsDisplay[playoffNumTeams-1].classList = `points ${teamName}`;
+  } else {
+    playoffNumTeams--;
+    let oldTeam = '';
+    let oldValue = '';
+    let newTeam = '';
+    let newValue = '';
+    let foundTeam = false;
+    Array.from(top25Inputs).slice().reverse().forEach((team, i) => {
+      if(this.getAttribute('value') === team.getAttribute('value')){
+        team.setAttribute('value', oldTeam);
+        top25PointInputs[3 - i].setAttribute('value', oldValue);
+        playoffButtons[3-i].innerHTML=`<p>${oldValue*2 || '0'} - ${oldTeam || 'Team'}</p>`;
+        playoffButtons[3-i].classList = `btn btn-lg ${oldTeam || 'Team'} playoff`;
+        pointsDisplay[3-i].innerHTML = `<p>${oldTeam} is worth ${oldValue} point(s)</p>`;
+        pointsDisplay[3-i].classList = `points ${oldTeam || 'hiddenPoints'}`;
+        foundTeam = true;
+      } else if (!foundTeam) {
+        newTeam = team.getAttribute('value') || '';
+        newValue = top25PointInputs[3 - i].getAttribute('value') || '';
+        team.setAttribute('value', oldTeam);
+        top25PointInputs[3 - i].setAttribute('value', oldValue);
+        playoffButtons[3-i].innerHTML=`<p>${oldValue*2 || '0'} - ${oldTeam || 'Team'}</p>`
+        playoffButtons[3-i].classList = `btn btn-lg ${oldTeam} playoff`;
+        pointsDisplay[3-i].innerHTML = `<p>${oldTeam} is worth ${oldValue} point(s)</p>`;
+        pointsDisplay[3-i].classList = `points ${oldTeam || 'hiddenPoints'}`;
+        oldTeam = newTeam;
+        oldValue = newValue;
+      }
+    });
+
+    if(playoffNumTeams < 4) {
+      matchUp.forEach(team => !team.classList.contains('active') ? team.classList.remove('hidden') : '');
+    }
+  }
+}))

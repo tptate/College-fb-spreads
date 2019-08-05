@@ -122,6 +122,62 @@ const preseasonSchema = new mongoose.Schema({
     type: Number,
     ref: 'Big12Points'
   },
+  Playoff1: {
+    type: String,
+    ref: 'Playoff1',
+  },
+  Playoff1Points: {
+    type: Number,
+    ref: 'Playoff1Points'
+  },
+  Playoff2: {
+    type: String,
+    ref: 'Playoff2',
+  },
+  Playoff2Points: {
+    type: Number,
+    ref: 'Playoff2Points'
+  },
+  Playoff3: {
+    type: String,
+    ref: 'Playoff3',
+  },
+  Playoff3Points: {
+    type: Number,
+    ref: 'Playoff3Points'
+  },
+  Playoff4: {
+    type: String,
+    ref: 'Playoff4',
+  },
+  Playoff4Points: {
+    type: Number,
+    ref: 'Playoff4Points'
+  },
+  ChampTeam1: {
+    type: String,
+    ref: 'ChampTeam1',
+  },
+  ChampTeam1Points: {
+    type: Number,
+    ref: 'ChampTeam1Points'
+  },
+  ChampTeam2: {
+    type: String,
+    ref: 'ChampTeam2',
+  },
+  ChampTeam2Points: {
+    type: Number,
+    ref: 'ChampTeam2Points'
+  },
+  Champs: {
+    type: String,
+    ref: 'Champs',
+  },
+  ChampsPoints: {
+    type: Number,
+    ref: 'ChampsPoints'
+  },
   author: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
