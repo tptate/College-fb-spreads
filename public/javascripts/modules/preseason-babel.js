@@ -93,17 +93,17 @@ function selectWinner(button) {
   }
 }
 
-function selectTeam(button, teamName, division, conference, teamRadio) {
+function selectTeam(button, teamName, division, conference, teamRadio, pointDisplay) {
   button.classList.toggle('active');
   teamRadio.checked ? teamRadio.checked = false : teamRadio.checked = true;
-  // pointDisplay.classList.toggle('hiddenPoints');
+  pointDisplay.classList.toggle('hiddenPoints');
   // pointDisplay.innerHTML = `<p>Worth ${points} Point(s)</p>`;
-  // if(`${teamName.split(" ").length}` > 1) {
-  //   pointDisplay.classList.toggle(`${teamName.split(" ")[0]}`);
-  //   pointDisplay.classList.toggle(`${teamName.split(" ")[1]}`);
-  // } else {
-  //   pointDisplay.classList.toggle(`${teamName}`);
-  // };
+  if(`${teamName.split(" ").length}` > 1) {
+    pointDisplay.classList.toggle(`${teamName.split(" ")[0]}`);
+    pointDisplay.classList.toggle(`${teamName.split(" ")[1]}`);
+  } else {
+    pointDisplay.classList.toggle(`${teamName}`);
+  };
   // button.classList.contains('active') ? pointInput.setAttribute('value', `${points}`) : pointInput.setAttribute('value', '');
 }
 
@@ -118,13 +118,13 @@ buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   const division = button.getAttribute('name');
   const conference = this.getAttribute('data-conference');
   const teamRadio = document.querySelector(`input[value="${teamName}"][name="${division}"]`);
-  // const pointDisplay = document.querySelector(`#${division}`);
+  const pointDisplay = document.querySelector(`#${division}`);
   // const points = this.getAttribute('data-points');
   // const pointInput = document.querySelector(`input[name=${this.getAttribute('for')}Points`);
   
   this.classList.contains('active') ? selected = false : selected = true;
   matchUp.forEach(team => {
-    team === this ? selectTeam(this, teamName, division, conference, teamRadio) : hideTeam(team);
+    team === this ? selectTeam(this, teamName, division, conference, teamRadio, pointDisplay) : hideTeam(team);
   });
 
   // const division = this.getAttribute('for');
