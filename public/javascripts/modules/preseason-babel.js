@@ -105,6 +105,35 @@ function selectTeam(button, teamName, division, conference, teamRadio, pointDisp
     pointDisplay.classList.toggle(`${teamName}`);
   };
   button.classList.contains('active') ? pointInput.setAttribute('value', `${points}`) : pointInput.setAttribute('value', '');
+
+  if(division !== conference) {
+    //division team
+    const pointDisplays = document.querySelectorAll('input[type="number"]');
+    let pointIndex;
+    pointDisplays.forEach((point, i) => {
+      if(point.name === `${pointDisplay.id}Points`) {
+        pointIndex = i % 3;
+      }
+    });
+    const champTeams = document.getElementsByName(`${conference}`);
+    if(button.classList.contains('active')) {
+      if(`${teamName.split(" ").length}` > 1) {
+        champTeams[pointIndex*2].classList = `col-lg-3 btn btn-lg ${teamName.split(" ")[0]} ${teamName.split(" ")[1]} team`;
+      } else {
+        champTeams[pointIndex*2].classList = `col-lg-3 btn btn-lg ${teamName} team`;
+      }
+      champTeams[pointIndex*2].innerHTML = `<p>${teamName}</p>`;
+      champTeams[pointIndex*2].setAttribute('value', teamName);
+      champTeams[pointIndex*2+1].setAttribute('value', teamName);
+      champTeams[pointIndex*2].setAttribute('data-points', `${points *2}`);
+    } else {
+      champTeams[pointIndex*2].classList = `col-lg-3 btn btn-lg team`;
+      champTeams[pointIndex*2].innerHTML = `<p>ACC Team</p>`;
+      champTeams[pointIndex*2].setAttribute('value', 'ACC Team');
+      champTeams[pointIndex*2+1].setAttribute('value', 'ACC Team');
+      champTeams[pointIndex*2].setAttribute('data-points', '0');
+    }
+  }
 }
 
 function hideTeam(button) {
