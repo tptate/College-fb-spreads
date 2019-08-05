@@ -104,7 +104,7 @@ function selectTeam(button, teamName, division, conference, teamRadio, pointDisp
   } else {
     pointDisplay.classList.toggle(`${teamName}`);
   };
-  // button.classList.contains('active') ? pointInput.setAttribute('value', `${points}`) : pointInput.setAttribute('value', '0');
+  // button.classList.contains('active') ? pointInput.setAttribute('value', `${points}`) : pointInput.setAttribute('value', '');
 }
 
 function hideTeam(button) {
@@ -121,7 +121,7 @@ buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   const pointDisplay = document.querySelector(`#${division}`);
   const points = this.getAttribute('data-points');
   const divisionPoints = `${division}Points`;
-  const pointInput = document.querySelector(`${divisionPoints}`);
+  const pointInput = document.querySelector(`input[name="${divisionPoints}"]`);
   
   this.classList.contains('active') ? selected = false : selected = true;
   matchUp.forEach(team => {
