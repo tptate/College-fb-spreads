@@ -146,7 +146,7 @@ function selectTeam(button, teamName, division, conference, teamRadio, pointDisp
       const champPointInput = document.querySelector(`input[name="${conferencePoints}"]`)
       champPointDisplay.innerHTML = `<p>Worth X Points</p>`;
       champPointDisplay.classList = 'points hiddenPoints';
-      champPointInput.value = ''; 
+      champPointInput.setAttribute('value', '');
     }
   }
 }
