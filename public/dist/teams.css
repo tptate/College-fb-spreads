@@ -628,3 +628,13 @@
   background-color: #002855;
   color: #EAAA00;
 }
+
+/* -------------Group of 5--------------- */
+.UCF {
+  color: #FFC904;
+}
+
+.UCF.active {
+  background-color: #FFC904;
+  color: black;
+}

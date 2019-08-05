@@ -222,64 +222,90 @@ b12ChampButtons.forEach((button, i) => button.addEventListener('click', function
 
 
 // Playoff Games
-let playoffNumTeams = 0;
-const top25Buttons = document.getElementsByName('Top25');
-
-
-top25Buttons.forEach((top25, i) => top25.addEventListener('mousedown', function() {
-  const teamName = this.getAttribute('value');
-  const points = this.getAttribute('data-points');
-  const matchUp = document.getElementsByName('Top25');
-  const top25Inputs = document.querySelectorAll(`input[data-name="Top25"]`);
-  const top25PointInputs = document.querySelectorAll(`input[data-name="Top25Points"]`);
-  this.classList.toggle('active');
-  this.classList.contains('active') ? selected = true : selected = false;
-  const playoffButtons = document.getElementsByName('Playoff');
-  const pointsDisplay = document.getElementsByName('Top25Display');
+function selectPlayoffTeam(button, division, maxTeams, nextLevel) {
+  const teamName = button.getAttribute('value');
+  const points = button.getAttribute('data-points');
+  const matchUp = document.getElementsByName(`${division}`);
+  const divisionPoints = `${division}Points`
+  const divisionInputs = document.querySelectorAll(`input[data-name="${division}"]`);
+  const divisionPointInputs = document.querySelectorAll(`input[data-name="${divisionPoints}"]`);
+  button.classList.toggle('active');
+  button.classList.contains('active') ? selected = true : selected = false;
+  const nextButtons = document.getElementsByName(`${nextLevel}`);
+  const divisionDisplay = `${division}Display`;
+  const pointsDisplay = document.getElementsByName(`${divisionDisplay}`);
+  let numTeams = 0;
+  matchUp.forEach(team => team.classList.contains('active') ? numTeams++ : '')
 
   if (selected) {
-    playoffNumTeams++;
-    top25Inputs[playoffNumTeams-1].setAttribute('value', `${teamName}`);
-    top25PointInputs[playoffNumTeams-1].setAttribute('value', `${points}`);    
-    if(playoffNumTeams > 3) {
+    divisionInputs[numTeams-1].setAttribute('value', `${teamName}`);
+    divisionPointInputs[numTeams-1].setAttribute('value', `${points}`);    
+    if(numTeams > (maxTeams-1)) {
       matchUp.forEach(team => !team.classList.contains('active') ? team.classList.add('hidden') : '');
     }
-    playoffButtons[playoffNumTeams-1].innerHTML = `<p>${points*2} - ${teamName}</p>`;
-    playoffButtons[playoffNumTeams-1].classList = `btn btn-lg ${teamName} playoff`;
-    pointsDisplay[playoffNumTeams-1].innerHTML = `<p>${teamName} is worth ${points} point(s)</p>`;
-    pointsDisplay[playoffNumTeams-1].classList = `points ${teamName}`;
+    nextButtons[numTeams-1].innerHTML = `<p>${points*2} - ${teamName}</p>`;
+    nextButtons[numTeams-1].classList = `btn btn-lg ${teamName} ${nextLevel}`;
+    nextButtons[numTeams-1].setAttribute('value', `${teamName}`);
+    nextButtons[numTeams-1].setAttribute('data-points', `${points*2}`);
+    pointsDisplay[numTeams-1].innerHTML = `<p>${teamName} is worth ${points} point(s)</p>`;
+    pointsDisplay[numTeams-1].classList = `points ${teamName}`;
   } else {
-    playoffNumTeams--;
+    // numTeams--;
     let oldTeam = '';
     let oldValue = '';
     let newTeam = '';
     let newValue = '';
     let foundTeam = false;
-    Array.from(top25Inputs).slice().reverse().forEach((team, i) => {
-      if(this.getAttribute('value') === team.getAttribute('value')){
+    Array.from(divisionInputs).slice().reverse().forEach((team, i) => {
+      if(button.getAttribute('value') === team.getAttribute('value')){
         team.setAttribute('value', oldTeam);
-        top25PointInputs[3 - i].setAttribute('value', oldValue);
-        playoffButtons[3-i].innerHTML=`<p>${oldValue*2 || '0'} - ${oldTeam || 'Team'}</p>`;
-        playoffButtons[3-i].classList = `btn btn-lg ${oldTeam || 'Team'} playoff`;
-        pointsDisplay[3-i].innerHTML = `<p>${oldTeam} is worth ${oldValue} point(s)</p>`;
-        pointsDisplay[3-i].classList = `points ${oldTeam || 'hiddenPoints'}`;
+        divisionPointInputs[(maxTeams-1) - i].setAttribute('value', oldValue);
+        nextButtons[(maxTeams-1)-i].innerHTML=`<p>${oldValue*2 || '0'} - ${oldTeam || 'Team'}</p>`;
+        nextButtons[(maxTeams-1)-i].classList = `btn btn-lg ${oldTeam || 'Team'} playoff`;
+        nextButtons[(maxTeams-1)-i].setAttribute('value', `${oldTeam || ''}`);
+        nextButtons[(maxTeams-1)-i].setAttribute('data-points', `${oldValue*2 || 0}`);
+        pointsDisplay[(maxTeams-1)-i].innerHTML = `<p>${oldTeam} is worth ${oldValue} point(s)</p>`;
+        pointsDisplay[(maxTeams-1)-i].classList = `points ${oldTeam || 'hiddenPoints'}`;
         foundTeam = true;
       } else if (!foundTeam) {
         newTeam = team.getAttribute('value') || '';
-        newValue = top25PointInputs[3 - i].getAttribute('value') || '';
+        newValue = divisionPointInputs[(maxTeams-1) - i].getAttribute('value') || '';
         team.setAttribute('value', oldTeam);
-        top25PointInputs[3 - i].setAttribute('value', oldValue);
-        playoffButtons[3-i].innerHTML=`<p>${oldValue*2 || '0'} - ${oldTeam || 'Team'}</p>`
-        playoffButtons[3-i].classList = `btn btn-lg ${oldTeam} playoff`;
-        pointsDisplay[3-i].innerHTML = `<p>${oldTeam} is worth ${oldValue} point(s)</p>`;
-        pointsDisplay[3-i].classList = `points ${oldTeam || 'hiddenPoints'}`;
+        divisionPointInputs[(maxTeams-1) - i].setAttribute('value', oldValue);
+        nextButtons[(maxTeams-1)-i].innerHTML=`<p>${oldValue*2 || '0'} - ${oldTeam || 'Team'}</p>`
+        nextButtons[(maxTeams-1)-i].classList = `btn btn-lg ${oldTeam} playoff`;
+        nextButtons[(maxTeams-1)-i].setAttribute('value', `${oldTeam || ''}`);
+        nextButtons[(maxTeams-1)-i].setAttribute('data-points', `${oldValue*2 || 0}`);
+        pointsDisplay[(maxTeams-1)-i].innerHTML = `<p>${oldTeam} is worth ${oldValue} point(s)</p>`;
+        pointsDisplay[(maxTeams-1)-i].classList = `points ${oldTeam || 'hiddenPoints'}`;
         oldTeam = newTeam;
         oldValue = newValue;
       }
     });
 
-    if(playoffNumTeams < 4) {
+    if(numTeams < maxTeams) {
       matchUp.forEach(team => !team.classList.contains('active') ? team.classList.remove('hidden') : '');
     }
   }
+}
+
+const top25Buttons = document.getElementsByName('Top25');
+top25Buttons.forEach(top25 => top25.addEventListener('mousedown', function() {
+  const division = this.getAttribute('name');
+  const maxTeams = 4;
+  const nextLevel = 'Playoff';
+  selectPlayoffTeam(this, division, maxTeams, nextLevel);
+}));
+
+const playoffButtons = document.getElementsByName('Playoff');
+playoffButtons.forEach(playoff => playoff.addEventListener('mousedown', function() {
+  const division = this.getAttribute('name');
+  const maxTeams = 2;
+  const nextLevel = 'Championship'
+  selectPlayoffTeam(this, division, maxTeams, nextLevel);
+}));
+
+const championshipButtons = document.getElementsByName('Championship');
+championshipButtons.forEach(champTeam => champTeam.addEventListener('mousedown', function() {
+  console.log(this);
 }))
