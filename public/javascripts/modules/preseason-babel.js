@@ -124,7 +124,7 @@ buttons.forEach(button => button.addEventListener('mousedown', function(e) {
   
   this.classList.contains('active') ? selected = false : selected = true;
   matchUp.forEach(team => {
-    team === this ? selectTeam(this, teamName, division, conference) : hideTeam(team, division, teamRadio);
+    team === this ? selectTeam(this, teamName, division, conference) : hideTeam(team);
   });
 
   // const division = this.getAttribute('for');
