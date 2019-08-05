@@ -96,15 +96,15 @@ function selectWinner(button) {
 function selectTeam(button, teamName, division, teamRadio, pointDisplay, points, pointInput) {
   button.classList.toggle('active');
   teamRadio.checked ? teamRadio.checked = false : teamRadio.checked = true;
-  pointDisplay.classList.toggle('hiddenPoints');
-  pointDisplay.innerHTML = `<p>Worth ${points} Point(s)</p>`;
-  if(`${teamName.split(" ").length}` > 1) {
-    pointDisplay.classList.toggle(`${teamName.split(" ")[0]}`);
-    pointDisplay.classList.toggle(`${teamName.split(" ")[1]}`);
-  } else {
-    pointDisplay.classList.toggle(`${teamName}`);
-  };
-  button.classList.contains('active') ? pointInput.setAttribute('value', `${points}`) : pointInput.setAttribute('value', '');
+  // pointDisplay.classList.toggle('hiddenPoints');
+  // pointDisplay.innerHTML = `<p>Worth ${points} Point(s)</p>`;
+  // if(`${teamName.split(" ").length}` > 1) {
+  //   pointDisplay.classList.toggle(`${teamName.split(" ")[0]}`);
+  //   pointDisplay.classList.toggle(`${teamName.split(" ")[1]}`);
+  // } else {
+  //   pointDisplay.classList.toggle(`${teamName}`);
+  // };
+  // button.classList.contains('active') ? pointInput.setAttribute('value', `${points}`) : pointInput.setAttribute('value', '');
 }
 
 function hideTeam(button) {
