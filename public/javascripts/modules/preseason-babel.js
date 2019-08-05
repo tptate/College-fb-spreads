@@ -95,7 +95,7 @@ function selectWinner(button) {
 
 function selectTeam(button, teamName, division, teamRadio, pointDisplay, points, pointInput) {
   button.classList.toggle('active');
-  teamRadio.checked ? teamRadio.checked = false : teamRadio.checked = true;
+  // teamRadio.checked ? teamRadio.checked = false : teamRadio.checked = true;
   // pointDisplay.classList.toggle('hiddenPoints');
   // pointDisplay.innerHTML = `<p>Worth ${points} Point(s)</p>`;
   // if(`${teamName.split(" ").length}` > 1) {
