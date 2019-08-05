@@ -132,6 +132,21 @@ function selectTeam(button, teamName, division, conference, teamRadio, pointDisp
       champTeams[pointIndex*2].setAttribute('value', 'ACC Team');
       champTeams[pointIndex*2+1].setAttribute('value', 'ACC Team');
       champTeams[pointIndex*2].setAttribute('data-points', '0');
+      champTeams.forEach((champ,i) => {
+        if(i%2 === 0) {
+          champ.classList.remove('hidden');
+          champ.classList.remove('active');
+        } else {
+          champ.checked = false;
+        }
+      });
+      const conferenceId = `#${conference}`;
+      const champPointDisplay = document.querySelector(`${conferenceId}`);
+      const conferencePoints = `${conference}Points`;
+      const champPointInput = document.querySelector(`input[name="${conferencePoints}"]`)
+      champPointDisplay.innerHTML = `<p>Worth X Points</p>`;
+      champPointDisplay.classList = 'points hiddenPoints';
+      champPointInput.value = ''; 
     }
   }
 }
