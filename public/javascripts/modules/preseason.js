@@ -22,7 +22,8 @@ function selectWinner(button) {
   const teamRadio = document.querySelector(`input[value="${teamName}"][name="${division}"]`);
   button.classList.contains('active') ? selected = false : selected = true;
   matchUp.forEach(team => selected ? team.classList.add('hidden') : team.classList.remove('hidden'));
-  const pointInput = document.querySelector(`input[name=${button.getAttribute('for')}Points`);
+  const divisionPoints = `${division}Points`
+  const pointInput = document.querySelector(`input[name=${divisionPoints}`);
   
   const champTeams = document.getElementsByName(`${conference}`);
   if(selected && divisionTeam) {
