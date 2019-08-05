@@ -40,14 +40,14 @@ exports.getPreseason = async (req, res) => {
 };
 
 exports.addPreseason = async (req, res) => {
-  res.json(req.body);
+  // res.json(req.body);
   req.body = checkSelections(req.body);
   req.body.week = req.params.id;
   req.body.author = req.user._id;
-  // const newPreseason = new Preseason(req.body);
-  // await newPreseason.save();
-  // req.flash('success', 'Preseason picks saved!');
-  // res.redirect('back');
+  const newPreseason = new Preseason(req.body);
+  await newPreseason.save();
+  req.flash('success', 'Preseason picks saved!');
+  res.redirect('back');
 };
 
 const confirmOwner = (preseason, user) => {
