@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Week = mongoose.model('Week');
 const User = mongoose.model('User');
 const Preseason = mongoose.model('Preseason');
+const PreseasonWinner = mongoose.model('PreseasonWinner');
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
@@ -71,12 +72,68 @@ exports.updatePreseason = async (req, res) => {
   
   req.body = checkSelections(req.body);
 
+  const preseason = await Preseason.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    new: true, // return the new picks instead of the old ones
+    runValidators: true
+  }).exec();
+  req.flash('success', `Successfully updated picks for <strong>Preseason</strong>.`);
+  res.redirect(`/weeks/preseason`);
+};
+
+function comparePicks(reqBody, preseason, division) {
+  if (preseason[division] === reqBody[division]) {
+    return reqBody[`${division}Points`];
+  }
+  return 0
+}
+
+async function updateWinner(reqBody, preseason, user) {
+  let preseasonPoints = user.preseasonPoints;
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'ACCa'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'ACCc'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'ACC'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'SECe'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'SECw'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'SEC'));
+
+  return preseasonPoints;
+};
+
+exports.getWinnerPreseason = async (req, res) => {
+  // res.render('week', { title: `${week.name} games`, week, addOn: `/winner`, getWinner: true });
+  // const preseasons = await Preseason.find();
+  const preseasonWinner = await PreseasonWinner.find();
+  const preseason = preseasonWinner[0]._doc;
+  if(!preseasonWinner.length) {
+    res.render('preseason', { title: `Preseason Winner Picks `, preseason, getWinner: true});
+  } else {
+    res.render('preseason', { title: `Preseason Winner Picks `, preseason, getWinner: true, preseasonWinner});
+  }
+}
+
+exports.addWinnerPreseason = async (req, res) => {
+  req.body = checkSelections(req.body);
+  const preseasons = await Preseason.find();
+  preseasons.map(async preseason => {
+    const user = await User.findOne({ _id: preseason.author });
+    const preseasonPoints = await updateWinner(req.body, preseason, user);
+    await User.findOneAndUpdate({ _id: preseason.author }, { preseasonPoints }, {
+      new: true,
+      runValidators: true
+    }).exec();
+  });
   res.json(req.body);
 
-  // const preseason = await Preseason.findOneAndUpdate({ _id: req.params.id }, req.body, {
-  //   new: true, // return the new picks instead of the old ones
-  //   runValidators: true
-  // }).exec();
-  // req.flash('success', `Successfully updated picks for <strong>Preseason</strong>.`);
-  // res.redirect(`/weeks/preseason`);
-};
+  const preseasonWinner = await PreseasonWinner.find();
+  // if(preseasonWinner.length){
+  //   await PreseasonWinner.findOneAndReplace({ _id: preseasonWinner[0]._doc._id }, preseasonWinner , {
+  //     new: true,
+  //     runValidators: true
+  //   }).exec();
+  // } else {
+  //   const newPreseasonWinner = new PreseasonWinner(req.body);
+  //   await newPreseasonWinner.save();
+  // }
+  // req.flash('success', 'Picks saved!');
+  // res.redirect('back');
+}

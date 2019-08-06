@@ -2,7 +2,10 @@ mixin preseasonTableRow(divisionName, division)
   - const divisionPoints = `${division}Points`
   tr
     td= divisionName
-    td Enter winner if here
+    if preseasonWinner
+      td Enter winner if here***
+    else
+      td this will be blank
     each user in users
       if currentUser.equals(user._id)
         each preseason in preseasons

@@ -40,6 +40,11 @@ const userSchema = new Schema({
     ref: 'TotalLosses',
     default: 0
   },
+  preseasonPoints: {
+    type: Number,
+    ref: 'PreseasonPoints',
+    default: 0
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date
 });

@@ -16,7 +16,7 @@ router.get('/weeks/:slug/picks/:id/edit', catchErrors(gameController.editPicks))
 router.post('/weeks/:slug/picks/:id', catchErrors(gameController.updatePicks));
 router.get('/weeks/:slug', catchErrors(weekController.getWeekBySlug));
 router.get('/standings', catchErrors(weekController.getStandings));
-router.get('/weeks/preseason', catchErrors(preseasonController.getPreseason));
+router.get('/weeks/preseason', authController.isLoggedIn, catchErrors(preseasonController.getPreseason));
 router.post('/weeks/preseason', catchErrors(preseasonController.addPreseason));
 router.get('/weeks/preseason/:id/edit', catchErrors(preseasonController.editPreseason));
 router.post('/weeks/preseason/:id', catchErrors(preseasonController.updatePreseason));
@@ -31,10 +31,13 @@ router.get('/games/:id/edit', catchErrors(gameController.editGame));
 router.post('/games/:id', authController.isAdmin, catchErrors(gameController.updateGame));
 router.post('/weeks/:id', authController.isAdmin, catchErrors(gameController.addGame));
 router.get('/weeks/winner', authController.isAdmin, catchErrors(weekController.getWinnerWeeks));
+router.get('/weeks/winner/preseason', authController.isAdmin, catchErrors(preseasonController.getWinnerPreseason));
+router.post('/weeks/winner/preseason', authController.isAdmin, catchErrors(preseasonController.addWinnerPreseason));
 router.get('/weeks/winner/:slug', authController.isAdmin, catchErrors(gameController.getWinner));
 router.post('/weeks/winner/:id/picks', catchErrors(gameController.addWinnerPicks));
-router.get('/weeks/winner/:slug/edit', catchErrors(gameController.editWinnerPicks));
+router.get('/weeks/winner/:slug/edit', authController.isAdmin, catchErrors(gameController.editWinnerPicks));
 router.post('/weeks/winner/:slug/picks/:id', catchErrors(gameController.updateWinnerPicks));
+
 
 // User routes
 router.get('/login', userController.loginForm);

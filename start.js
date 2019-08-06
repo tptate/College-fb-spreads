@@ -18,6 +18,7 @@ require('./models/Game');
 require('./models/Pick');
 require('./models/Winner');
 require('./models/Preseason');
+require('./models/PreseasonWinner');
 require('./models/User');
 
 // Start our app!
