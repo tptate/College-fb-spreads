@@ -40,7 +40,6 @@ mixin playoffCard(teams, division)
         else
           label(class=`btn btn-lg ${team[1]} playoff` for=`${division}` name=`${division}` data-points=`${team[0]}` value=`${team[1]}`)
             p= `${team[0]} - ${team[1]}`
-        //- input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
     if division === 'Top25'
       if preseason
         input.hide(type="text" name=`Playoff1` data-name=`${division}` value=`${preseason.Playoff1 || ''}`)
@@ -79,13 +78,26 @@ mixin playoffCard(teams, division)
         input.hide(type="text" name=`Champs` data-name=`${division}`)
         input.hide(type="Number" name=`ChampsPoints` data-name=`${division}Points`)
   if division === 'Top25'
-    p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
-    p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
-    p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
-    p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
+    if preseason
+      p.points(class=`${division} ${preseason.Playoff1 || 'hiddenPoints'}` name='Top25Display')= `${preseason.Playoff1 || ''} is worth ${preseason.Playoff1Points || 'X'} Point(s)`
+      p.points(class=`${division} ${preseason.Playoff2 || 'hiddenPoints'}` name='Top25Display')= `${preseason.Playoff2 || ''} is worth ${preseason.Playoff2Points || 'X'} Point(s)`
+      p.points(class=`${division} ${preseason.Playoff3 || 'hiddenPoints'}` name='Top25Display')= `${preseason.Playoff3 || ''} is worth ${preseason.Playoff3Points || 'X'} Point(s)`
+      p.points(class=`${division} ${preseason.Playoff4 || 'hiddenPoints'}` name='Top25Display')= `${preseason.Playoff4 || ''} is worth ${preseason.Playoff4Points || 'X'} Point(s)`
+    else
+      p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
+      p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
+      p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
+      p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
   else if division === 'Playoff'
-    p.points.hiddenPoints(class=`${division}` name='PlayoffDisplay') Worth X Points
-    p.points.hiddenPoints(class=`${division}` name='PlayoffDisplay') Worth X Points
+    if preseason
+      p.points(class=`${division} ${preseason.ChampTeam1 || 'hiddenPoints'}` name='PlayoffDisplay')= `${preseason.ChampTeam1 || ''} is worth ${preseason.ChampTeam1Points || 'X'} Point(s)`
+      p.points(class=`${division} ${preseason.ChampTeam2 || 'hiddenPoints'}` name='PlayoffDisplay')= `${preseason.ChampTeam2 || ''} is worth ${preseason.ChampTeam2Points || 'X'} Point(s)`
+    else
+      p.points.hiddenPoints(class=`${division}` name='PlayoffDisplay') Worth X Points
+      p.points.hiddenPoints(class=`${division}` name='PlayoffDisplay') Worth X Points
   else if division === 'ChampTeam'
-    p.points.hiddenPoints(class=`${division}` name='ChampTeamDisplay') Worth X Points
+    if preseason
+      p.points(class=`${division} ${preseason.Champs || 'hiddenPoints'}` name='ChampTeamDisplay')= `${preseason.Champs || ''} is worth ${preseason.ChampsPoints || 'X'} Point(s)`
+    else
+      p.points.hiddenPoints(class=`${division}` name='ChampTeamDisplay') Worth X Points
     

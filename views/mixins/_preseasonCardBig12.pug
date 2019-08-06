@@ -72,7 +72,7 @@ mixin preseasonCardBig12(teams, division, conference)
             //- if team1 is champ game winner
             label.col-lg-3(class=`btn btn-lg ${preseason['Big12d1']} active teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason['Big12d1Points']*2}` value=`${preseason['Big12d1']}`)
               p= `${preseason['Big12d1']}`
-            input.hide(type='radio' name=`${division}` class=`${preseason['Big12d1']}` autocomplete='off' value=`${preseason['Big12d1']}`)
+            input.hide(type='radio' name=`${division}` class=`${preseason['Big12d1']}` autocomplete='off' value=`${preseason['Big12d1']}` checked)
 
             label.col-lg-3(class=`btn btn-lg ${preseason['Big12d2']} hidden teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason['Big12d2Points']*2}` value=`${preseason['Big12d2']}`)
               p= `${preseason['Big12d2']}`
@@ -88,7 +88,7 @@ mixin preseasonCardBig12(teams, division, conference)
 
             label.col-lg-3(class=`btn btn-lg ${preseason['Big12d2']} active teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason['Big12d2Points']*2}` value=`${preseason['Big12d2']}`)
               p= `${preseason['Big12d2']}`
-            input.hide(type='radio' name=`${division}` class=`${preseason['Big12d2']}` autocomplete='off' value=`${preseason['Big12d2']}`)
+            input.hide(type='radio' name=`${division}` class=`${preseason['Big12d2']}` autocomplete='off' value=`${preseason['Big12d2']}` checked)
 
             input.hide(type='number' name=`${division}Points` value=`${preseason['Big12d2Points']*2}`)
             p.points(id=`${division}` class=`${conference}`) #{preseason['Big12d2']} is Worth #{preseason['Big12d2Points']*2} Points
@@ -104,7 +104,7 @@ mixin preseasonCardBig12(teams, division, conference)
               p= `${preseason['Big12d2']}`
             input.hide(type='radio' name=`${division}` class=`${preseason['Big12d2']}` autocomplete='off' value=`${preseason['Big12d2']}`)
 
-            input(type='number' name=`${division}Points` value=``)
+            input.hide(type='number' name=`${division}Points` value=``)
             p.points.hiddenPoints(id=`${division}` class=`${conference}`) Worth X Points
 
           else if preseason['Big12d1']
@@ -143,6 +143,7 @@ mixin preseasonCardBig12(teams, division, conference)
         input.hidden(type='number' name=`${division}1Points`)
         input.hidden(type='number' name=`${division}2Points`)
       else
+        input.hidden(type='text' name=`${division}`)        
         input.hidden(type='number' name=`${division}Points`)
       if division==='Big12d'
         p.points.hiddenPoints(class=`${division}`) Worth X Points

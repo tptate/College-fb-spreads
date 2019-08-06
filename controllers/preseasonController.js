@@ -71,10 +71,12 @@ exports.updatePreseason = async (req, res) => {
   
   req.body = checkSelections(req.body);
 
-  const preseason = await Preseason.findOneAndUpdate({ _id: req.params.id }, req.body, {
-    new: true, // return the new picks instead of the old ones
-    runValidators: true
-  }).exec();
-  req.flash('success', `Successfully updated picks for <strong>Preseason</strong>.`);
-  res.redirect(`/weeks/preseason`);
+  res.json(req.body);
+
+  // const preseason = await Preseason.findOneAndUpdate({ _id: req.params.id }, req.body, {
+  //   new: true, // return the new picks instead of the old ones
+  //   runValidators: true
+  // }).exec();
+  // req.flash('success', `Successfully updated picks for <strong>Preseason</strong>.`);
+  // res.redirect(`/weeks/preseason`);
 };
