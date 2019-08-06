@@ -1,27 +1,83 @@
 mixin playoffCard(teams, division)
   .row
-    each team in teams
+    each team, i in teams
       .col-md-3.col-6
-        label(class=`btn btn-lg ${team[1]} playoff` for=`${division}` name=`${division}` data-points=`${team[0]}` value=`${team[1]}`)
-          p= `${team[0]} - ${team[1]}`
+        if preseason
+          if division === 'Top25'
+            if team[1] === preseason.Playoff1 || team[1] === preseason.Playoff2 || team[1] === preseason.Playoff3 || team[1] === preseason.Playoff4
+              label(class=`btn btn-lg ${team[1]} active playoff` for=`${division}` name=`${division}` data-points=`${team[0]}` value=`${team[1]}`)
+                p= `${team[0]} - ${team[1]}`
+            else if preseason.Playoff1 && preseason.Playoff2 && preseason.Playoff3 && preseason.Playoff4
+              label(class=`btn btn-lg ${team[1]} hidden playoff` for=`${division}` name=`${division}` data-points=`${team[0]}` value=`${team[1]}`)
+                p= `${team[0]} - ${team[1]}`
+            else
+              label(class=`btn btn-lg ${team[1]} playoff` for=`${division}` name=`${division}` data-points=`${team[0]}` value=`${team[1]}`)
+                p= `${team[0]} - ${team[1]}`
+          else if division === 'Playoff'
+            - const playoffTeam = `Playoff${i+1}`
+            - const playoffTeamPoints = `Playoff${i+1}Points`
+            if preseason[playoffTeam] && (preseason[playoffTeam] === preseason.ChampTeam1 || preseason[playoffTeam] === preseason.ChampTeam2)
+              label(class=`btn btn-lg ${preseason[playoffTeam] || ''} active playoff` for=`${division}` name=`${division}` data-points=`${preseason[playoffTeamPoints]*2 || ''}` value=`${preseason[playoffTeam] || ''}`)
+                p= `${preseason[playoffTeamPoints] || '0'} - ${preseason[playoffTeam] || 'Playoff Team'}`
+            else if preseason.ChampTeam1 && preseason.ChampTeam2
+              label(class=`btn btn-lg ${preseason[playoffTeam] || ''} hidden playoff` for=`${division}` name=`${division}` data-points=`${preseason[playoffTeamPoints]*2 || ''}` value=`${preseason[playoffTeam] || ''}`)
+                p= `${preseason[playoffTeamPoints] || '0'} - ${preseason[playoffTeam] || 'Playoff Team'}`
+            else
+              label(class=`btn btn-lg ${preseason[playoffTeam] || ''} playoff` for=`${division}` name=`${division}` data-points=`${preseason[playoffTeamPoints]*2 || ''}` value=`${preseason[playoffTeam] || ''}`)
+                p= `${preseason[playoffTeamPoints] || '0'} - ${preseason[playoffTeam] || 'Playoff Team'}`
+          else if division === 'ChampTeam'
+            - const champTeam = `ChampTeam${i+1}`
+            - const champTeamPoints = `ChampTeam${i+1}Points`
+            if preseason[champTeam] && preseason[champTeam] === preseason.Champs
+              label(class=`btn btn-lg ${preseason[champTeam] || ''} active playoff` for=`${division}` name=`${division}` data-points=`${preseason[champTeamPoints]*2 || ''}` value=`${preseason[champTeam] || ''}`)
+                p= `${preseason[champTeamPoints]*2 || '0'} - ${preseason[champTeam] || 'Championship Team'}`
+            else if preseason[champTeam]
+              label(class=`btn btn-lg ${preseason[champTeam]} hidden playoff` for=`${division}` name=`${division}` data-points=`${preseason[champTeamPoints]*2 || ''}` value=`${preseason[champTeam] || ''}`)
+                p= `${preseason[champTeamPoints]*2 || '0'} - ${preseason[champTeam] || 'Championship Team'}`
+            else
+              label(class=`btn btn-lg ${team[1]} playoff` for=`${division}` name=`${division}` data-points=`${preseason[champTeamPoints]*2 || ''}` value=`${preseason[champTeam] || ''}`)
+                p= `${preseason[champTeamPoints] || '0'} - ${preseason[champTeam] || 'Championship Team'}`
+        else
+          label(class=`btn btn-lg ${team[1]} playoff` for=`${division}` name=`${division}` data-points=`${team[0]}` value=`${team[1]}`)
+            p= `${team[0]} - ${team[1]}`
         //- input.hide(type='radio' name=`${division}` class=`${team[1]}` autocomplete='off' value=`${team[1]}`)
     if division === 'Top25'
-      input.hide(type="text" name=`Playoff1` data-name=`${division}`)
-      input.hide(type="text" name=`Playoff2` data-name=`${division}`)
-      input.hide(type="text" name=`Playoff3` data-name=`${division}`)
-      input.hide(type="text" name=`Playoff4` data-name=`${division}`)
-      input.hide(type="Number" name=`Playoff1Points` data-name=`${division}Points`)
-      input.hide(type="Number" name=`Playoff2Points` data-name=`${division}Points`)
-      input.hide(type="Number" name=`Playoff3Points` data-name=`${division}Points`)
-      input.hide(type="Number" name=`Playoff4Points` data-name=`${division}Points`)
+      if preseason
+        input.hide(type="text" name=`Playoff1` data-name=`${division}` value=`${preseason.Playoff1 || ''}`)
+        input.hide(type="text" name=`Playoff2` data-name=`${division}` value=`${preseason.Playoff2 || ''}`)
+        input.hide(type="text" name=`Playoff3` data-name=`${division}` value=`${preseason.Playoff3 || ''}`)
+        input.hide(type="text" name=`Playoff4` data-name=`${division}` value=`${preseason.Playoff4 || ''}`)
+        input.hide(type="Number" name=`Playoff1Points` data-name=`${division}Points` value=`${preseason.Playoff1Points || ''}`)
+        input.hide(type="Number" name=`Playoff2Points` data-name=`${division}Points` value=`${preseason.Playoff2Points || ''}`)
+        input.hide(type="Number" name=`Playoff3Points` data-name=`${division}Points` value=`${preseason.Playoff3Points || ''}`)
+        input.hide(type="Number" name=`Playoff4Points` data-name=`${division}Points` value=`${preseason.Playoff4Points || ''}`)
+      else
+        input.hide(type="text" name=`Playoff1` data-name=`${division}`)
+        input.hide(type="text" name=`Playoff2` data-name=`${division}`)
+        input.hide(type="text" name=`Playoff3` data-name=`${division}`)
+        input.hide(type="text" name=`Playoff4` data-name=`${division}`)
+        input.hide(type="Number" name=`Playoff1Points` data-name=`${division}Points`)
+        input.hide(type="Number" name=`Playoff2Points` data-name=`${division}Points`)
+        input.hide(type="Number" name=`Playoff3Points` data-name=`${division}Points`)
+        input.hide(type="Number" name=`Playoff4Points` data-name=`${division}Points`)
     else if division === 'Playoff'
-      input.hide(type="text" name=`ChampTeam1` data-name=`${division}`)
-      input.hide(type="text" name=`ChampTeam2` data-name=`${division}`)
-      input.hide(type="Number" name=`ChampTeam1Points` data-name=`${division}Points`)
-      input.hide(type="Number" name=`ChampTeam2Points` data-name=`${division}Points`)
+      if preseason
+        input.hide(type="text" name=`ChampTeam1` data-name=`${division}` value=`${preseason.ChampTeam1 || ''}`)
+        input.hide(type="text" name=`ChampTeam2` data-name=`${division}` value=`${preseason.ChampTeam2 || ''}`)
+        input.hide(type="Number" name=`ChampTeam1Points` data-name=`${division}Points` value=`${preseason.ChampTeam1Points || ''}`)
+        input.hide(type="Number" name=`ChampTeam2Points` data-name=`${division}Points` value=`${preseason.ChampTeam2Points || ''}`)
+      else
+        input.hide(type="text" name=`ChampTeam1` data-name=`${division}`)
+        input.hide(type="text" name=`ChampTeam2` data-name=`${division}`)
+        input.hide(type="Number" name=`ChampTeam1Points` data-name=`${division}Points`)
+        input.hide(type="Number" name=`ChampTeam2Points` data-name=`${division}Points`)
     else if division === 'ChampTeam'
-      input.hide(type="text" name=`Champs` data-name=`${division}`)
-      input.hide(type="Number" name=`ChampsPoints` data-name=`${division}Points`)
+      if preseason
+        input.hide(type="text" name=`Champs` data-name=`${division}` value=`${preseason.Champs || ''}`)
+        input.hide(type="Number" name=`ChampsPoints` data-name=`${division}Points` value=`${preseason.ChampsPoints || ''}`)
+      else
+        input.hide(type="text" name=`Champs` data-name=`${division}`)
+        input.hide(type="Number" name=`ChampsPoints` data-name=`${division}Points`)
   if division === 'Top25'
     p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points
     p.points.hiddenPoints(class=`${division}` name='Top25Display') Worth X Points

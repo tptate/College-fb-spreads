@@ -262,6 +262,8 @@ function selectPlayoffTeam(button, division, maxTeams, nextLevel) {
     nextLevel ? nextButtons[numTeams-1].setAttribute('data-points', `${points*2}`) : '';
     pointsDisplay[numTeams-1].innerHTML = `<p>${teamName} is worth ${points} point(s)</p>`;
     pointsDisplay[numTeams-1].classList = `points ${teamName}`;
+    nextLevel ? deselectPlayoffTeam(nextLevel) : '';
+    nextLevel==='Playoff' ? deselectPlayoffTeam('ChampTeam') : '';
   } else {
     nextLevel ? deselectPlayoffTeam(nextLevel) : '';
     nextLevel==='Playoff' ? deselectPlayoffTeam('ChampTeam') : '';
