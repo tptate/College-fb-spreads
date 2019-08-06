@@ -768,7 +768,9 @@ pre.error {
 }
 
 .hidden {
-  position: relative;
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
   visibility: hidden;
   top: 0px;
   offset: none;

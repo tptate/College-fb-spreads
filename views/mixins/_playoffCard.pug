@@ -28,15 +28,15 @@ mixin playoffCard(teams, division)
           else if division === 'ChampTeam'
             - const champTeam = `ChampTeam${i+1}`
             - const champTeamPoints = `ChampTeam${i+1}Points`
-            if preseason[champTeam] && preseason[champTeam] === preseason.Champs
+            if preseason.Champs && preseason[champTeam] === preseason.Champs
               label(class=`btn btn-lg ${preseason[champTeam] || ''} active playoff` for=`${division}` name=`${division}` data-points=`${preseason[champTeamPoints]*2 || ''}` value=`${preseason[champTeam] || ''}`)
                 p= `${preseason[champTeamPoints]*2 || '0'} - ${preseason[champTeam] || 'Championship Team'}`
-            else if preseason[champTeam]
+            else if preseason.Champs
               label(class=`btn btn-lg ${preseason[champTeam]} hidden playoff` for=`${division}` name=`${division}` data-points=`${preseason[champTeamPoints]*2 || ''}` value=`${preseason[champTeam] || ''}`)
                 p= `${preseason[champTeamPoints]*2 || '0'} - ${preseason[champTeam] || 'Championship Team'}`
             else
-              label(class=`btn btn-lg ${team[1]} playoff` for=`${division}` name=`${division}` data-points=`${preseason[champTeamPoints]*2 || ''}` value=`${preseason[champTeam] || ''}`)
-                p= `${preseason[champTeamPoints] || '0'} - ${preseason[champTeam] || 'Championship Team'}`
+              label(class=`btn btn-lg ${preseason[champTeam]} playoff` for=`${division}` name=`${division}` data-points=`${preseason[champTeamPoints]*2 || ''}` value=`${preseason[champTeam] || ''}`)
+                p= `${preseason[champTeamPoints]*2 || '0'} - ${preseason[champTeam] || 'Championship Team'}`
         else
           label(class=`btn btn-lg ${team[1]} playoff` for=`${division}` name=`${division}` data-points=`${team[0]}` value=`${team[1]}`)
             p= `${team[0]} - ${team[1]}`
