@@ -45,6 +45,10 @@ const userSchema = new Schema({
     ref: 'PreseasonPoints',
     default: 0
   },
+  favTeam: {
+    type: String,
+    ref: 'FavTeam'
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date
 });

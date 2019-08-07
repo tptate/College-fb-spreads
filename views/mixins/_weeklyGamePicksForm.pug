@@ -14,7 +14,7 @@ mixin weeklyGamePicksForm()
           if !editPicks && remainingGames        
             h2 The next game starts #{h.moment(nextGame).fromNow()}
             a(href=`/weeks/${week.slug}/picks${pickId}/edit`)
-              button.btn Click here to update picks
+              button.btn(class=`${user.favTeam ? user.favTeam + ' active' : ''}`) Click here to update picks
           - complete = 'yes'
     if(complete==='yes' && !editPicks)
       table.table
@@ -74,6 +74,6 @@ mixin weeklyGamePicksForm()
               if pick.author.equals(user._id)
                 - currentPick = `${pick[game.ref]}`
           +game(game, i, currentPick)
-        input(type="submit" value="Submit Picks" class="btn form btn-secondary btn-lg")
+        input(type="submit" value="Submit Picks" class=`btn form btn-lg ${user.favTeam ? user.favTeam + ' active' : 'btn-secondary'}`)
   else
     p no games found

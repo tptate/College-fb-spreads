@@ -27,7 +27,7 @@ block content
       each game, i in week.games
         - currentPick = `${week.winner[0][game.ref]}`
         +game(game, i, currentPick)
-      input(type="submit" value="Submit Picks" class="btn form btn-secondary btn-lg")  
+      input(type="submit" value="Submit Picks" class=`btn form btn-secondary btn-lg`)  
   else
     +weeklyGamePicksForm()
 

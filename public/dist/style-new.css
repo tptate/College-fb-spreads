@@ -672,11 +672,11 @@ label {
   width: 100%; }
   .table td {
     padding: 5px; }
-  .table tr:nth-child(even) {
-    background: white; }
   .table tr:nth-child(odd):not(:first-child) {
+    background: white; }
+  .table tr:nth-child(even):not(:first-child) {
     background: #f7f7f7; }
-  .table thead tr {
+  .table thead {
     background: #303030;
     color: white; }
 
