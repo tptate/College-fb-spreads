@@ -90,12 +90,6 @@ exports.updatePreseason = async (req, res) => {
     req.flash('error', 'Preseason picks can\'t be changed after the start of the season!');
     res.redirect(`/weeks/preseason`);
   }
-  const preseason = await Preseason.findOneAndUpdate({ _id: req.params.id }, req.body, {
-    new: true, // return the new picks instead of the old ones
-    runValidators: true
-  }).exec();
-  req.flash('success', `Successfully updated picks for <strong>Preseason</strong>.`);
-  res.redirect(`/weeks/preseason`);
 };
 
 function comparePicks(reqBody, preseason, division) {
