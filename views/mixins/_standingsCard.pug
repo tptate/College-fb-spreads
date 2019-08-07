@@ -8,6 +8,7 @@ mixin standingsCard()
         td Total Points
         td Record
         td Win Percentage
+        td Preseason Points
       each user, i in users
         tr
           if user.totalPoints === prevTotalPoints
@@ -23,3 +24,4 @@ mixin standingsCard()
             td N/A
           else
             td #{Math.round((user.totalWins/(user.totalWins + user.totalLosses))*100*10)/10} %
+          td= user.preseasonPoints

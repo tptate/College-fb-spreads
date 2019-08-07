@@ -1,19 +1,27 @@
 mixin preseasonTableRow(divisionName, division)
   - const divisionPoints = `${division}Points`
+  - let foundCurrent = false
   tr
     td= divisionName
-    if preseasonWinner
-      td Enter winner if here***
+    if preseasonWinner[0][division]
+      td(class=`${preseasonWinner[0][division]} active`)= `${preseasonWinner[0][division]} (${preseasonWinner[0][divisionPoints]})`
     else
-      td this will be blank
+      td
     each user in users
       if currentUser.equals(user._id)
+        - let foundUser = false
         each preseason in preseasons
           if preseason.author.equals(currentUser)
+            - foundCurrent = true
             if preseason[division]
-              td(class=`${preseason[division]}`) #{preseason[division]} (#{preseason[divisionPoints]})
+              if preseasonWinner[0][division] && preseasonWinner[0][division] === preseason[division]
+                td(class=`${preseason[division]} active`) #{preseason[division]} (#{preseason[divisionPoints]})
+              else
+                td(class=`${preseason[division]}`) #{preseason[division]} (#{preseason[divisionPoints]})
             else
               td
+        if !foundUser && !foundCurrent
+          td
     each user in users
       - foundUser = false
       if !currentUser.equals(user._id)
@@ -21,7 +29,10 @@ mixin preseasonTableRow(divisionName, division)
           if preseason.author.equals(user._id)
             - foundUser = true
             if preseason[division]
-              td(class=`${preseason[division]}`) #{preseason[division]} (#{preseason[divisionPoints]})
+              if preseasonWinner[0][division] && preseasonWinner[0][division] === preseason[division]
+                td(class=`${preseason[division]} active`) #{preseason[division]} (#{preseason[divisionPoints]})
+              else
+                td(class=`${preseason[division]}`) #{preseason[division]} (#{preseason[divisionPoints]})
             else
               td
         if !foundUser

@@ -5,72 +5,27 @@ include mixins/_preseasonCard
 include mixins/_preseasonCardBig12
 include mixins/_preseasonTableRow
 include mixins/_playoffCard
+include mixins/_preseasonTable
 
 block content
-  if preseasonWinner
-    p yes
+  if startOfSeason > h.moment()
+    h2 Preseason Picks are due #{h.moment(startOfSeason).fromNow()}
+  else
+    h2 Preseason Picks
   - let foundUser = false
   - const currentUser = user._id
   if preseasons && !getWinner
     each preseason in preseasons
       if preseason.author.equals(currentUser)
         - preseasonId = `/${preseason._id}`
-        if !editPicks          
+        if !editPicks && startOfSeason > h.moment()         
           a(href=`/weeks/preseason${preseasonId}/edit`)
             button.btn Click here to update picks
         - complete = 'yes'
   else if getWinner
     p Come back to this if edit button
-  if(complete==='yes' && !editPicks)
-    table.table
-      thead
-        td
-        td Correct Pick
-        each user in users
-          if currentUser.equals(user._id)
-            td #{user.name}
-        each user in users
-          if !currentUser.equals(user._id)
-            td #{user.name}
-      thead
-        td
-        td
-        each user in users
-          if currentUser.equals(user._id)
-            each preseason in preseasons
-              if preseason.author.equals(user._id)
-                td= `total points: Y`
-        each user in users
-          - foundUser = false
-          if !currentUser.equals(user._id)
-            each preseason in preseasons
-              if preseason.author.equals(user._id)
-                - foundUser = true
-                td= `total points: X`
-            if !foundUser
-              td
-      +preseasonTableRow('ACC Atlantic', 'ACCa')
-      +preseasonTableRow('ACC Coastal', 'ACCc')
-      +preseasonTableRow('ACC', 'ACC')
-      +preseasonTableRow('SEC East', 'SECe')
-      +preseasonTableRow('SEC West', 'SECw')
-      +preseasonTableRow('SEC', 'SEC')
-      +preseasonTableRow('Big 10 East', 'Big10e')
-      +preseasonTableRow('Big 10 West', 'Big10w')
-      +preseasonTableRow('Big 10', 'Big10')
-      +preseasonTableRow('Pac 12 North', 'Pac12n')
-      +preseasonTableRow('Pac 12 South', 'Pac12s')
-      +preseasonTableRow('Pac 12', 'Pac12')
-      +preseasonTableRow('Big 12 Team 1', 'Big12d1')
-      +preseasonTableRow('Big 12 Team 2', 'Big12d2')
-      +preseasonTableRow('Big 12', 'Big12')
-      +preseasonTableRow('Playoff Team', 'Playoff1')
-      +preseasonTableRow('Playoff Team', 'Playoff2')
-      +preseasonTableRow('Playoff Team', 'Playoff3')
-      +preseasonTableRow('Playoff Team', 'Playoff4')
-      +preseasonTableRow('Championship Team', 'ChampTeam1')
-      +preseasonTableRow('Championship Team', 'ChampTeam2')
-      +preseasonTableRow('National Champs', 'Champs')
+  if((complete==='yes' && !editPicks) || (startOfSeason < h.moment()))
+    +preseasonTable()
       
     
   else  

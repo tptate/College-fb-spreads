@@ -1,0 +1,54 @@
+mixin preseasonTable()
+  table.table
+    thead
+      td
+      td Correct Pick
+      each user in users
+        if currentUser.equals(user._id)
+          td #{user.name}
+      each user in users
+        if !currentUser.equals(user._id)
+          td #{user.name}
+    thead
+      td
+      td
+      each user in users
+        if currentUser.equals(user._id)
+          - let foundCurrent = false
+          each preseason in preseasons
+            if preseason.author.equals(user._id)
+              td= `total points: ${user.preseasonPoints}`
+              - foundCurrent = true
+          if !foundCurrent
+            td
+      each user in users
+        - foundUser = false
+        if !currentUser.equals(user._id)
+          each preseason in preseasons
+            if preseason.author.equals(user._id)
+              - foundUser = true
+              td= `total points: ${user.preseasonPoints}`
+          if !foundUser
+            td
+    +preseasonTableRow('ACC Atlantic', 'ACCa')
+    +preseasonTableRow('ACC Coastal', 'ACCc')
+    +preseasonTableRow('ACC', 'ACC')
+    +preseasonTableRow('SEC East', 'SECe')
+    +preseasonTableRow('SEC West', 'SECw')
+    +preseasonTableRow('SEC', 'SEC')
+    +preseasonTableRow('Big 10 East', 'Big10e')
+    +preseasonTableRow('Big 10 West', 'Big10w')
+    +preseasonTableRow('Big 10', 'Big10')
+    +preseasonTableRow('Pac 12 North', 'Pac12n')
+    +preseasonTableRow('Pac 12 South', 'Pac12s')
+    +preseasonTableRow('Pac 12', 'Pac12')
+    +preseasonTableRow('Big 12 Team 1', 'Big12d1')
+    +preseasonTableRow('Big 12 Team 2', 'Big12d2')
+    +preseasonTableRow('Big 12', 'Big12')
+    +preseasonTableRow('Playoff Team', 'Playoff1')
+    +preseasonTableRow('Playoff Team', 'Playoff2')
+    +preseasonTableRow('Playoff Team', 'Playoff3')
+    +preseasonTableRow('Playoff Team', 'Playoff4')
+    +preseasonTableRow('Championship Team', 'ChampTeam1')
+    +preseasonTableRow('Championship Team', 'ChampTeam2')
+    +preseasonTableRow('National Champs', 'Champs')

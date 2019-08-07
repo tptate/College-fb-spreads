@@ -37,18 +37,25 @@ function checkSelections(reqBody) {
 exports.getPreseason = async (req, res) => {
   const users = await User.find();
   const preseasons = await Preseason.find();
-  res.render('preseason', { title: `Preseason picks `, users, preseasons});
+  const preseasonWinner = await PreseasonWinner.find();
+  const startOfSeason = new Date(2019, 7, 24, 07, 0, 0, 0);
+  res.render('preseason', { title: `Preseason picks `, users, preseasons, preseasonWinner, startOfSeason});
 };
 
 exports.addPreseason = async (req, res) => {
   req.body = checkSelections(req.body);
   req.body.week = req.params.id;
   req.body.author = req.user._id;
-  // res.json(req.body);
-  const newPreseason = new Preseason(req.body);
-  await newPreseason.save();
-  req.flash('success', 'Preseason picks saved!');
-  res.redirect('back');
+  const startOfSeason = new Date(2019, 7, 24, 07, 0, 0, 0);
+  if (startOfSeason > new Date()) {
+    const newPreseason = new Preseason(req.body);
+    await newPreseason.save();
+    req.flash('success', 'Preseason picks saved!');
+    res.redirect('back');
+  } else {
+    req.flash('error', 'Preseason picks can\'t be made after the start of the season!');
+    res.redirect('back');
+  }
 };
 
 const confirmOwner = (preseason, user) => {
@@ -71,7 +78,18 @@ exports.updatePreseason = async (req, res) => {
   // find and update the picks
   
   req.body = checkSelections(req.body);
-
+  const startOfSeason = new Date(2019, 7, 24, 07, 0, 0, 0);
+  if (startOfSeason > new Date()) {
+    const preseason = await Preseason.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      new: true, // return the new picks instead of the old ones
+      runValidators: true
+    }).exec();
+    req.flash('success', `Successfully updated picks for <strong>Preseason</strong>.`);
+    res.redirect(`/weeks/preseason`);
+  } else {
+    req.flash('error', 'Preseason picks can\'t be changed after the start of the season!');
+    res.redirect(`/weeks/preseason`);
+  }
   const preseason = await Preseason.findOneAndUpdate({ _id: req.params.id }, req.body, {
     new: true, // return the new picks instead of the old ones
     runValidators: true
@@ -88,7 +106,7 @@ function comparePicks(reqBody, preseason, division) {
 }
 
 async function updateWinner(reqBody, preseason, user) {
-  let preseasonPoints = user.preseasonPoints;
+  let preseasonPoints = 0;
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'ACCa'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'ACCc'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'ACC'));
@@ -116,24 +134,23 @@ exports.addWinnerPreseason = async (req, res) => {
   const preseasons = await Preseason.find();
   preseasons.map(async preseason => {
     const user = await User.findOne({ _id: preseason.author });
+    const totalPoints = user.totalPoints - user.preseasonPoints;
     const preseasonPoints = await updateWinner(req.body, preseason, user);
-    await User.findOneAndUpdate({ _id: preseason.author }, { preseasonPoints }, {
+    const updatedTotalPoints = totalPoints + preseasonPoints;
+    await User.findOneAndUpdate({ _id: preseason.author }, { preseasonPoints, totalPoints: updatedTotalPoints }, {
       new: true,
       runValidators: true
     }).exec();
   });
-  res.json(req.body);
+  // res.json(req.body);
 
   const preseasonWinner = await PreseasonWinner.find();
-  // if(preseasonWinner.length){
-  //   await PreseasonWinner.findOneAndReplace({ _id: preseasonWinner[0]._doc._id }, preseasonWinner , {
-  //     new: true,
-  //     runValidators: true
-  //   }).exec();
-  // } else {
-  //   const newPreseasonWinner = new PreseasonWinner(req.body);
-  //   await newPreseasonWinner.save();
-  // }
-  // req.flash('success', 'Picks saved!');
-  // res.redirect('back');
+  // res.json(preseasonWinner[0]._id);
+  if(preseasonWinner.length){
+    await PreseasonWinner.findOneAndDelete({ _id: preseasonWinner[0]._id }).exec();
+  }
+  const newPreseasonWinner = new PreseasonWinner(req.body);
+  await newPreseasonWinner.save();
+  req.flash('success', 'Picks saved!');
+  res.redirect('back');
 }
