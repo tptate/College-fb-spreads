@@ -1,7 +1,7 @@
 mixin playoffCard(teams, division)
   .row
     each team, i in teams
-      .col-md-3.col-6
+      .col-md-3.col-sm-6.col-12
         if preseason
           if division === 'Top25'
             if team[1] === preseason.Playoff1 || team[1] === preseason.Playoff2 || team[1] === preseason.Playoff3 || team[1] === preseason.Playoff4
@@ -18,13 +18,13 @@ mixin playoffCard(teams, division)
             - const playoffTeamPoints = `Playoff${i+1}Points`
             if preseason[playoffTeam] && (preseason[playoffTeam] === preseason.ChampTeam1 || preseason[playoffTeam] === preseason.ChampTeam2)
               label(class=`btn btn-lg ${preseason[playoffTeam] || ''} active playoff` for=`${division}` name=`${division}` data-points=`${preseason[playoffTeamPoints]*2 || ''}` value=`${preseason[playoffTeam] || ''}`)
-                p= `${preseason[playoffTeamPoints] || '0'} - ${preseason[playoffTeam] || 'Playoff Team'}`
+                p= `${preseason[playoffTeamPoints]*2 || '0'} - ${preseason[playoffTeam] || 'Playoff Team'}`
             else if preseason.ChampTeam1 && preseason.ChampTeam2
               label(class=`btn btn-lg ${preseason[playoffTeam] || ''} hidden playoff` for=`${division}` name=`${division}` data-points=`${preseason[playoffTeamPoints]*2 || ''}` value=`${preseason[playoffTeam] || ''}`)
-                p= `${preseason[playoffTeamPoints] || '0'} - ${preseason[playoffTeam] || 'Playoff Team'}`
+                p= `${preseason[playoffTeamPoints]*2 || '0'} - ${preseason[playoffTeam] || 'Playoff Team'}`
             else
               label(class=`btn btn-lg ${preseason[playoffTeam] || ''} playoff` for=`${division}` name=`${division}` data-points=`${preseason[playoffTeamPoints]*2 || ''}` value=`${preseason[playoffTeam] || ''}`)
-                p= `${preseason[playoffTeamPoints] || '0'} - ${preseason[playoffTeam] || 'Playoff Team'}`
+                p= `${preseason[playoffTeamPoints]*2 || '0'} - ${preseason[playoffTeam] || 'Playoff Team'}`
           else if division === 'ChampTeam'
             - const champTeam = `ChampTeam${i+1}`
             - const champTeamPoints = `ChampTeam${i+1}Points`

@@ -1,5 +1,7 @@
 extends layout
 
+include mixins/_teamOptions
+
 block content
   .inner
     h2= title
@@ -8,4 +10,7 @@ block content
       input(type="text" name="name" value=user.name)
       label(for="email") Email Address
       input(type="email" name="email" value=user.email)
-      input.button(type="submit" value="Update My Account")
+      label(for="favTeam" name="favTeam") What's your favorite Team?
+      select.btn-lg(type="text" name="favTeam")
+        +teamOptions()
+      input.button(class=`${user.favTeam ? user.favTeam + ' active' : ''}` type="submit" value="Update My Account")

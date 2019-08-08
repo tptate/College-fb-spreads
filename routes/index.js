@@ -42,10 +42,10 @@ router.post('/weeks/winner/:slug/picks/:id', catchErrors(gameController.updateWi
 // User routes
 router.get('/login', userController.loginForm);
 router.post('/login', authController.login);
-router.get('/register', userController.registerForm);
-router.post('/register', 
+router.get('/join', userController.registerForm);
+router.post('/join', 
   userController.validateRegister,
-  userController.register,
+  userController.join,
   authController.login
 );
 router.get('/logout', authController.logout);

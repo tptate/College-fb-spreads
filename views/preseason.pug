@@ -20,7 +20,7 @@ block content
         - preseasonId = `/${preseason._id}`
         if !editPicks && startOfSeason > h.moment()         
           a(href=`/weeks/preseason${preseasonId}/edit`)
-            button.btn Click here to update picks
+            button.btn(class=`${user.favTeam ? user.favTeam + ' active' : ''}`) Click here to update picks
         - complete = 'yes'
   else if getWinner
     p Come back to this if edit button

@@ -13,16 +13,7 @@ mixin game(game, i, currentPick = '')
 
   .btn-group.btn-group.toggle.row(id=`${game.home}${game.away}` data-toggle='buttons' name="team")
     .col-sm-12.col-md-4
-      p= gameDate
-    //- if currentTime > game.gameDate
-    //-   .col-md-3
-    //-     p(class=`${game.home} team active`) #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-    //-     //- label(class=`btn btn-lg ${game.home} team active` for=`${gameRef}` name=`${gameRef}` value=`${game.home}`)
-    //-     //-   p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
-    //-   .col-md-3
-    //-     //- label(class=`btn btn-lg ${game.away} team` for=`${gameRef}` name=`${gameRef}` value=`${game.away}`)
-    //-     p.done(class=`${game.away} team`) #{game.away} #{game.spread < 0 ? ' +' : ' '}#{-game.spread}
-    //- else
+      p(class=`${user.favTeam}`)= gameDate
     if currentPick
       if currentPick === game.home
         .col-md-3

@@ -32,7 +32,7 @@ exports.validateRegister = (req, res, next) => {
   next(); // there were no errors
 };
 
-exports.register = async (req, res, next) => {
+exports.join = async (req, res, next) => {
   const user = new User({ email: req.body.email, name: req.body.name, favTeam: req.body.favTeam });
   const register = promisify(User.register, User);
   await register(user, req.body.password);
@@ -46,7 +46,8 @@ exports.account = (req, res) => {
 exports.updateAccount = async (req, res) => {
   const updates = {
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    favTeam: req.body.favTeam
   };
 
   const user = await User.findOneAndUpdate(

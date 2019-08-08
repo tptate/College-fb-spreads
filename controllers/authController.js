@@ -9,7 +9,7 @@ exports.login = passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: 'Failed Login!',
   successRedirect: '/',
-  successFlash: 'You are now logged in!'
+  successFlash: 'Welcome to the club!'
 });
 
 exports.logout = (req, res) => {
