@@ -45,27 +45,29 @@ mixin weeklyGamePicksForm()
           tr
             td 
               |
-              span(class=`${game.home}`) #{game.home}(#{game.spread >= 0 ? ' +' : ' '}#{game.spread})
+              span(class=`${game.home}`) #{game.home} (#{game.spread >= 0 ? '+' : ''}#{game.spread})
               |&nbspvs&nbsp
-              span(class=`${game.away}`) #{game.away}(#{game.spread < 0 ? ' +' : ' '}#{-game.spread})
+              span(class=`${game.away}`) #{game.away} (#{game.spread < 0 ? '+' : ''}#{-game.spread})
             if week.winner[0]
-              td.active(class=`${week.winner[0][gameRef]}`) #{week.winner[0][gameRef]}
+              td.active(class=`${week.winner[0][gameRef]}`) #{week.winner[0][gameRef]} (#{game.spread >= 0 ? '+' : ''}#{game.spread})
             else
               td
             if currentUser.equals(user._id)
               each pick in week.picks
                 if pick.author.equals(user._id)
                   if week.winner[0] && pick[gameRef] === week.winner[0][gameRef]
-                    td.active(class=`${pick[gameRef]}`) #{pick[gameRef]} 
+                    td.active(class=`${pick[gameRef]}`) #{pick[gameRef]} (#{game.spread >= 0 ? '+' : ''}#{game.spread})
                   else
-                    td(class=`${pick[gameRef]}`) #{pick[gameRef]}
+                    //- td
+                    //- td(class=`${pick[gameRef]}`) #{pick[gameRef]}(#{game.spread < 0 ? '+' : ''}#{-game.spread})
+                    td(class=`${pick[gameRef]}`)= `${pick[gameRef]} ${pick[gameRef] ? '(' : ''}${pick[gameRef] ? (game.spread < 0 ? '+' : '') + -game.spread : ''}${pick[gameRef] ? ')' : ''}`
             each pick in week.picks
               each user in users
                 if pick.author.equals(user._id) && !currentUser.equals(user._id)
                   if week.winner[0] && pick[gameRef] === week.winner[0][gameRef]
-                    td.active(class=`${pick[gameRef]}`) #{pick[gameRef]} 
+                    td.active(class=`${pick[gameRef]}`) #{pick[gameRef]} (#{game.spread >= 0 ? '+' : ''}#{game.spread})
                   else
-                    td(class=`${pick[gameRef]}`) #{pick[gameRef]}
+                    td(class=`${pick[gameRef]}`)= `${pick[gameRef]} ${pick[gameRef] ? '(' : ''}${pick[gameRef] ? (game.spread < 0 ? '+' : '') + -game.spread : ''}${pick[gameRef] ? ')' : ''}`
     else
       form.form-group(action=`/weeks${addOn || ''}/${week._id}/picks${pickId}` method="POST" class="card")
         each game, i in week.games

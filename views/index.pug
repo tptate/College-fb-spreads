@@ -12,7 +12,23 @@ block content
     - let pickId = ''
     - let complete;
     if user
-      p= `Welcome ${user.name}!`
+      if prevWeek
+        - let foundUser = false
+        each pick in prevWeek.picks
+          if pick.author.equals(user._id)
+            - foundUser = true
+            if pick.weeklyLosses === 0 && pick.weeklyWins
+              p= `Welcome ${user.name}! Last week you went ${pick.weeklyWins}-${pick.weeklyLosses}. Perfect!!!`
+            else if pick.weeklyWins - pick.weeklyLosses > 1
+              p= `Welcome ${user.name}! Last week you went ${pick.weeklyWins}-${pick.weeklyLosses}. Way to go!`
+            else if pick.weeklyWins - pick.weeklyLosses < -1
+              p= `Welcome ${user.name}! Last week you went ${pick.weeklyWins}-${pick.weeklyLosses}. Let's step it up this week!`
+            else
+              p= `Welcome ${user.name}! Last week you went ${pick.weeklyWins}-${pick.weeklyLosses}. Not too bad. Keep it up!`
+        if !foundUser
+          p= `Welcome ${user.name}! Looks like you didn't do last week's picks. Let's crush it this week!`
+      else
+        p= `Welcome ${user.name}! Let's start the season off right!`
       p= `${week.name} Spread Picks`
       +weeklyGamePicksForm()
     else

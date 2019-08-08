@@ -71,8 +71,14 @@ exports.getHomePage = async (req, res) => {
   const weeks = await Week.find();
   const slugName = `week-${weeks.length}`;
   const weekArray = await Week.find({ slug: `${slugName}`});
+  // if(weeks.length>1){
+    const prevSlugName = `week-${weeks.length-1}`;
+    const prevWeekArray = await Week.find({ slug: `${prevSlugName}`});
+    const prevWeek = prevWeekArray[0];
+    prevWeek ? sortByWeeklyPoints(prevWeek) : '';
+  // }
   const week = weekArray[0];
   sortByGameDate(week);
   sortByWeeklyPoints(week);
-  res.render('index', { users, week, title: 'Home Page' });
+  res.render('index', { users, week, title: 'Home Page', prevWeek });
 };
