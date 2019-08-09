@@ -11,7 +11,6 @@ block content
   if startOfSeason > h.moment()
     h2 Preseason Picks are due #{h.moment(startOfSeason).fromNow()}
   else
-    h2 Preseason Picks
   - let foundUser = false
   - const currentUser = user._id
   if preseasons && !getWinner
@@ -23,7 +22,6 @@ block content
             button.btn(class=`${user.favTeam ? user.favTeam + ' active' : ''}`) Click here to update picks
         - complete = 'yes'
   else if getWinner
-    p Come back to this if edit button
   if((complete==='yes' && !editPicks) || (startOfSeason < h.moment()))
     +preseasonTable()
       
@@ -32,7 +30,8 @@ block content
     - let teams = []
     - let division = ""
     - let conference = ""
-    h2= title
+    if editPicks
+      h2= title
     if !getWinner
       form.form-group(action=`/weeks/preseason${preseasonId || ''}` method="POST" class="card")
         +preseasonLayout()

@@ -21,9 +21,16 @@ const sortByWeeklyPoints = (week) => {
   });
 };
 
+const sortWeeks = (weeks) => {
+  return weeks.sort(function(a, b) {
+    return -1;
+  });
+}
+
 exports.getWeeks = async (req, res) => {
   // 1. Query the database for a list of all Weeks
   const weeks = await Week.find();
+  sortWeeks(weeks);
   res.render('weeks', { title: 'Weeks', weeks });
 };
 
@@ -47,6 +54,7 @@ exports.getGameWeeks = async (req, res) => {
 exports.getWinnerWeeks = async (req, res) => {
   // 1. Query the database for a list of all Weeks
   const weeks = await Week.find();
+  sortWeeks(weeks);
   weeks.addOn = '/winner';
   res.render('weeks', { title: 'Weeks', weeks });
 };
@@ -80,5 +88,6 @@ exports.getHomePage = async (req, res) => {
   const week = weekArray[0];
   sortByGameDate(week);
   sortByWeeklyPoints(week);
-  res.render('index', { users, week, title: 'Home Page', prevWeek });
+  const startOfSeason = new Date(2019, 7, 24, 07, 0, 0, 0);
+  res.render('index', { users, week, title: 'Home Page', prevWeek, startOfSeason });
 };

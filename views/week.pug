@@ -12,13 +12,12 @@ block content
   h2= title
   if getWinner
     if week.winner.length
-      p Don't pick winners here
       a(href=`/weeks/winner/${week.slug}/edit`)
         button.btn Click here to update winners
       form.form-group.card(name="done")
         each game, i in week.games
           - currentPick = `${week.winner[0][game.ref]}`
-          +game(game, i, currentPick)
+          +game(game, i, currentPick, getWinner, true)
     else
       +winnerPicksForm()
   else if editWinner
@@ -26,7 +25,7 @@ block content
     form.form-group(action=`/weeks/winner/${week.slug}/picks/${pickId}` method="POST" class="card")
       each game, i in week.games
         - currentPick = `${week.winner[0][game.ref]}`
-        +game(game, i, currentPick)
+        +game(game, i, currentPick, true)
       input(type="submit" value="Submit Picks" class=`btn form btn-secondary btn-lg`)  
   else
     +weeklyGamePicksForm()

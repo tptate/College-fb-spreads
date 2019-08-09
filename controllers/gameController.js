@@ -52,7 +52,7 @@ exports.updateGame = async (req, res) => {
   }).exec();
   const week = await Week.findOne({ _id: game.week });
   req.flash('success', `Successfully updated <strong>${week.name}</strong>.`);
-  res.redirect(`/weeks/${week.slug}/addgame`);
+  res.redirect(`/weeks/addgame/${week.slug}`);
   //redirect to the store and tell them it worked
 };
 

@@ -29,6 +29,9 @@ block content
           p= `Welcome ${user.name}! Looks like you didn't do last week's picks. Let's crush it this week!`
       else
         p= `Welcome ${user.name}! Let's start the season off right!`
+      if new Date() < startOfSeason
+        a(href='/weeks/preseason')
+          p= `Preseason picks are due ${h.moment(startOfSeason).fromNow()}`
       p= `${week.name} Spread Picks`
       +weeklyGamePicksForm()
     else

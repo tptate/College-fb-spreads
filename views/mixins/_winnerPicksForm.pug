@@ -4,5 +4,5 @@ mixin winnerPicksForm()
             //- if week.picks
             //-   each pick in week.picks
             //-     - currentPick = `${pick[game.ref]}`
-            +game(game, i)
+            +game(game, i, getWinner)
           input(type="submit" value="Submit Picks" class="btn form btn-secondary btn-lg") 

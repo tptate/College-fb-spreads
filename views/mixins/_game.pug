@@ -1,4 +1,4 @@
-mixin game(game, i, currentPick = '')
+mixin game(game, i, currentPick = '', getWinner = false, locked = false)
   - const months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
   - const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   - const gameWeekDay = days[game.gameDate.getDay()]
@@ -15,7 +15,7 @@ mixin game(game, i, currentPick = '')
     .col-sm-12.col-md-4
       p(class=`${user.favTeam}`)= gameDate
     if currentPick
-      if currentPick === game.home && currentTime > game.gameDate
+      if currentPick === game.home && (currentTime > game.gameDate && !getWinner || locked)
         .col-md-3
           label(class=`btn-lg ${game.home} active` for=`${gameRef}` name=`${gameRef}` value=`${game.home}`)
             p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
@@ -35,7 +35,7 @@ mixin game(game, i, currentPick = '')
           label(class=`btn btn-lg ${game.away} team` for=`${gameRef}` name=`${gameRef}` value=`${game.away}`)
             p #{game.away} #{game.spread < 0 ? ' +' : ' '}#{-game.spread}
           input(type='radio' name=`${gameRef}` class=`${game.away} hidden` autocomplete='off' value=`${game.away}`)
-      else if currentPick === game.away && currentTime > game.gameDate
+      else if currentPick === game.away && (currentTime > game.gameDate && !getWinner || locked)
         .col-md-3
           label(class=`btn-lg ${game.home} ` for=`${gameRef}` name=`${gameRef}` value=`${game.home}`)
             p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}
@@ -67,7 +67,7 @@ mixin game(game, i, currentPick = '')
           input(type='radio' name=`${gameRef}` class=`${game.away} hidden` autocomplete='off' value=`${game.away}`)
 
     else
-      if currentTime > game.gameDate
+      if currentTime > game.gameDate && !getWinner || locked
         .col-md-3
           label(class=` btn-lg ${game.home}` for=`${gameRef}` name=`${gameRef}` value=`${game.home}`)
             p #{game.home} #{game.spread >= 0 ? ' +' : ' '}#{game.spread}

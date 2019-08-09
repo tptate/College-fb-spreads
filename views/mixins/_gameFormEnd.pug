@@ -1,4 +1,13 @@
 mixin gameFormEnd(week)
+  - let gameDate = ''
+  if game && game.gameDate
+    - const gameMonth = game.gameDate.getMonth()
+    - const gameDay = game.gameDate.getDate()
+    - const gameYear = game.gameDate.getFullYear()
+    - const gameHour = game.gameDate.getHours()
+    - const gameMinutes = game.gameDate.getMinutes()
+    - gameDate = `${gameYear}-${gameMonth < 9 ? '0' : ''}${gameMonth+01}-${gameDay < 10 ? '0' : ''}${gameDay}T${gameHour < 10 ? '0' : ''}${gameHour}:${gameMinutes < 10 ? '0' : ''}${gameMinutes}`
+  
   div
     label(for="home") Home Team
     input.form-control(type="text" name="home" value=week.home)
@@ -7,7 +16,7 @@ mixin gameFormEnd(week)
     label(for="spread") Point Spread
     input.form-control(type="Number" name="spread" value=week.spread)
     label(for="gameDate") Game Date
-    input.form-control(type="datetime-local" name="gameDate" )
+    input.form-control(type="datetime-local" name="gameDate" value=`${gameDate}`)
     p
   input(type="submit" value="Save Game" class="btn form btn-secondary btn-lg")
 
