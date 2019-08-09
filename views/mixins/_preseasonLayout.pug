@@ -101,4 +101,4 @@ mixin preseasonLayout()
   +playoffCard(teams, division)
 
 
-  input(type="submit" value="Submit Picks" class="btn form btn-secondary btn-lg")
+  input(type="submit" value="Submit Picks" class=`btn form ${user.favTeam + ' active' || 'btn-secondary'} btn-lg`)

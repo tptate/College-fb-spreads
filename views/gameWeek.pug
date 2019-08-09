@@ -11,6 +11,6 @@ block content
     form.form-group.card(name="done")
       each game, i in week.games
         +editGameCard(game)
-        +game(game, i, currentPick)
+        +game(game, i, currentPick, false, true)
 
     +gameForm(week)

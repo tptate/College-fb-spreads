@@ -30,11 +30,19 @@ function checkSelections(reqBody) {
   [reqBody.Big12d1, reqBody.Big12d1Points] = noSelection(reqBody.Big12d1, reqBody.Big12d1Points);
   [reqBody.Big12d2, reqBody.Big12d2Points] = noSelection(reqBody.Big12d2, reqBody.Big12d2Points);
   [reqBody.Big12, reqBody.Big12Points] = noSelection(reqBody.Big12, reqBody.Big12Points);
+  [reqBody.Playoff1, reqBody.Playoff1Points] = noSelection(reqBody.Playoff1, reqBody.Playoff1Points);
+  [reqBody.Playoff2, reqBody.Playoff2Points] = noSelection(reqBody.Playoff2, reqBody.Playoff2Points);
+  [reqBody.Playoff3, reqBody.Playoff3Points] = noSelection(reqBody.Playoff3, reqBody.Playoff3Points);
+  [reqBody.Playoff4, reqBody.Playoff4Points] = noSelection(reqBody.Playoff4, reqBody.Playoff4Points);
+  [reqBody.ChampTeam1, reqBody.ChampTeam1Points] = noSelection(reqBody.ChampTeam1, reqBody.ChampTeam1Points);
+  [reqBody.ChampTeam2, reqBody.ChampTeam2Points] = noSelection(reqBody.ChampTeam2, reqBody.ChampTeam2Points);
+  [reqBody.Champs, reqBody.ChampsPoints] = noSelection(reqBody.Champs, reqBody.ChampsPoints);
 
   return reqBody;
 }
 
 exports.getPreseason = async (req, res) => {
+  // res.send('getPreseason');
   const users = await User.find();
   const preseasons = await Preseason.find();
   const preseasonWinner = await PreseasonWinner.find();
@@ -107,6 +115,22 @@ async function updateWinner(reqBody, preseason, user) {
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'SECe'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'SECw'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'SEC'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big10e'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big10w'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big10'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Pac12n'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Pac12s'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Pac12'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big12d1'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big12d2'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big12'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff1'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff2'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff3'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff4'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'ChampTeam1'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'ChampTeam2'));
+  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Champs'));
 
   return preseasonPoints;
 };
@@ -115,7 +139,8 @@ exports.getWinnerPreseason = async (req, res) => {
   // res.render('week', { title: `${week.name} games`, week, addOn: `/winner`, getWinner: true });
   // const preseasons = await Preseason.find();
   const preseasonWinner = await PreseasonWinner.find();
-  const preseason = preseasonWinner[0]._doc;
+  let preseason = ''
+  preseasonWinner.length ? preseason = preseasonWinner[0]._doc : reseason = '';
   if(!preseasonWinner.length) {
     res.render('preseason', { title: `Preseason Winner Picks `, preseason, getWinner: true});
   } else {
