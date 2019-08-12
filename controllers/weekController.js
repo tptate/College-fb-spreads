@@ -88,6 +88,6 @@ exports.getHomePage = async (req, res) => {
   const week = weekArray[0];
   sortByGameDate(week);
   sortByWeeklyPoints(week);
-  const startOfSeason = new Date(2019, 7, 24, 07, 0, 0, 0);
+  const startOfSeason = new Date(2019, 7, 24, 19, 0, 0, 0);
   res.render('index', { users, week, title: 'Home Page', prevWeek, startOfSeason });
 };
