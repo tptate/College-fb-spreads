@@ -807,3 +807,16 @@ pre.error {
   background: grey;
   color: white;
 }
+
+.nextGame {
+  color: red;
+}
+
+.preseason {
+  color: blue;
+}
+
+.tableBackground {
+  color: #303030;
+  background-color: #f7f4f0;
+}

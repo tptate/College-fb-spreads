@@ -7,7 +7,7 @@ mixin weeklyGamePicksForm()
       if(h.moment() < game.gameDate && nextGame === '')
         - remainingGames = true
         - nextGame = game.gameDate
-    h2 The next game starts #{h.moment(nextGame).fromNow()}
+    p The next game starts #{h.moment(nextGame).fromNow()}
     if week.picks
       each pick in week.picks
         if pick.author.equals(user._id)
@@ -20,15 +20,15 @@ mixin weeklyGamePicksForm()
     if(complete==='yes' && !editPicks)
       table.table
         thead
-          td Match Up
-          td Correct Pick
+          td.tableBackground Match Up
+          td.tableBackground Correct Pick
           each user in users
             if currentUser.equals(user._id)
-              td #{user.name}
+              td(class=`${user.favTeam} tableBackground`) #{user.name}
           each pick in week.picks
             each user in users
               if pick.author.equals(user._id) && !currentUser.equals(user._id)
-                td #{user.name}
+                td(class=`${user.favTeam} tableBackground`) #{user.name}
         thead
           td
           td

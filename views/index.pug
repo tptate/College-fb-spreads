@@ -31,8 +31,8 @@ block content
         p= `Welcome ${user.name}! Let's start the season off right!`
       if new Date() < startOfSeason
         a(href='/weeks/preseason')
-          p= `Preseason picks are due ${h.moment(startOfSeason).fromNow()}`
-      p= `${week.name} Spread Picks`
+          p.preseason= `Click here to make preseason picks. (Due ${h.moment(startOfSeason).fromNow()})`
+      h2(class=`${user.favTeam}`)= `${week.name} Spread Picks`
       +weeklyGamePicksForm()
     else
       a(href="/login")
