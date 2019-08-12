@@ -1,14 +1,14 @@
 mixin preseasonTable()
   table.table
     thead
-      td
-      td Correct Pick
+      td.tableBackground
+      td.tableBackground Correct Pick
       each user in users
         if currentUser.equals(user._id)
-          td #{user.name}
+          td(class=`${user.favTeam} tableBackground`) #{user.name}
       each user in users
         if !currentUser.equals(user._id)
-          td #{user.name}
+          td(class=`${user.favTeam} tableBackground`) #{user.name}
     thead
       td
       td
