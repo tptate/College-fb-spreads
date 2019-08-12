@@ -49,6 +49,11 @@ const userSchema = new Schema({
     type: String,
     ref: 'FavTeam'
   },
+  isBettor: {
+    type: Boolean,
+    ref: 'isBettor',
+    default: false
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date
 });
