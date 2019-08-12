@@ -4,7 +4,7 @@ include mixins/_weekCard
 
 block content
   .inner
-  h2= title
+  h2(class=`${user.favTeam}`)= title
   .weeks
     each week in weeks
       +weekCard(week)

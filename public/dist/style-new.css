@@ -820,3 +820,7 @@ pre.error {
   color: #303030;
   background-color: #f7f4f0;
 }
+
+.gameDate {
+  font-weight: 500;
+}

@@ -9,7 +9,7 @@ block content
   - let currentPick
   - let pickId = ''
   - let complete
-  h2= title
+  h2(class=`${user.favTeam}`)= title
   if getWinner
     if week.winner.length
       a(href=`/weeks/winner/${week.slug}/edit`)
