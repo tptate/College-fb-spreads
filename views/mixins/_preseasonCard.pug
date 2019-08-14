@@ -4,7 +4,7 @@ mixin preseasonCard(teams, division, conference)
   each name in fullNameList
     if division === name[0]
       - fullName = name[1]
-  p= `Who will win the ${fullName || division}?`
+  p.gameDate= `Who will win the ${fullName || division}?`
   .btn-group-vertical
     if preseason
       if division !== conference
@@ -24,10 +24,10 @@ mixin preseasonCard(teams, division, conference)
         - divisionPoints = `${division}Points`
         if preseason[division]
           input.hidden(type='number' name=`${division}Points` value=`${preseason[divisionPoints]}`)
-          p.points(id=`${division}`) Worth #{preseason[divisionPoints]} Points
+          p.points(class=`${preseason[division]}` id=`${division}`) Worth #{preseason[divisionPoints]} Points
         else
           input.hidden(type='number' name=`${division}Points` value=`${preseason[divisionPoints]}`)
-          p.points.hiddenPoints(id=`${division}`) Worth #{preseason[divisionPoints]} Points
+          p.points.hiddenPoints(class=`${preseason[division]}` id=`${division}`) Worth #{preseason[divisionPoints]} Points
       else
         each name, i in fullNameList
           if name[2] === division
@@ -53,7 +53,7 @@ mixin preseasonCard(teams, division, conference)
         - divisionPoints = `${division}Points`
         if preseason[conference]
           input.hidden(type='number' name=`${division}Points` value=`${preseason[divisionPoints]}`)
-          p.points(id=`${division}` class=`${conference}`) Worth #{preseason[divisionPoints]} Points
+          p.points(id=`${division}` class=`${conference} ${preseason[division]}`) Worth #{preseason[divisionPoints]} Points
         else
           input.hide(type='number' name=`${division}Points` value=`0`)
           p.points.hiddenPoints(id=`${division}` class=`${conference}`) Worth X Points

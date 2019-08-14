@@ -5,16 +5,16 @@ mixin preseasonCardBig12(teams, division, conference)
     if division === name[0]
       - fullName = name[1]
   if division === 'Big12d'
-    p= `Who will play for the Big12 Championship? (pick 2 teams)`
+    p.gameDate= `Who will play for the Big12 Championship? (pick 2 teams)`
   else
-    p= `Who will win the ${fullName || division}?`
+    p.gameDate= `Who will win the ${fullName || division}?`
   .btn-group-vertical
     if preseason
       if division !== conference
         //- Working on division teams
         each team in teams
           if preseason['Big12d1'] && preseason['Big12d2']
-            //- both teams saves
+            //- both teams saved
             if preseason['Big12d1'] === team[1] || preseason['Big12d2'] === team[1]
               label.col-lg-3(class=`btn btn-lg ${team[1]} active teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${team[0]}` value=`${team[1]}`)
                 p= `${team[0]} - ${team[1]}`
@@ -46,15 +46,15 @@ mixin preseasonCardBig12(teams, division, conference)
           input.hide(type='text' name=`${division}2` value=`${preseason['Big12d2']}`)        
           input.hide(type='number' name=`${division}1Points` value=`${preseason['Big12d1Points']}`)
           input.hide(type='number' name=`${division}2Points` value=`${preseason['Big12d2Points']}`)
-          p.points(class=`${division}`) #{preseason['Big12d1']} is Worth #{preseason['Big12d1Points']} Points
-          p.points(class=`${division}`) #{preseason['Big12d2']} is Worth #{preseason['Big12d2Points']} Points
+          p.points(class=`${division} ${preseason['Big12d1']}`) #{preseason['Big12d1']} is Worth #{preseason['Big12d1Points']} Points
+          p.points(class=`${division} ${preseason['Big12d2']}`) #{preseason['Big12d2']} is Worth #{preseason['Big12d2Points']} Points
         else if preseason['Big12d1']
           //- only one team saved
           input.hide(type='text' name=`${division}1` value=`${preseason['Big12d1']}`)
           input.hide(type='text' name=`${division}2` value=``)
           input.hide(type='number' name=`${division}1Points` value=`${preseason['Big12d1Points']}`)
           input.hide(type='number' name=`${division}2Points` value=``)
-          p.points(class=`${division}`) #{preseason['Big12d1']} is Worth #{preseason['Big12d1Points']} Points
+          p.points(class=`${division} ${preseason['Big12d1']}`) #{preseason['Big12d1']} is Worth #{preseason['Big12d1Points']} Points
           p.points.hiddenPoints(class=`${division}`) Worth X Points
         else
           //- no teams saved
@@ -79,7 +79,7 @@ mixin preseasonCardBig12(teams, division, conference)
             input.hide(type='radio' name=`${division}` class=`${preseason['Big12d2']}` autocomplete='off' value=`${preseason['Big12d2']}`)
 
             input.hide(type='number' name=`${division}Points` value=`${preseason['Big12d1Points']*2}`)
-            p.points(id=`${division}` class=`${conference}`) #{preseason['Big12d1']} is Worth #{preseason['Big12d1Points']*2} Points
+            p.points(id=`${division}` class=`${conference} ${preseason['Big12d1']}`) #{preseason['Big12d1']} is Worth #{preseason['Big12d1Points']*2} Points
           else
             //- if team2 is champ game winner
             label.col-lg-3(class=`btn btn-lg ${preseason['Big12d1']} hidden teamB12` for=`${division}` name=`${division}` data-conference=`${conference}` data-points=`${preseason['Big12d1Points']*2}` value=`${preseason['Big12d1']}`)
@@ -91,7 +91,7 @@ mixin preseasonCardBig12(teams, division, conference)
             input.hide(type='radio' name=`${division}` class=`${preseason['Big12d2']}` autocomplete='off' value=`${preseason['Big12d2']}` checked)
 
             input.hide(type='number' name=`${division}Points` value=`${preseason['Big12d2Points']*2}`)
-            p.points(id=`${division}` class=`${conference}`) #{preseason['Big12d2']} is Worth #{preseason['Big12d2Points']*2} Points
+            p.points(id=`${division}` class=`${conference} ${preseason['Big12d2']}`) #{preseason['Big12d2']} is Worth #{preseason['Big12d2Points']*2} Points
         else
           //- no champ game winner
           if preseason['Big12d1'] && preseason['Big12d2']

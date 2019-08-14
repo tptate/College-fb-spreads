@@ -89,15 +89,15 @@ mixin preseasonLayout()
       [25, 'Northwestern'],
     ]
   - division = 'Top25'
-  p Pick 4 Playoff Teams (worth rank position)
+  p.gameDate Pick 4 Playoff Teams (worth rank position)
   +playoffCard(teams, division)
   - teams = [[0, 'Team'], [0, 'Team'], [0, 'Team'], [0, 'Team']]
   - division = 'Playoff'
-  p Pick 2 Championship Teams (worth 2x rank position)
+  p.gameDate Pick 2 Championship Teams (worth 2x rank position)
   +playoffCard(teams, division)
   - teams = [[0, 'Team'], [0, 'Team']]
   - division = 'ChampTeam'
-  p Who will win the championship? (worth 4x rank position)
+  p.gameDate Who will win the championship? (worth 4x rank position)
   +playoffCard(teams, division)
 
 
