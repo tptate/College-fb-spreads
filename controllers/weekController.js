@@ -86,8 +86,15 @@ exports.getHomePage = async (req, res) => {
     prevWeek ? sortByWeeklyPoints(prevWeek) : '';
   // }
   const week = weekArray[0];
-  sortByGameDate(week);
-  sortByWeeklyPoints(week);
+  // sortByGameDate(week);
+  // sortByWeeklyPoints(week);
+  const weekGames = await Week.getWeekByGameDate();
+  // const weekPicks = await Week.getPicksByPoints();
+  week.games = weekGames[0].games;
+  const maxWins = await Week.getMaxWins();
+  week.maxWins = maxWins[0].maxWins;
+  // week.picks = weekPicks[0].picks;
+  // res.json(week);
   const startOfSeason = new Date(2019, 7, 24, 19, 0, 0, 0);
   res.render('index', { users, week, title: 'Home Page', prevWeek, startOfSeason });
 };

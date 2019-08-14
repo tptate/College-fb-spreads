@@ -8,11 +8,50 @@ const weekSchema = new mongoose.Schema({
     trim: true,
     required: 'Please enter the week!'
   },
-  slug: String
+  slug: String,
+  maxWins: {
+    type: Number,
+    default: 0
+  }
 }, {
   toJSON: {virtuals: true },
   toObject: {virtuals: true }
 });
+
+weekSchema.statics.getWeekByGameDate = function() {
+  return this.aggregate([
+    { $sort: { slug: -1 } },
+    { $limit: 1 },
+    { $lookup: { from: 'games', localField: '_id', foreignField: 'week', as: 'games' } },
+    { $unwind: { path: '$games' } },
+    { $sort: { 'games.gameDate': 1 } },
+    { $group: { _id: '$week', games: { $push: "$games" } } },
+  ]);
+};
+
+weekSchema.statics.getPicksByPoints = function() {
+  return this.aggregate([
+    { $sort: { slug: -1 } },
+    { $limit: 1 },
+    { $lookup: { from: 'picks', localField: '_id', foreignField: 'week', as: 'picks' } },
+    // { $lookup: { from: 'user', localField: '_id', foreignField: 'picks.author', as: 'user' } },
+    { $unwind: { path: '$picks' } },
+    { $sort: { 'picks.weeklyPoints': -1 } },
+    { $group: { _id: '$week', picks: { $push: "$picks" } } },
+  ]);
+};
+
+weekSchema.statics.getMaxWins = function() {
+  return this.aggregate([
+    { $sort: { slug: -1 } },
+    { $limit: 1 },
+    { $lookup: { from: 'picks', localField: '_id', foreignField: 'week', as: 'picks' } },
+    { $unwind: { path: '$picks' } },
+    // { $project: { maxWins: { $max: '$weeklyPoints' } } },
+    // { $sort: { 'picks.weeklyPoints': -1 } },
+    { $group: { _id: '$week', maxWins: { $max: "$picks.weeklyPoints" }, picks: { $push: "$picks" } } },
+  ]);
+};
 
 weekSchema.pre('save', async function(next) {
   if (!this.isModified('name')) {

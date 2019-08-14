@@ -60,7 +60,13 @@ const userSchema = new Schema({
 
 userSchema.statics.getTopUsers = function() {
   return this.aggregate([
-    { $sort: { totalPoints: -1 } },
+    { $sort: { totalPoints: -1, name: 1 } },
+  ]);
+};
+
+userSchema.statics.getPreseasonUsers = function() {
+  return this.aggregate([
+    { $sort: { preseasonPoints: -1, name: 1 } },
   ]);
 };
 

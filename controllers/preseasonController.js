@@ -43,7 +43,7 @@ function checkSelections(reqBody) {
 
 exports.getPreseason = async (req, res) => {
   // res.send('getPreseason');
-  const users = await User.find();
+  const users = await User.getPreseasonUsers();
   const preseasons = await Preseason.find();
   const preseasonWinner = await PreseasonWinner.find();
   const startOfSeason = new Date(2019, 7, 24, 07, 0, 0, 0);
