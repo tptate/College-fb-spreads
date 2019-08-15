@@ -72,7 +72,7 @@ async function updateUser(pick, weeklyPoints, weeklyWins, weeklyLosses, oldPoint
       { totalPoints: weeklyPoints - oldPoints + user.totalPoints, totalWins: weeklyWins - oldWins + user.totalWins, totalLosses: weeklyLosses - oldLosses + user.totalLosses },
       { new: true }
     );
-    return
+    return;
 };
 
 async function updateWinner(reqBody) {
@@ -100,6 +100,31 @@ async function updateWinner(reqBody) {
   return;
 };
 
+async function addBlankPicks(user, weekId) {
+  const newUserPick = {};
+  newUserPick.week = weekId;
+  newUserPick.author = user._id;
+
+  const newPick = new Pick(newUserPick);
+  await newPick.save();
+};
+
+async function checkIfPicks(reqBody) {
+  const users = await User.findMissingPicks();
+  users.forEach(user => {
+    let foundPick = false;
+    if(user.picks.length) {
+      user.picks.forEach(pick => {
+        const pickWeek = pick.week;
+        const week = reqBody.week
+        if(`${pickWeek}` === week){
+          foundPick = true;
+        }
+      })
+    };
+    !foundPick ? addBlankPicks(user, reqBody.week) : '';
+  })
+};
 
 exports.addPicks = async (req, res) => {
   req.body.week = req.params.id;
@@ -155,7 +180,7 @@ exports.updatePicks = async (req, res) => {
     runValidators: true
   }).exec();
   req.flash('success', `Successfully updated picks for <strong>${week.name}</strong>.`);
-  res.redirect(`/weeks/${week.slug}`);
+  res.redirect(`/`);
 };
 
 exports.getWinner = async (req, res) => {
@@ -167,7 +192,9 @@ exports.getWinner = async (req, res) => {
 
 exports.addWinnerPicks = async (req, res) => {
   req.body.week = req.params.id;
+  await checkIfPicks(req.body);
   updateWinner(req.body);
+  // res.send('it worked');
   const newWinner = new Winner(req.body);
   await newWinner.save();
   req.flash('success', 'Picks saved!');

@@ -64,11 +64,28 @@ userSchema.statics.getTopUsers = function() {
   ]);
 };
 
+userSchema.statics.getUsersAlphabetically = function() {
+  return this.aggregate([
+    { $sort: { name: 1 } },
+  ]);
+};
+
 userSchema.statics.getPreseasonUsers = function() {
   return this.aggregate([
     { $sort: { preseasonPoints: -1, name: 1 } },
   ]);
 };
+
+userSchema.statics.findMissingPicks = function(week, users) {
+  return this.aggregate([
+    { $lookup: { from: 'picks', localField: '_id', foreignField: 'author', as: 'picks' } },
+    // { $match: { 'picks[0].week': week }}
+    // { $unwind: { path: '$users' }},
+    // { $lookup: { from: 'picks', localField: '_id', foreignField: 'week', as: 'picks' } },
+    // { $unwind: { path: '$picks' } },
+  ])
+};
+
 
 userSchema.virtual('gravatar').get(function() {
   const hash = md5(this.email);

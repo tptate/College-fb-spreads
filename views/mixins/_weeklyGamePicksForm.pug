@@ -2,6 +2,7 @@ mixin weeklyGamePicksForm()
   - const currentUser = user._id
   - let remainingGames = false
   - let nextGame = ''
+  - let foundUser = false
   if week.games
     each game in week.games
       if(h.moment() < game.gameDate && nextGame === '')
@@ -26,9 +27,8 @@ mixin weeklyGamePicksForm()
             if currentUser.equals(user._id)
               td(class=`${user.favTeam} tableBackground`) #{user.name}
           each user in users
-            each pick in week.picks
-              if pick.author.equals(user._id) && !currentUser.equals(user._id)
-                td(class=`${user.favTeam} tableBackground`) #{user.name}
+            if !currentUser.equals(user._id)
+              td(class=`${user.favTeam} tableBackground`) #{user.name}
         thead
           td
           td
@@ -41,12 +41,18 @@ mixin weeklyGamePicksForm()
                   else
                     td= `${pick.weeklyWins} - ${pick.weeklyLosses}`
           each user in users
+            - foundUser = false
             each pick in week.picks
+              if currentUser.equals(user._id)
+                  - foundUser = true
               if pick.author.equals(user._id) && !currentUser.equals(user._id)
+                - foundUser = true
                 if week.maxWins > 0 && pick.weeklyPoints === week.maxWins
                   td(class=`${user.favTeam} active`)= `${pick.weeklyWins} - ${pick.weeklyLosses}`
                 else
                   td= `${pick.weeklyWins} - ${pick.weeklyLosses}`
+            if !foundUser
+              td 0 - 0
         each game, i in week.games
           - gameRef = `${game.ref}`
           tr
@@ -55,26 +61,34 @@ mixin weeklyGamePicksForm()
               span(class=`${game.home}`) #{game.home} (#{game.spread >= 0 ? '+' : ''}#{game.spread})
               |&nbspvs&nbsp
               span(class=`${game.away}`) #{game.away} (#{game.spread < 0 ? '+' : ''}#{-game.spread})
-            if week.winner[0]
+            if week.winner[0] && week.winner[0][gameRef]
               td.active(class=`${week.winner[0][gameRef]}`) #{week.winner[0][gameRef]}
             else
               td
             if currentUser.equals(user._id)
               each pick in week.picks
                 if pick.author.equals(user._id)
-                  if week.winner[0] && pick[gameRef] === week.winner[0][gameRef]
+                  if week.winner[0] && week.winner[0][gameRef] && pick[gameRef] === week.winner[0][gameRef]
                     td.active(class=`${pick[gameRef]}`) #{pick[gameRef]}
+                  else if week.winner[0] && week.winner[0][gameRef] && !pick[gameRef]
+                    td.active no pick
                   else
-                    //- td
-                    //- td(class=`${pick[gameRef]}`) #{pick[gameRef]}(#{game.spread < 0 ? '+' : ''}#{-game.spread})
                     td(class=`${pick[gameRef]}`)= `${pick[gameRef] || ''}`
             each user in users
+              - foundUser = false
               each pick in week.picks
+                if currentUser.equals(user._id)
+                  - foundUser = true
                 if pick.author.equals(user._id) && !currentUser.equals(user._id)
-                  if week.winner[0] && pick[gameRef] === week.winner[0][gameRef]
+                  - foundUser = true
+                  if week.winner[0] && pick[gameRef] && pick[gameRef] === week.winner[0][gameRef]
                     td.active(class=`${pick[gameRef]}`) #{pick[gameRef]}
+                  else if week.winner[0] && !pick[gameRef] && week.winner[0][gameRef]
+                    td.active no pick
                   else
                     td(class=`${pick[gameRef]}`)= `${pick[gameRef] || ''}`
+              if !foundUser
+                td
     else
       form.form-group(action=`/weeks${addOn || ''}/${week._id}/picks${pickId}` method="POST" class="card")
         each game, i in week.games

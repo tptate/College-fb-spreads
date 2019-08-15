@@ -10,18 +10,6 @@ const { catchErrors } = require('../handlers/errorHandlers');
 // Do work here
 router.get('/', catchErrors(weekController.getHomePage));
 
-router.get('/weeks', authController.isLoggedIn, catchErrors(weekController.getWeeks));
-router.post('/weeks/:id/picks', catchErrors(gameController.addPicks));
-router.get('/weeks/:slug/picks/:id/edit', catchErrors(gameController.editPicks));
-router.post('/weeks/:slug/picks/:id', catchErrors(gameController.updatePicks));
-router.get('/weeks/:slug', catchErrors(weekController.getWeekBySlug));
-router.get('/standings', catchErrors(weekController.getStandings));
-router.get('/weeks/preseason', authController.isLoggedIn, catchErrors(preseasonController.getPreseason));
-router.post('/weeks/preseason', catchErrors(preseasonController.addPreseason));
-router.get('/weeks/preseason/:id/edit', catchErrors(preseasonController.editPreseason));
-router.post('/weeks/preseason/:id', catchErrors(preseasonController.updatePreseason));
-
-
 // Admin routes
 router.get('/weeks/add', authController.isAdmin, weekController.addWeek);
 router.post('/weeks/add', authController.isAdmin, catchErrors(weekController.createWeek));
@@ -40,6 +28,18 @@ router.post('/weeks/winner/:slug/picks/:id', catchErrors(gameController.updateWi
 
 
 // User routes
+router.get('/weeks', authController.isLoggedIn, catchErrors(weekController.getWeeks));
+router.get('/weeks/preseason', authController.isLoggedIn, catchErrors(preseasonController.getPreseason));
+router.post('/weeks/preseason', catchErrors(preseasonController.addPreseason));
+router.get('/weeks/preseason/:id/edit', catchErrors(preseasonController.editPreseason));
+router.post('/weeks/preseason/:id', catchErrors(preseasonController.updatePreseason));
+router.post('/weeks/:id/picks', catchErrors(gameController.addPicks));
+router.get('/weeks/:slug/picks/:id/edit', catchErrors(gameController.editPicks));
+router.post('/weeks/:slug/picks/:id', catchErrors(gameController.updatePicks));
+router.get('/weeks/:slug', catchErrors(weekController.getWeekBySlug));
+router.get('/standings', catchErrors(weekController.getStandings));
+router.get('/rules', weekController.getRules);
+
 router.get('/login', userController.loginForm);
 router.post('/login', authController.login);
 router.get('/join', userController.registerForm);

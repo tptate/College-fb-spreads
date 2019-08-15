@@ -5,14 +5,6 @@ const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
 
-const sortByGameDate = (week) => {
-  return week.games.sort(function(a, b) {
-    const dateA = new Date(a._doc.gameDate)
-    const dateB = new Date(b._doc.gameDate);
-    return dateA - dateB;
-  });
-};
-
 const sortByWeeklyPoints = (week) => {
   return week.picks.sort(function(a, b) {
     const pickA = (a._doc.weeklyPoints);
@@ -60,12 +52,15 @@ exports.getWinnerWeeks = async (req, res) => {
 };
 
 exports.getWeekBySlug = async (req, res, next) => {
-  const week = await Week
-    .findOne({ slug: req.params.slug });
-  const users = await User.find();
+  const week = await Week.findOne({ slug: req.params.slug });
+  const weekGames = await Week.getWeekByGameDate(req.params.slug);
+  week.games = weekGames[0].games;
+  const users = await User.getUsersAlphabetically();
   if (!week) return next();
+  const maxWins = await Week.getMaxWins(req.params.slug);
+  week.maxWins = maxWins[0].maxWins;
   sortByWeeklyPoints(week);
-  sortByGameDate(week);
+  // res.json(week);
   res.render('week', { title: `${week.name} spread picks!`, week, users });
 };
 
@@ -79,22 +74,20 @@ exports.getHomePage = async (req, res) => {
   const weeks = await Week.find();
   const slugName = `week-${weeks.length}`;
   const weekArray = await Week.find({ slug: `${slugName}`});
-  // if(weeks.length>1){
-    const prevSlugName = `week-${weeks.length-1}`;
-    const prevWeekArray = await Week.find({ slug: `${prevSlugName}`});
-    const prevWeek = prevWeekArray[0];
-    prevWeek ? sortByWeeklyPoints(prevWeek) : '';
-  // }
+  const prevSlugName = `week-${weeks.length-1}`;
+  const prevWeekArray = await Week.find({ slug: `${prevSlugName}`});
+  const prevWeek = prevWeekArray[0];
+  prevWeek ? sortByWeeklyPoints(prevWeek) : '';
   const week = weekArray[0];
-  // sortByGameDate(week);
-  // sortByWeeklyPoints(week);
-  const weekGames = await Week.getWeekByGameDate();
-  // const weekPicks = await Week.getPicksByPoints();
+  const weekGames = await Week.getRecentWeekByGameDate();
   week.games = weekGames[0].games;
   const maxWins = await Week.getMaxWins();
-  week.maxWins = maxWins[0].maxWins;
-  // week.picks = weekPicks[0].picks;
-  // res.json(week);
+  maxWins.length ? week.maxWins = maxWins[0].maxWins : week.maxWins = 0;
+  // week.maxWins = maxWins[0].maxWins;
   const startOfSeason = new Date(2019, 7, 24, 19, 0, 0, 0);
   res.render('index', { users, week, title: 'Home Page', prevWeek, startOfSeason });
 };
+
+exports.getRules = (req, res) => {
+  res.render('rules', {title: 'Rules'});
+}
