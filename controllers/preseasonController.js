@@ -51,7 +51,6 @@ exports.getPreseason = async (req, res) => {
 };
 
 exports.addPreseason = async (req, res) => {
-  console.log('here');
   req.body = checkSelections(req.body);
   req.body.week = req.params.id;
   req.body.author = req.user._id;
