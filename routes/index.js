@@ -17,13 +17,13 @@ router.get('/weeks/addgame/:slug/', authController.isAdmin, catchErrors(gameCont
 router.get('/weeks/addgames', authController.isAdmin, catchErrors(weekController.getGameWeeks));
 router.get('/games/:id/edit', catchErrors(gameController.editGame));
 router.post('/games/:id', authController.isAdmin, catchErrors(gameController.updateGame));
-router.post('/weeks/:id', authController.isAdmin, catchErrors(gameController.addGame));
+// router.post('/weeks/:id', authController.isAdmin, catchErrors(gameController.addGame));
 router.get('/weeks/winner', authController.isAdmin, catchErrors(weekController.getWinnerWeeks));
-router.get('/weeks/winner/preseason', authController.isAdmin, catchErrors(preseasonController.getWinnerPreseason));
-router.post('/weeks/winner/preseason', authController.isAdmin, catchErrors(preseasonController.addWinnerPreseason));
-router.get('/weeks/winner/:slug', authController.isAdmin, catchErrors(gameController.getWinner));
+// router.get('/weeks/winner/preseason', authController.isAdmin, catchErrors(preseasonController.getWinnerPreseason));
+// router.post('/weeks/winner/preseason', authController.isAdmin, catchErrors(preseasonController.addWinnerPreseason));
+// router.get('/weeks/winner/:slug', authController.isAdmin, catchErrors(gameController.getWinner));
 router.post('/weeks/winner/:id/picks', catchErrors(gameController.addWinnerPicks));
-router.get('/weeks/winner/:slug/edit', authController.isAdmin, catchErrors(gameController.editWinnerPicks));
+// router.get('/weeks/winner/:slug/edit', authController.isAdmin, catchErrors(gameController.editWinnerPicks));
 router.post('/weeks/winner/:slug/picks/:id', catchErrors(gameController.updateWinnerPicks));
 
 
