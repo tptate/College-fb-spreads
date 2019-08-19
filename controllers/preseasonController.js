@@ -54,6 +54,11 @@ exports.addPreseason = async (req, res) => {
   req.body = checkSelections(req.body);
   req.body.week = req.params.id;
   req.body.author = req.user._id;
+  if (req.body.Big12) {
+    req.body.Big12 = req.body.Big12[0]
+  }
+
+
   const startOfSeason = new Date(2019, 7, 24, 07, 0, 0, 0);
   if (startOfSeason > new Date()) {
     const newPreseason = new Preseason(req.body);
