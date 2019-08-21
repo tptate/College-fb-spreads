@@ -1,4 +1,6 @@
-mixin standingsCard()
+include _standingsRow
+
+mixin standingsCard(currentUser)
   - let prevI = 0
   - let prevTotalPoints = 0
     table.table
@@ -10,18 +12,9 @@ mixin standingsCard()
         td Win Percentage
         td Preseason Points
       each user, i in users
-        tr
-          if user.totalPoints === prevTotalPoints
-            td #{prevI+1}
-          else
-            td #{i+1}
-            - prevI = i
-            - prevTotalPoints = user.totalPoints
-          td(class=`${user.favTeam}`)= user.name
-          td= user.totalPoints
-          td #{user.totalWins} - #{user.totalLosses}
-          if (!user.totalWins && !user.totalLosses)
-            td N/A
-          else
-            td #{Math.round((user.totalWins/(user.totalWins + user.totalLosses))*100*10)/10} %
-          td= user.preseasonPoints
+        if currentUser && currentUser._id.equals(user._id)
+          tr
+          - let className = `${user.favTeam} active`
+          +standingsRow(user, i, prevI, prevTotalPoints, className)
+        else
+          +standingsRow(user, i, prevI, prevTotalPoints)

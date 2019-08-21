@@ -4,7 +4,7 @@ mixin preseasonCard(teams, division, conference)
   each name in fullNameList
     if division === name[0]
       - fullName = name[1]
-  p.gameDate= `Who will win the ${fullName || division}?`
+  p.bold= `Who will win the ${fullName || division}?`
   .btn-group-vertical
     if preseason
       if division !== conference

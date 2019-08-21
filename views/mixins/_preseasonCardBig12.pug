@@ -5,9 +5,9 @@ mixin preseasonCardBig12(teams, division, conference)
     if division === name[0]
       - fullName = name[1]
   if division === 'Big12d'
-    p.gameDate= `Who will play for the Big12 Championship? (pick 2 teams)`
+    p.bold= `Who will play for the Big12 Championship? (pick 2 teams)`
   else
-    p.gameDate= `Who will win the ${fullName || division}?`
+    p.bold= `Who will win the ${fullName || division}?`
   .btn-group-vertical
     if preseason
       if division !== conference

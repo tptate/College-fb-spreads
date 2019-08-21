@@ -13,7 +13,7 @@ mixin game(game, i, currentPick = '', getWinner = false, locked = false)
 
   .btn-group.btn-group.toggle.row(id=`${game.home}${game.away}` data-toggle='buttons' name="team")
     .col-sm-12.col-md-4
-      p.gameDate= gameDate
+      p.bold= gameDate
     if currentPick
       if currentPick === game.home && (currentTime > game.gameDate && !getWinner || locked)
         .col-md-3
