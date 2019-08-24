@@ -91,7 +91,7 @@ exports.updatePreseason = async (req, res) => {
   // find and update the picks
   
   req.body = checkSelections(req.body);
-  const startOfSeason = new Date(2019, 7, 24, 07, 0, 0, 0);
+  const startOfSeason = new Date(2019, 7, 24, 19, 0, 0, 0);
   if (startOfSeason > new Date()) {
     const preseason = await Preseason.findOneAndUpdate({ _id: req.params.id }, req.body, {
       new: true, // return the new picks instead of the old ones
