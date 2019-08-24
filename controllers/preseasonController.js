@@ -46,7 +46,7 @@ exports.getPreseason = async (req, res) => {
   const users = await User.getPreseasonUsers();
   const preseasons = await Preseason.find();
   const preseasonWinner = await PreseasonWinner.find();
-  const startOfSeason = new Date(2019, 7, 24, 07, 0, 0, 0);
+  const startOfSeason = new Date(2019, 7, 24, 19, 0, 0, 0);
   res.render('preseason', { title: `Preseason picks `, users, preseasons, preseasonWinner, startOfSeason});
 };
 
@@ -59,7 +59,7 @@ exports.addPreseason = async (req, res) => {
   }
 
 
-  const startOfSeason = new Date(2019, 7, 24, 07, 0, 0, 0);
+  const startOfSeason = new Date(2019, 7, 24, 19, 0, 0, 0);
   if (startOfSeason > new Date()) {
     const newPreseason = new Preseason(req.body);
     await newPreseason.save();
