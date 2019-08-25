@@ -10,9 +10,20 @@ mixin standingsCard(currentUser)
       td Win Percentage
       td Preseason Points
     each user, i in users
-      if currentUser && currentUser._id.equals(user._id)
-        tr
-        - let className = `${user.favTeam} active`
-        +standingsRow(user, i, className)
+      if currentUser && currentUser.isBettor
+        if currentUser && currentUser._id.equals(user._id)
+          //- tr
+          - let className = `${user.favTeam} active bold`
+          +standingsRow(user, i, className)
+        else if user.isBettor
+          - let className = `active`
+          +standingsRow(user, i, className)
+        else
+          +standingsRow(user, i)
       else
-        +standingsRow(user, i)
+        if currentUser && currentUser._id.equals(user._id)
+          //- tr
+          - let className = `${user.favTeam} active`
+          +standingsRow(user, i, className)
+        else
+          +standingsRow(user, i)
