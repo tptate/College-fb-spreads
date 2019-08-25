@@ -7,12 +7,19 @@ include mixins/_winnerPicksForm
 include mixins/_weeklyGamePicksForm
 
 block content
+  //- pre=h.dump(week)
   .container
     - let currentPick
     - let pickId = ''
     - let complete;
     if user
-      if prevWeek
+      if user.isBettor
+        p.bold You are set up as a $10 bettor. More to come later
+      if week.winner && week.winner.length >0
+        each pick in week.picks
+          if pick.author.equals(user._id)
+            p= `Welcome ${user.name}! So far this week you are ${pick.weeklyWins}-${pick.weeklyLosses}.`
+      else if prevWeek
         - let foundUser = false
         each pick in prevWeek.picks
           if pick.author.equals(user._id)

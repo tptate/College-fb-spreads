@@ -90,4 +90,4 @@ exports.getHomePage = async (req, res) => {
 
 exports.getRules = (req, res) => {
   res.render('rules', {title: 'Rules'});
-}
+};
