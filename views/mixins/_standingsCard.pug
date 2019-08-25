@@ -1,20 +1,18 @@
 include _standingsRow
 
 mixin standingsCard(currentUser)
-  - let prevI = 0
-  - let prevTotalPoints = 0
-    table.table
-      thead
-        td Standing
-        td Name
-        td Total Points
-        td Record
-        td Win Percentage
-        td Preseason Points
-      each user, i in users
-        if currentUser && currentUser._id.equals(user._id)
-          tr
-          - let className = `${user.favTeam} active`
-          +standingsRow(user, i, prevI, prevTotalPoints, className)
-        else
-          +standingsRow(user, i, prevI, prevTotalPoints)
+  table.table
+    thead
+      td Standing
+      td Name
+      td Total Points
+      td Record
+      td Win Percentage
+      td Preseason Points
+    each user, i in users
+      if currentUser && currentUser._id.equals(user._id)
+        tr
+        - let className = `${user.favTeam} active`
+        +standingsRow(user, i, className)
+      else
+        +standingsRow(user, i)

@@ -1,4 +1,4 @@
-mixin standingsRow(user, i, prevI, prevTotalPoints, className="")
+mixin standingsRow(user, i, className="")
   tr
     if user.totalPoints === prevTotalPoints
       td(class=`${className}`) #{prevI+1}
