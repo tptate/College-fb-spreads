@@ -59,3 +59,7 @@ exports.updateAccount = async (req, res) => {
   req.flash('success', 'Updated the profile!');
   res.redirect('back');
 };
+
+exports.resetForm = (req, res) => {
+  res.render('reset', {title: 'Reset Page'});
+};

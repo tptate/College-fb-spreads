@@ -24,6 +24,8 @@ router.get('/weeks/winner/:slug', authController.isAdmin, catchErrors(gameContro
 router.post('/weeks/winner/:id/picks', catchErrors(gameController.addWinnerPicks));
 router.get('/weeks/winner/:slug/edit', authController.isAdmin, catchErrors(gameController.editWinnerPicks));
 router.post('/weeks/winner/:slug/picks/:id', catchErrors(gameController.updateWinnerPicks));
+router.get('/resetpassword', authController.isAdmin, userController.resetForm);
+// router.post('/resetpassword', catchErrors(authController.forgot));
 
 
 // User routes
@@ -55,7 +57,7 @@ router.post('/join',
 router.get('/logout', authController.logout);
 router.get('/account', authController.isLoggedIn, userController.account);
 router.post('/account', catchErrors(userController.updateAccount));
-router.post('/account/forgot', catchErrors(authController.forgot));
+router.post('/account/forgot', authController.isAdmin, catchErrors(authController.forgot));
 router.get('/account/reset/:token', catchErrors(authController.reset));
 router.post('/account/reset/:token', 
   authController.confirmPasswords, 
