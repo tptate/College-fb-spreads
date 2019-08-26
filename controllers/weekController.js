@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Week = mongoose.model('Week');
 const User = mongoose.model('User');
+const Pick = mongoose.model('Pick');
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
@@ -83,9 +84,19 @@ exports.getHomePage = async (req, res) => {
   week.games = weekGames[0].games;
   const maxWins = await Week.getMaxWins();
   maxWins.length ? week.maxWins = maxWins[0].maxWins : week.maxWins = 0;
+  const currentUserPick = await Pick.findOne({ author: req.user._id, week: week._id });
+  const homeTrend = [];
+  const awayTrend = [];
+  for(i = 0; i< week.games.length; i++) {
+    const home = await Pick.getTrend('home', week, `${week.games[i].ref}`, i);
+    homeTrend.push(home);
+    const away = await Pick.getTrend('away', week, `${week.games[i].ref}`, i);
+    awayTrend.push(away);
+  }
+
   // week.maxWins = maxWins[0].maxWins;
   const startOfSeason = new Date(2019, 7, 24, 19, 0, 0, 0);
-  res.render('index', { users, week, title: 'Home Page', prevWeek, startOfSeason });
+  res.render('index', { users, week, title: 'Home Page', prevWeek, startOfSeason, currentUserPick, homeTrend, awayTrend });
 };
 
 exports.getRules = (req, res) => {

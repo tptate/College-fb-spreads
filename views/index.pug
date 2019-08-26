@@ -5,14 +5,15 @@ include mixins/_gameForm
 include mixins/_game
 include mixins/_winnerPicksForm
 include mixins/_weeklyGamePicksForm
+include mixins/_weeklyUserCard
 
 block content
-  //- pre=h.dump(week)
   .container
     - let currentPick
     - let pickId = ''
     - let complete;
     if user
+      
       if user.isBettor
         p.bold You are set up as a $10 bettor. More to come later
       if week.winner && week.winner.length >0
@@ -41,6 +42,7 @@ block content
           p.link= `Click here to make preseason picks. (Due ${h.moment(startOfSeason).fromNow()})`
       h2(class=`${user.favTeam}`)= `${week.name} Spread Picks`
       +weeklyGamePicksForm()
+      //- +weeklyUserCard(week, currentUserPick, homeTrend, awayTrend)
     else
       a(href="/login")
         p.link Please sign in to make picks

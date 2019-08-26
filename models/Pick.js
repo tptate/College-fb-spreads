@@ -112,4 +112,14 @@ const pickSchema = new mongoose.Schema({
   toObject: {virtuals: true }
 });
 
+pickSchema.statics.getTrend = function(team ,week, gameRef) {
+  const gameRef2 = 'game1';
+  return this.aggregate([
+    { $match: { week: week._id } },
+    { $match: { [gameRef]: `${week.games[i][team]}` } },
+    { $count: `${week.games[i][team]}` }
+  ]);
+};
+
+
 module.exports = mongoose.model('Pick', pickSchema);
