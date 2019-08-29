@@ -1,53 +1,28 @@
-mixin weeklyGamePicksForm()
+mixin weeklyGamePicksForm(complete)
   - const currentUser = user._id
   - let remainingGames = false
   - let nextGame = ''
   - let foundUser = false
   if week.games
-    each game in week.games
-      if(h.moment() < game.gameDate && nextGame === '')
-        - remainingGames = true
-        - nextGame = game.gameDate
-    p The next game starts #{h.moment(nextGame).fromNow()}
-    if week.picks
-      each pick in week.picks
-        if pick.author.equals(user._id)
-          - pickId = `/${pick._id}`
-          if !editPicks && remainingGames        
-            //- h2 The next game starts #{h.moment(nextGame).fromNow()}
-            a(href=`/weeks/${week.slug}/picks${pickId}/edit`)
-              button.btn(class=`${user.favTeam ? user.favTeam + ' active' : ''}`) Click here to update picks
-          - complete = 'yes'
     if(complete==='yes' && !editPicks)
       table.table
         thead
           td.tableBackground Match Up
-          td.tableBackground Trend
           td.tableBackground Correct Pick
           each user in users
             if currentUser.equals(user._id)
-              td(class=`${user.favTeam} tableBackground`) #{user.name}
-          each user in users
-            if !currentUser.equals(user._id)
+              td(class=`${user.favTeam} active`) #{user.name}
+            else
               td(class=`${user.favTeam} tableBackground`) #{user.name}
         thead
           td
           td
-          td
-          each user in users
-            if currentUser.equals(user._id)
-              each pick in week.picks
-                if pick.author.equals(user._id)
-                  if week.maxWins > 0 && pick.weeklyPoints === week.maxWins
-                    td(class=`${user.favTeam} active`)= `${pick.weeklyWins} - ${pick.weeklyLosses}`
-                  else
-                    td= `${pick.weeklyWins} - ${pick.weeklyLosses}`
           each user in users
             - foundUser = false
             each pick in week.picks
               if currentUser.equals(user._id)
                   - foundUser = true
-              if pick.author.equals(user._id) && !currentUser.equals(user._id)
+              if pick.author.equals(user._id)
                 - foundUser = true
                 if week.maxWins > 0 && pick.weeklyPoints === week.maxWins
                   td(class=`${user.favTeam} active`)= `${pick.weeklyWins} - ${pick.weeklyLosses}`
@@ -63,33 +38,16 @@ mixin weeklyGamePicksForm()
               span(class=`${game.home}`) #{game.home} (#{game.spread >= 0 ? '+' : ''}#{game.spread})
               |&nbspvs&nbsp
               span(class=`${game.away}`) #{game.away} (#{game.spread < 0 ? '+' : ''}#{-game.spread})
-            - let homePicks = homeTrend[i][0][game.home]
-            - let awayPicks = awayTrend[i][0][game.away]
-            if homePicks > awayPicks
-              td(class=`${game.home}`)= `${Math.round(homePicks/(homePicks + awayPicks)*100)}% ${game.home}`
-            else if awayPicks > homePicks
-              td(class=`${game.away}`)= `${Math.round(awayPicks/(homePicks + awayPicks)*100)}% ${game.away}`
-            else
-              td Split 50/50
             if week.winner[0] && week.winner[0][gameRef]
               td.active(class=`${week.winner[0][gameRef]}`) #{week.winner[0][gameRef]}
             else
               td
-            if currentUser.equals(user._id)
-              each pick in week.picks
-                if pick.author.equals(user._id)
-                  if week.winner[0] && week.winner[0][gameRef] && pick[gameRef] === week.winner[0][gameRef]
-                    td.active(class=`${pick[gameRef]}`) #{pick[gameRef]}
-                  else if week.winner[0] && week.winner[0][gameRef] && !pick[gameRef]
-                    td.active no pick
-                  else
-                    td(class=`${pick[gameRef]}`)= `${pick[gameRef] || ''}`
             each user in users
               - foundUser = false
               each pick in week.picks
                 if currentUser.equals(user._id)
                   - foundUser = true
-                if pick.author.equals(user._id) && !currentUser.equals(user._id)
+                if pick.author.equals(user._id)
                   - foundUser = true
                   if week.winner[0] && pick[gameRef] && pick[gameRef] === week.winner[0][gameRef]
                     td.active(class=`${pick[gameRef]}`) #{pick[gameRef]}

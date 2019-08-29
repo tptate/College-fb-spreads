@@ -64,6 +64,13 @@ userSchema.statics.getTopUsers = function() {
   ]);
 };
 
+userSchema.statics.getTopBetUsers = function() {
+  return this.aggregate([
+    { $match: { isBettor: true } },
+    { $sort: { totalWins: -1, name: 1 } },
+  ]);
+};
+
 userSchema.statics.getUsersAlphabetically = function() {
   return this.aggregate([
     { $sort: { name: 1 } },

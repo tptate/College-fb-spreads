@@ -1,6 +1,7 @@
 extends layout
 
 include mixins/_standingsCard
+include mixins/_betStandingsCard
 include mixins/_gameForm
 include mixins/_game
 include mixins/_winnerPicksForm
@@ -13,8 +14,8 @@ block content
     - let pickId = ''
     - let complete;
     if user
-      if user.isBettor
-        p.bold You are set up as a $10 bettor. More to come later
+      //- if user.isBettor
+        //- p.bold You are set up as a $10 bettor. More to come later
       if week.winner && week.winner.length >0
         each pick in week.picks
           if pick.author.equals(user._id)
@@ -40,12 +41,55 @@ block content
         a(href='/weeks/preseason')
           p.link= `Click here to make preseason picks. (Due ${h.moment(startOfSeason).fromNow()})`
       h2(class=`${user.favTeam}`)= `${week.name} Spread Picks`
-      +weeklyGamePicksForm()
-      //- +weeklyUserCard(week, currentUserPick, homeTrend, awayTrend)
+      - let remainingGames = false
+      - let nextGame = ''
+      if week.games
+        each game in week.games
+          if(h.moment() < game.gameDate && nextGame === '')
+            - remainingGames = true
+            - nextGame = game.gameDate
+        if week.picks
+          each pick in week.picks
+            if pick.author.equals(user._id)
+              - pickId = `/${pick._id}`
+              if !editPicks && remainingGames        
+                p The next game starts #{h.moment(nextGame).fromNow()}. 
+                  a(href=`/weeks/${week.slug}/picks${pickId}/edit`)
+                    button.btn(class=`${user.favTeam ? user.favTeam + ' active' : ''}`) Click here to update picks
+                - complete = 'yes'
+      .btn-group.btn-group-toggle(data-toggle='buttons')
+        if complete
+          label.btn.active(class=`${user.favTeam}` name="homePageOptions" value="userCard")
+            p Your Picks
+          label.btn(class=`${user.favTeam}` name="homePageOptions" value="groupCard")
+            p Group Picks
+        else
+          label.btn.active(class=`${user.favTeam}` name="homePageOptions" value="groupCard")
+            p Your Picks
+        label.btn(class=`${user.favTeam}` name="homePageOptions" value="standingsCard")
+          p Standings
+        if user.isBettor
+          label.btn(class=`${user.favTeam}` name="homePageOptions" value="betStandingsCard")
+            p Bet Standings
+      
+      if complete
+        #userCard(name="homePageCards")
+          +weeklyUserCard(week, currentUserPick, homeTrend, awayTrend)
+        #groupCard.hidden(name="homePageCards")
+          +weeklyGamePicksForm(complete)
+      else
+        #groupCard(name="homePageCards")
+          +weeklyGamePicksForm(complete)
+      #standingsCard.hidden(name="homePageCards")
+        +standingsCard(user)
+      if user.isBettor
+        #betStandingsCard.hidden(name="homePageCards")
+          +betStandingsCard(user, betUsers)
     else
       a(href="/login")
         p.link Please sign in to make picks
-    +standingsCard(user)
+      +standingsCard(user)
 
 
     script(src="/javascripts/modules/weeklyGames.js")
+    script(src="/javascripts/modules/homePage.js")

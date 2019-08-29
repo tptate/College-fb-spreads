@@ -1,4 +1,4 @@
-mixin standingsRow(user, i, className="")
+mixin standingsRow(user, i, className="", bettor=false)
   tr
     if user.totalPoints === prevTotalPoints
       td(class=`${className}`) #{prevI+1}
@@ -7,10 +7,14 @@ mixin standingsRow(user, i, className="")
       - prevI = i
       - prevTotalPoints = user.totalPoints
     td(class=`${user.favTeam} ${className}`)= user.name
-    td(class=`${className}`)= user.totalPoints
+    if !bettor
+      td(class=`${className}`)= user.totalPoints
+    else
+      td(class=`${className}`)= user.totalWins
     td(class=`${className}`) #{user.totalWins} - #{user.totalLosses}
     if (!user.totalWins && !user.totalLosses)
       td(class=`${className}`) N/A
     else
       td(class=`${className}`) #{Math.round((user.totalWins/(user.totalWins + user.totalLosses))*100*10)/10} %
-    td(class=`${className}`)= user.preseasonPoints
+    if !bettor
+      td(class=`${className}`)= user.preseasonPoints

@@ -72,6 +72,7 @@ exports.getStandings = async (req, res) => {
 
 exports.getHomePage = async (req, res) => {
   const users = await User.getTopUsers();
+  const betUsers = await User.getTopBetUsers();
   const weeks = await Week.find();
   const slugName = `week-${weeks.length}`;
   const weekArray = await Week.find({ slug: `${slugName}`});
@@ -96,7 +97,7 @@ exports.getHomePage = async (req, res) => {
 
   // week.maxWins = maxWins[0].maxWins;
   const startOfSeason = new Date(2019, 7, 24, 19, 0, 0, 0);
-  res.render('index', { users, week, title: 'Home Page', prevWeek, startOfSeason, currentUserPick, homeTrend, awayTrend });
+  res.render('index', { users, week, title: 'Home Page', prevWeek, startOfSeason, currentUserPick, homeTrend, awayTrend, betUsers });
 };
 
 exports.getRules = (req, res) => {

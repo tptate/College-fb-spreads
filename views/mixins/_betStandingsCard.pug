@@ -1,0 +1,28 @@
+include _standingsRow
+
+mixin betStandingsCard(currentUser, betUsers)
+  table.table
+    thead
+      td Standing
+      td Name
+      td Total Wins
+      td Record
+      td Win Percentage
+    each user, i in betUsers
+      if currentUser && currentUser.isBettor
+        if currentUser && currentUser._id.equals(user._id)
+          //- tr
+          - let className = `${user.favTeam} active`
+          +standingsRow(user, i, className, true)
+        else if user.isBettor
+          //- - let className = `active`
+          +standingsRow(user, i, className, true)
+        //- else
+        //-   +standingsRow(user, i)
+      //- else
+      //-   if currentUser && currentUser._id.equals(user._id)
+      //-     //- tr
+      //-     - let className = `${user.favTeam} active`
+      //-     +standingsRow(user, i, className)
+      //-   else
+      //-     +standingsRow(user, i)

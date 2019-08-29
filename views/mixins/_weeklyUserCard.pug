@@ -1,6 +1,7 @@
 mixin weeklyUserCard(week)
   table.table
     thead
+      td Game Time
       td Match Up
       td Trend
       td Correct Pick
@@ -8,7 +9,17 @@ mixin weeklyUserCard(week)
     
     each game, i in week.games
       - gameRef = `${game.ref}`
+      - const months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+      - const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+      - const gameWeekDay = days[game.gameDate.getDay()]
+      - const gameMonth = months[game.gameDate.getMonth()]
+      - const gameDay = game.gameDate.getDate()
+      - const gameYear = game.gameDate.getFullYear()
+      - const gameHour = game.gameDate.getHours()
+      - const gameMinutes = game.gameDate.getMinutes()
+      - const gameDate = `${gameWeekDay}, ${gameMonth} ${gameDay}, ${gameYear} at ${gameHour > 12 ? gameHour - 12 : gameHour}:${gameMinutes < 10 ? '0' : ''}${gameMinutes}`
       tr
+        td= gameDate
         td 
           |
           span(class=`${game.home}`) #{game.home} (#{game.spread >= 0 ? '+' : ''}#{game.spread})
