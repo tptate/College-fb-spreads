@@ -17,7 +17,10 @@ block content
       if week.winner && week.winner.length >0
         each pick in week.picks
           if pick.author.equals(user._id)
-            p= `Welcome ${user.name}! So far this week you are ${pick.weeklyWins}-${pick.weeklyLosses}.`
+            if (pick.weeklyWins + pick.weeklyLosses) === week.games.length
+              p= `Welcome ${user.name}! You went ${pick.weeklyWins}-${pick.weeklyLosses} for the week. Check back later for next week's games.`
+            else
+              p= `Welcome ${user.name}! So far this week you are ${pick.weeklyWins}-${pick.weeklyLosses}.`
       else if prevWeek
         - let foundUser = false
         each pick in prevWeek.picks
@@ -70,6 +73,9 @@ block content
         if user.isBettor
           label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="betStandingsCard")
             p Bet Standings
+        if user.isAdmin
+          label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="vegasCard")
+            p Vegas
       
       if picksMade
         #userCard(name="homePageCards")
@@ -84,6 +90,20 @@ block content
       if user.isBettor
         #betStandingsCard.hidden(name="homePageCards")
           +betStandingsCard(user, betUsers)
+      if user.isAdmin
+        #vegasCard.hidden(name="homePageCards")
+          p If bet $11 to win 10, we'd be:
+          - let totalGames = 0;
+          - let totalWins = 0;
+          - let totalLosses = 0
+          each user in users
+            - totalGames += user.totalWins + user.totalLosses
+            - totalWins += user.totalWins
+            - totalLosses += user.totalLosses
+          p= `Overall total: ${totalWins} - ${totalLosses}`
+          - let moneyBet = 11 * totalGames
+          - let moneyWon = 21 * totalWins
+          p= `Money bet: $${moneyBet}. Money won: $${moneyWon}. Net $${moneyBet - moneyWon}.`
     else
       a(href="/login")
         p.link Please sign in to make picks
