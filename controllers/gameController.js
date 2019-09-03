@@ -155,16 +155,17 @@ exports.editPicks = async (req, res) => {
   // 1. Find the picks given the ID
   const pick = await Pick.findOne({ _id: req.params.id });
   const week = await Week.findOne({ slug: req.params.slug });
-  // 2. Confirm they are the owner of the store
+  // 2. Confirm they are the owner of the picks
   confirmOwner(pick, req.user);
   sortByGameDate(week);
   // 3. Render out the edit form so the user can update
-  res.render('week', { title: `Edit ${week.name} Picks`, week, editPicks: true });
+  const pickId = pick._id
+  res.render('week', { title: `Edit ${week.name} Picks`, week, editPicks: true, pickId });
 };
 
 exports.updatePicks = async (req, res) => {
   const oldPick = await Pick.findOne({ _id: req.params.id });
-  const week = await Week.findOne({ _id: req.params.slug });
+  const week = await Week.findOne({ slug: req.params.slug });
   const today = new Date();
   week.games.forEach(game => {
     if(today>game.gameDate) {

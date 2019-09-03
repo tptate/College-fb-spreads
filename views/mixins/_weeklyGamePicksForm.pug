@@ -57,6 +57,15 @@ mixin weeklyGamePicksForm(complete)
                     td(class=`${pick[gameRef]}`)= `${pick[gameRef] || ''}`
               if !foundUser
                 td
+    else if editPicks
+      form.form-group(action=`/weeks${addOn || ''}/${week.slug}/picks/${pickId}` method="POST" class="card")
+        each game, i in week.games
+          if week.picks
+            each pick in week.picks
+              if pick.author.equals(user._id)
+                - currentPick = `${pick[game.ref]}`
+          +game(game, i, currentPick)
+        input(type="submit" value="Submit Picks" class=`btn form btn-lg ${user.favTeam ? user.favTeam + ' active' : 'btn-secondary'}`)
     else
       form.form-group(action=`/weeks${addOn || ''}/${week._id}/picks${pickId}` method="POST" class="card")
         each game, i in week.games

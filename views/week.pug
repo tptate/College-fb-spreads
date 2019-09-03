@@ -7,7 +7,6 @@ include mixins/_weeklyGamePicksForm
 
 block content
   - let currentPick
-  - let pickId = ''
   - let complete
   h2(class=`${user.favTeam}`)= title
   if getWinner
@@ -21,7 +20,7 @@ block content
     else
       +winnerPicksForm()
   else if editWinner
-    - pickId = `${week.winner[0]._id}`
+    - let pickId = `${week.winner[0]._id}`
     form.form-group(action=`/weeks/winner/${week.slug}/picks/${pickId}` method="POST" class="card")
       each game, i in week.games
         - currentPick = `${week.winner[0][game.ref]}`

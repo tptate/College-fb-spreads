@@ -25,14 +25,19 @@ mixin weeklyUserCard(week)
           span(class=`${game.home}`) #{game.home} (#{game.spread >= 0 ? '+' : ''}#{game.spread})
           |&nbspvs&nbsp
           span(class=`${game.away}`) #{game.away} (#{game.spread < 0 ? '+' : ''}#{-game.spread})
-        - let homePicks = homeTrend[i][0][game.home]
-        - let awayPicks = awayTrend[i][0][game.away]
+        
+
+        - let homePicks = homeTrend[i][0] ? homeTrend[i][0][game.home] : ''
+        - let awayPicks = awayTrend[i][0] ? awayTrend[i][0][game.away] : ''
         if homePicks > awayPicks
           td(class=`${game.home}`)= `${Math.round(homePicks/(homePicks + awayPicks)*100)}% ${game.home}`
         else if awayPicks > homePicks
           td(class=`${game.away}`)= `${Math.round(awayPicks/(homePicks + awayPicks)*100)}% ${game.away}`
+        else if homePicks < 1
+          td no picks yet
         else
           td Split 50/50
+        
         if week.winner[0] && week.winner[0][gameRef]
           td.active(class=`${week.winner[0][gameRef]}`) #{week.winner[0][gameRef]}
         else
