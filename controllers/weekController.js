@@ -62,7 +62,8 @@ exports.getWeekBySlug = async (req, res, next) => {
   week.maxWins = maxWins[0].maxWins;
   sortByWeeklyPoints(week);
   // res.json(week);
-  res.render('week', { title: `${week.name} spread picks!`, week, users });
+  const remainingGames = week.games[week.games.length - 1].gameDate > Date.now();
+  res.render('week', { title: `${week.name} spread picks!`, week, users, remainingGames });
 };
 
 exports.getStandings = async (req, res) => {

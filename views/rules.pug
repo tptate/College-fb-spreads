@@ -28,5 +28,13 @@ block content
   
   p The overall winner will be the person with the most points, which is weekly points + preseason points.
 
+  if user.isBettor
+    h2(class=`${user.favTeam}`) Betting Rules
+    ul
+      li Total points is done only by picks (no preseason)
+      li The person with the most correct picks in the year is the winner
+      li Everybody but 1st and 2nd place will send the first place winner $10 at end of year
+      li Second place doesn't pay or get paid
+
 
 
