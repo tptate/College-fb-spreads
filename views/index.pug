@@ -12,10 +12,8 @@ block content
   .container
     - let currentPick
     - let pickId = ''
-    - let complete;
+    - let picksMade;
     if user
-      //- if user.isBettor
-        //- p.bold You are set up as a $10 bettor. More to come later
       if week.winner && week.winner.length >0
         each pick in week.picks
           if pick.author.equals(user._id)
@@ -56,30 +54,31 @@ block content
                 p The next game starts #{h.moment(nextGame).fromNow()}. 
                   a(href=`/weeks/${week.slug}/picks${pickId}/edit`)
                     button.btn(class=`${user.favTeam ? user.favTeam + ' active' : ''}`) Click here to update picks
-                - complete = 'yes'
+              if !editPicks
+                - picksMade = 'yes'
       .btn-group.btn-group-toggle(data-toggle='buttons')
-        if complete
-          label.btn.active(class=`${user.favTeam}` name="homePageOptions" value="userCard")
+        if picksMade
+          label.col-sm.btn.active(class=`${user.favTeam}` name="homePageOptions" value="userCard")
             p Your Picks
-          label.btn(class=`${user.favTeam}` name="homePageOptions" value="groupCard")
+          label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="groupCard")
             p Group Picks
         else
-          label.btn.active(class=`${user.favTeam}` name="homePageOptions" value="groupCard")
+          label.col-sm.btn.active(class=`${user.favTeam}` name="homePageOptions" value="groupCard")
             p Your Picks
-        label.btn(class=`${user.favTeam}` name="homePageOptions" value="standingsCard")
+        label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="standingsCard")
           p Standings
         if user.isBettor
-          label.btn(class=`${user.favTeam}` name="homePageOptions" value="betStandingsCard")
+          label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="betStandingsCard")
             p Bet Standings
       
-      if complete
+      if picksMade
         #userCard(name="homePageCards")
           +weeklyUserCard(week, currentUserPick, homeTrend, awayTrend)
         #groupCard.hidden(name="homePageCards")
-          +weeklyGamePicksForm(complete)
+          +weeklyGamePicksForm(picksMade)
       else
         #groupCard(name="homePageCards")
-          +weeklyGamePicksForm(complete)
+          +weeklyGamePicksForm(picksMade)
       #standingsCard.hidden(name="homePageCards")
         +standingsCard(user)
       if user.isBettor
