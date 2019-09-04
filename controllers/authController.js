@@ -50,13 +50,13 @@ exports.forgot = async (req, res) => {
   await user.save();
   //3. Send them an email with the token
   const resetURL = `http://${req.headers.host}/account/reset/${user.resetPasswordToken}`;
-  // await mail.send({
-  //   user,
-  //   subject: 'Password Reset',
-  //   resetURL,
-  //   filename: 'password-reset'
-  // });
-  req.flash('success', `You have been emailed a password reset link. ${resetURL}`);
+  await mail.send({
+    user,
+    subject: 'Password Reset',
+    resetURL,
+    filename: 'password-reset'
+  });
+  req.flash('success', `You have been emailed a password reset link.`);
   //4. redirect to login page
   res.redirect('/');
 };
