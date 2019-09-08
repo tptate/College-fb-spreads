@@ -60,7 +60,7 @@ const userSchema = new Schema({
 
 userSchema.statics.getTopUsers = function() {
   return this.aggregate([
-    { $sort: { totalPoints: -1, name: 1 } },
+    { $sort: { totalPoints: -1, totalLosses: 1, name: 1 } },
   ]);
 };
 

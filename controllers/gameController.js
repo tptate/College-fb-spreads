@@ -85,7 +85,7 @@ async function updateWinner(reqBody) {
       const gameRef = `game${i+1}`;
       const prediction = `${pick[gameRef]}`;
       const winner = `${reqBody[gameRef]}`;
-      if (winner !== 'undefined') {
+      if (winner !== 'undefined' && !(!prediction || prediction === 'undefined')) {
         if(prediction === winner) {
           weeklyWins++;
           weeklyPoints++;

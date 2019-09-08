@@ -7,6 +7,7 @@ include mixins/_game
 include mixins/_winnerPicksForm
 include mixins/_weeklyGamePicksForm
 include mixins/_weeklyUserCard
+include mixins/_weeklyResultsCard
 
 block content
   .container
@@ -70,9 +71,12 @@ block content
             p Your Picks
         label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="standingsCard")
           p Standings
+        label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="weeklyResultsCard")
+            p Weekly Results
         if user.isBettor
           label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="betStandingsCard")
             p Bet Standings
+          
         if user.isAdmin
           label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="vegasCard")
             p Vegas
@@ -87,9 +91,12 @@ block content
           +weeklyGamePicksForm(picksMade)
       #standingsCard.hidden(name="homePageCards")
         +standingsCard(user)
+      #weeklyResultsCard.hidden(name="homePageCards")
+          +weeklyResultsCard(userWeeks)
       if user.isBettor
         #betStandingsCard.hidden(name="homePageCards")
           +betStandingsCard(user, betUsers)
+        
       if user.isAdmin
         #vegasCard.hidden(name="homePageCards")
           p If bet $11 to win 10, we'd be:

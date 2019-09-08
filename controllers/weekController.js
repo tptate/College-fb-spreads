@@ -95,11 +95,10 @@ exports.getHomePage = async (req, res) => {
     homeTrend.push(home);
     const away = await Pick.getTrend('away', week, `${week.games[i].ref}`, i);
     awayTrend.push(away);
-  }
-
-  // week.maxWins = maxWins[0].maxWins;
+  };
+  const userWeeks = await Pick.getUserWeeks(req.user._id);
   const startOfSeason = new Date(2019, 7, 24, 19, 0, 0, 0);
-  res.render('index', { users, week, title: 'Home Page', prevWeek, startOfSeason, currentUserPick, homeTrend, awayTrend, betUsers });
+  res.render('index', { users, week, title: 'Home Page', prevWeek, startOfSeason, currentUserPick, homeTrend, awayTrend, betUsers, userWeeks });
 };
 
 exports.getRules = (req, res) => {

@@ -1,0 +1,15 @@
+mixin weeklyResultsCard(userWeeks)
+  table.table
+    thead
+      td Week
+      td Record
+      td Win Percentage
+    each week, i in userWeeks
+      tr
+        td= `Week ${i+1}`
+        td= `${week.weeklyWins} - ${week.weeklyLosses}`
+        if week.weeklyWins + week.weeklyLosses > 0
+          td #{Math.round((week.weeklyWins/(week.weeklyWins + week.weeklyLosses))*100*10)/10} %
+        else 
+          td 0%
+    

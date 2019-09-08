@@ -113,7 +113,6 @@ const pickSchema = new mongoose.Schema({
 });
 
 pickSchema.statics.getTrend = function(team ,week, gameRef) {
-  const gameRef2 = 'game1';
   return this.aggregate([
     { $match: { week: week._id } },
     { $match: { [gameRef]: `${week.games[i][team]}` } },
@@ -121,5 +120,11 @@ pickSchema.statics.getTrend = function(team ,week, gameRef) {
   ]);
 };
 
+pickSchema.statics.getUserWeeks = function(user) {
+  return this.aggregate([
+    // { $match: { week: week._id } },
+    { $match: { author: user._id } },
+  ]);
+};
 
 module.exports = mongoose.model('Pick', pickSchema);
