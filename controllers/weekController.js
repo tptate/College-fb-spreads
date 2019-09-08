@@ -96,7 +96,7 @@ exports.getHomePage = async (req, res) => {
     const away = await Pick.getTrend('away', week, `${week.games[i].ref}`, i);
     awayTrend.push(away);
   };
-  const userWeeks = await Pick.getUserWeeks(req.user._id);
+  const userWeeks = req.user ? await Pick.getUserWeeks(req.user._id) : '';
   const startOfSeason = new Date(2019, 7, 24, 19, 0, 0, 0);
   res.render('index', { users, week, title: 'Home Page', prevWeek, startOfSeason, currentUserPick, homeTrend, awayTrend, betUsers, userWeeks });
 };
