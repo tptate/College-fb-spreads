@@ -83,8 +83,9 @@ exports.getHomePage = async (req, res) => {
   const prevWeek = prevWeekArray[0];
   prevWeek ? sortByWeeklyPoints(prevWeek) : '';
   const week = weekArray[0];
-  const weekGames = await Week.getRecentWeekByGameDate();
-  week.games = weekGames[0].games;
+  // const weekGames = await Week.getRecentWeekByGameDate();
+  // res.json(week);
+  // week.games = weekGames[0].games;
   const maxWins = await Week.getMaxWins();
   maxWins.length ? week.maxWins = maxWins[0].maxWins : week.maxWins = 0;
   const currentUserPick = req.user ? await Pick.findOne({ author: req.user._id, week: week._id }) : '';
@@ -98,6 +99,7 @@ exports.getHomePage = async (req, res) => {
   };
   const userWeeks = req.user ? await Pick.getUserWeeks(req.user._id) : '';
   const startOfSeason = new Date(2019, 7, 24, 19, 0, 0, 0);
+  // res.json(week);
   res.render('index', { users, week, title: 'Home Page', prevWeek, startOfSeason, currentUserPick, homeTrend, awayTrend, betUsers, userWeeks });
 };
 

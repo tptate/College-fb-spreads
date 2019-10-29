@@ -27,6 +27,7 @@ mixin weeklyGamePicksForm(complete)
                 if week.maxWins > 0 && pick.weeklyPoints === week.maxWins
                   td(class=`${user.favTeam} active`)= `${pick.weeklyWins} - ${pick.weeklyLosses}`
                 else
+                  //- td= user._id
                   td= `${pick.weeklyWins} - ${pick.weeklyLosses}`
             if !foundUser
               td 0 - 0
