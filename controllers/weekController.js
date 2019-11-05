@@ -83,9 +83,9 @@ exports.getHomePage = async (req, res) => {
   const prevWeek = prevWeekArray[0];
   prevWeek ? sortByWeeklyPoints(prevWeek) : '';
   const week = weekArray[0];
-  // const weekGames = await Week.getRecentWeekByGameDate();
-  // res.json(week);
-  // week.games = weekGames[0].games;
+  const weekGames = await Week.getRecentWeekByGameDate();
+  // res.json(weekGames);
+  week.games = weekGames[0].games;
   const maxWins = await Week.getMaxWins();
   maxWins.length ? week.maxWins = maxWins[0].maxWins : week.maxWins = 0;
   const currentUserPick = req.user ? await Pick.findOne({ author: req.user._id, week: week._id }) : '';

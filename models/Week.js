@@ -31,7 +31,7 @@ weekSchema.statics.getWeekByGameDate = function(slug) {
 
 weekSchema.statics.getRecentWeekByGameDate = function() {
   return this.aggregate([
-    { $sort: { slug: -1 } },
+    { $sort: { _id: -1 } },
     { $limit: 1 },
     { $lookup: { from: 'games', localField: '_id', foreignField: 'week', as: 'games' } },
     { $unwind: { path: '$games' } },
