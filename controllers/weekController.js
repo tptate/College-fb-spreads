@@ -87,6 +87,7 @@ exports.getHomePage = async (req, res) => {
   // res.json(weekGames);
   week.games = weekGames[0].games;
   const maxWins = await Week.getMaxWins();
+  // res.json(maxWins);
   maxWins.length ? week.maxWins = maxWins[0].maxWins : week.maxWins = 0;
   const currentUserPick = req.user ? await Pick.findOne({ author: req.user._id, week: week._id }) : '';
   const homeTrend = [];

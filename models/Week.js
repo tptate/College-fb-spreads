@@ -53,22 +53,22 @@ weekSchema.statics.getPicksByPoints = function() {
 };
 
 weekSchema.statics.getMaxWins = function(slug) {
-  if(slug) {
+  // if(slug) {
+  //   return this.aggregate([
+  //     { $match: { slug: slug } },
+  //     { $lookup: { from: 'picks', localField: '_id', foreignField: 'week', as: 'picks' } },
+  //     { $unwind: { path: '$picks' } },
+  //     { $group: { _id: '$week', maxWins: { $max: "$picks.weeklyPoints" }, picks: { $push: "$picks" } } },
+  //   ]);
+  // } else {
     return this.aggregate([
-      { $match: { slug: slug } },
-      { $lookup: { from: 'picks', localField: '_id', foreignField: 'week', as: 'picks' } },
-      { $unwind: { path: '$picks' } },
-      { $group: { _id: '$week', maxWins: { $max: "$picks.weeklyPoints" }, picks: { $push: "$picks" } } },
-    ]);
-  } else {
-    return this.aggregate([
-      { $sort: { slug: -1 } },
+      { $sort: { _id: -1 } },
       { $limit: 1 },
       { $lookup: { from: 'picks', localField: '_id', foreignField: 'week', as: 'picks' } },
       { $unwind: { path: '$picks' } },
       { $group: { _id: '$week', maxWins: { $max: "$picks.weeklyPoints" }, picks: { $push: "$picks" } } },
     ]);
-  }
+  // }
 };
 
 weekSchema.pre('save', async function(next) {
