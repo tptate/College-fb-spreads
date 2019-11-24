@@ -1,0 +1,39 @@
+mixin preseasonTableRowB12(divisionName, division, otherTeam)
+  - const divisionPoints = `${division}Points`
+  - let foundCurrent = false
+  tr
+    td= divisionName
+    if preseasonWinner[0][division]
+      td(class=`${preseasonWinner[0][division]} active`)= `${preseasonWinner[0][division]} (${preseasonWinner[0][divisionPoints]})`
+    else
+      td
+    each user in users
+      if currentUser.equals(user._id)
+        - let foundUser = false
+        each preseason in preseasons
+          if preseason.author.equals(currentUser)
+            - foundCurrent = true
+            if preseason[division]
+              if (preseasonWinner[0][division] && preseasonWinner[0][division] === preseason[division] || preseasonWinner[0][division] && preseasonWinner[0][otherTeam] === preseason[division])
+                td(class=`${preseason[division]} active`) #{preseason[division]} (#{preseason[divisionPoints]})
+              else 
+                td(class=`${preseason[division]}`) #{preseason[division]} (#{preseason[divisionPoints]})
+            else
+              td
+        if !foundUser && !foundCurrent
+          td
+    each user in users
+      - foundUser = false
+      if !currentUser.equals(user._id)
+        each preseason in preseasons
+          if preseason.author.equals(user._id)
+            - foundUser = true
+            if preseason[division]
+              if (preseasonWinner[0][division] && preseasonWinner[0][division] === preseason[division] || preseasonWinner[0][division] && preseasonWinner[0][otherTeam] === preseason[division])
+                td(class=`${preseason[division]} active`) #{preseason[division]} (#{preseason[divisionPoints]})
+              else
+                td(class=`${preseason[division]}`) #{preseason[division]} (#{preseason[divisionPoints]})
+            else
+              td
+        if !foundUser
+          td

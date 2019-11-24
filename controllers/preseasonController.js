@@ -112,6 +112,18 @@ function comparePicks(reqBody, preseason, division) {
   return 0
 }
 
+function comparePicksB12(reqBody, preseason) {
+  let b12Points = 0;
+  if (preseason['Big12d1'] === reqBody['Big12d1'] || preseason['Big12d1'] === reqBody['Big12d2']) {
+    b12Points += preseason[`Big12d1Points`];
+  }
+  if (preseason['Big12d2'] === reqBody['Big12d1'] || preseason['Big12d2'] === reqBody['Big12d2']) {
+    b12Points += preseason[`Big12d2Points`];
+    // console.log(preseason[`Big12d2Points`]);
+  }
+  return b12Points;
+}
+
 async function updateWinner(reqBody, preseason, user) {
   let preseasonPoints = 0;
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'ACCa'));
@@ -126,8 +138,9 @@ async function updateWinner(reqBody, preseason, user) {
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Pac12n'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Pac12s'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Pac12'));
-  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big12d1'));
-  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big12d2'));
+  preseasonPoints += parseInt(comparePicksB12(reqBody, preseason));
+  // preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big12d1'));
+  // preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big12d2'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big12'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff1'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff2'));
