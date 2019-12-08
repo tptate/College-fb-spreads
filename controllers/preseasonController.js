@@ -124,6 +124,26 @@ function comparePicksB12(reqBody, preseason) {
   return b12Points;
 }
 
+function comparePicksPlayoff(reqBody, preseason) {
+  let playoffPoints = 0;
+  if (preseason['Playoff1'] === reqBody['Playoff1'] || preseason['Playoff1'] === reqBody['Playoff2'] || preseason['Playoff1'] === reqBody['Playoff3'] || preseason['Playoff1'] === reqBody['Playoff4']) {
+    playoffPoints += preseason[`Playoff1Points`];
+  }
+  if (preseason['Playoff2'] === reqBody['Playoff1'] || preseason['Playoff2'] === reqBody['Playoff2'] || preseason['Playoff2'] === reqBody['Playoff3'] || preseason['Playoff2'] === reqBody['Playoff4']) {
+    playoffPoints += preseason[`Playoff2Points`];
+    // console.log(preseason[`Big12d2Points`]);
+  }
+  if (preseason['Playoff3'] === reqBody['Playoff1'] || preseason['Playoff3'] === reqBody['Playoff2'] || preseason['Playoff3'] === reqBody['Playoff3'] || preseason['Playoff3'] === reqBody['Playoff4']) {
+    playoffPoints += preseason[`Playoff3Points`];
+    // console.log(preseason[`Big12d2Points`]);
+  }
+  if (preseason['Playoff4'] === reqBody['Playoff1'] || preseason['Playoff4'] === reqBody['Playoff2'] || preseason['Playoff4'] === reqBody['Playoff3'] || preseason['Playoff4'] === reqBody['Playoff4']) {
+    playoffPoints += preseason[`Playoff4Points`];
+    // console.log(preseason[`Big12d2Points`]);
+  }
+  return playoffPoints;
+}
+
 async function updateWinner(reqBody, preseason, user) {
   let preseasonPoints = 0;
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'ACCa'));
@@ -142,10 +162,11 @@ async function updateWinner(reqBody, preseason, user) {
   // preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big12d1'));
   // preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big12d2'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Big12'));
-  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff1'));
-  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff2'));
-  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff3'));
-  preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff4'));
+  preseasonPoints += parseInt(comparePicksPlayoff(reqBody, preseason));
+  // preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff1'));
+  // preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff2'));
+  // preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff3'));
+  // preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Playoff4'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'ChampTeam1'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'ChampTeam2'));
   preseasonPoints += parseInt(comparePicks(reqBody, preseason, 'Champs'));
