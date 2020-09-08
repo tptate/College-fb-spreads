@@ -5,10 +5,10 @@ mixin standingsCard(currentUser)
     thead
       td Standing
       td Name
-      td Total Points
+      //- td Total Points
       td Record
       td Win Percentage
-      td Preseason Points
+      //- td Preseason Points
     each user, i in users
       if currentUser && currentUser._id.equals(user._id)
         - let className = `${user.favTeam} active`

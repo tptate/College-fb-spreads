@@ -5,16 +5,16 @@ mixin standingsRow(user, i, className="", bettor=false)
     else
       td(class=`${className}`) #{i+1}
       - prevI = i
-      - prevTotalPoints = user.totalPoints
+      //- - prevTotalPoints = user.totalPoints
     td(class=`${user.favTeam} ${className}`)= user.name
-    if !bettor
-      td(class=`${className}`)= user.totalPoints
-    else
-      td(class=`${className}`)= user.totalWins
+    //- if !bettor
+    //-   td(class=`${className}`)= user.totalPoints
+    //- else
+    //-   td(class=`${className}`)= user.totalWins
     td(class=`${className}`) #{user.totalWins} - #{user.totalLosses}
     if (!user.totalWins && !user.totalLosses)
       td(class=`${className}`) N/A
     else
       td(class=`${className}`) #{Math.round((user.totalWins/(user.totalWins + user.totalLosses))*100*10)/10} %
-    if !bettor
-      td(class=`${className}`)= user.preseasonPoints
+    //- if !bettor
+    //-   td(class=`${className}`)= user.preseasonPoints
