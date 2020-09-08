@@ -18,4 +18,14 @@ block content
       .btn-group
         select.btn-lg(type="text" name="favTeam")
           +teamOptions()
+      p
+      label(for="isBettor" name="isBettor") $10 Bet Pool*?
+      .btn-group
+        select.btn-lg(type="boolean" name="isBettor")
+          option.noBettor(value="false") No
+          option.YesBet(value="true") Yes
       input.button(type="submit" value="Register")
+      
+      p
+      p *If you select "yes" to "$10 Bet Pool" then you are entering yourself into the $10 bet. The winner will receive $10 from everyone in the pool. Second place doesn't have to pay.
+      p See rules for all other details

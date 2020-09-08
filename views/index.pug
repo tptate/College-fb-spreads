@@ -73,9 +73,9 @@ block content
           p Standings
         label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="weeklyResultsCard")
             p Weekly Results
-        //- if user.isBettor
-        //-   label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="betStandingsCard")
-        //-     p Bet Standings
+        if user.isBettor
+          label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="betStandingsCard")
+            p Bet Standings
           
         if user.isAdmin
           label.col-sm.btn(class=`${user.favTeam}` name="homePageOptions" value="vegasCard")
@@ -93,9 +93,9 @@ block content
         +standingsCard(user)
       #weeklyResultsCard.hidden(name="homePageCards")
           +weeklyResultsCard(userWeeks)
-      //- if user.isBettor
-      //-   #betStandingsCard.hidden(name="homePageCards")
-      //-     +betStandingsCard(user, betUsers)
+      if user.isBettor
+        #betStandingsCard.hidden(name="homePageCards")
+          +betStandingsCard(user, betUsers)
         
       if user.isAdmin
         #vegasCard.hidden(name="homePageCards")

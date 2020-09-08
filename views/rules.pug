@@ -1,37 +1,37 @@
 extends layout
 
 block content
-  h2(class=`${user.favTeam}`)= title
-  h4 Preseason
-  ul
-    li Before the start of the first game (Saturday, August 24th at 7:00pm), all preseason picks must be submitted.
-    li We will pick each division winner for the power 5 conferences (for the Big 12, pick the top two finishers that will play in their championship game.
-    li A division winner is deemed correct only if they play in their championship game. If the team ties but does not play in the conference championship game, they are not the winner. Also, if a team is on postseason band (Missouri), then they cannot play in the conference championship game and will not be a winner.
-    li Each division winner is worth their preseason media standing pick.
-    li We will pick the conference champion based on who you picked to win the divisions.
-    li Each conference winner is worth their preseason division media standing pick times 2.
-    li For example, if you pick Clemson to win the ACC and they do, you will get 1 point for Clemson winning the ACC Atlantic and 2 points for them winning the ACC (3 points total). If they only made the ACC Championship but did not win, you would only get 1 point. If you picked Georgia Tech to win the ACC and they did, you would get 7 points for them winning their division and 14 more points for them winning the conference (21 points total).
-    li For the playoffs, you have the option to choose 4 teams from the Top 25 preseason poll (based on coach's poll).
-    li If that team makes the playoffs, you will get the number of points of their preseason ranking.
-    li So if you picked Clemson, Alabama, Georgia, and Oklahoma to make it (rankings 1,2,3,4), and they all did, you would get a total of 10 points (1+2+3+4).
-    li For the Championship game, you will pick two of your playoff teams to make it.
-    li Each correct championship team is worth 2 times their preseason rank.
-    li So if you picked Clemson vs Alabama, you would get an additional 6 points if they both made it (1*2 + 2*2)
-    li For the national champion, you will pick one of your two championship teams.
-    li The correct champion is worth 4 times their preseason ranking. So if you picked Clemson to win it all, you would get an additional 4 points. If you picked Northwestern to win the whole thing (ranked 25th), you would get 25 points for them making the playoffs, 50 points for them making the championship, and 100 points for them winning it all.
-    li If there is a team not in the top 25 that you want to pick, let me know and I'll add them. They will be worth 26 points.
+  h2= title
+  //- h4 Preseason
+  //- ul
+  //-   li Before the start of the first game (Saturday, August 24th at 7:00pm), all preseason picks must be submitted.
+  //-   li We will pick each division winner for the power 5 conferences (for the Big 12, pick the top two finishers that will play in their championship game.
+  //-   li A division winner is deemed correct only if they play in their championship game. If the team ties but does not play in the conference championship game, they are not the winner. Also, if a team is on postseason band (Missouri), then they cannot play in the conference championship game and will not be a winner.
+  //-   li Each division winner is worth their preseason media standing pick.
+  //-   li We will pick the conference champion based on who you picked to win the divisions.
+  //-   li Each conference winner is worth their preseason division media standing pick times 2.
+  //-   li For example, if you pick Clemson to win the ACC and they do, you will get 1 point for Clemson winning the ACC Atlantic and 2 points for them winning the ACC (3 points total). If they only made the ACC Championship but did not win, you would only get 1 point. If you picked Georgia Tech to win the ACC and they did, you would get 7 points for them winning their division and 14 more points for them winning the conference (21 points total).
+  //-   li For the playoffs, you have the option to choose 4 teams from the Top 25 preseason poll (based on coach's poll).
+  //-   li If that team makes the playoffs, you will get the number of points of their preseason ranking.
+  //-   li So if you picked Clemson, Alabama, Georgia, and Oklahoma to make it (rankings 1,2,3,4), and they all did, you would get a total of 10 points (1+2+3+4).
+  //-   li For the Championship game, you will pick two of your playoff teams to make it.
+  //-   li Each correct championship team is worth 2 times their preseason rank.
+  //-   li So if you picked Clemson vs Alabama, you would get an additional 6 points if they both made it (1*2 + 2*2)
+  //-   li For the national champion, you will pick one of your two championship teams.
+  //-   li The correct champion is worth 4 times their preseason ranking. So if you picked Clemson to win it all, you would get an additional 4 points. If you picked Northwestern to win the whole thing (ranked 25th), you would get 25 points for them making the playoffs, 50 points for them making the championship, and 100 points for them winning it all.
+  //-   li If there is a team not in the top 25 that you want to pick, let me know and I'll add them. They will be worth 26 points.
   h4 Weekly Picks
   ul
-    li We will pick all ACC and SEC games when they play another Power 5 team or Notre Dame. We will also pick any top 25 vs top 25 match up.
+    li We will pick all ACC and SEC games when they play another Power 5 team. We will also pick any top 25 vs top 25 match up.
     li Each correct pick is worth 1 point
     li Each pick is due by the start of their game. You can change any pick up to the start of the game. (Listed gametime, not actual kickoff).
   
   p The overall winner will be the person with the most points, which is weekly points + preseason points.
 
-  if user.isBettor
+  if user && user.isBettor
     h2(class=`${user.favTeam}`) Betting Rules
     ul
-      li Total points is done only by picks (no preseason)
+      li Total points is done only by picks
       li The person with the most correct picks in the year is the winner
       li Everybody but 1st and 2nd place will send the first place winner $10 at end of year
       li Second place doesn't pay or get paid

@@ -51,8 +51,7 @@ const userSchema = new Schema({
   },
   isBettor: {
     type: Boolean,
-    ref: 'isBettor',
-    default: false
+    ref: 'IsBettor'
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date
