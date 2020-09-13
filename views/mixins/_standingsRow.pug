@@ -5,7 +5,7 @@ mixin standingsRow(user, i, className="", bettor=false)
     else
       td(class=`${className}`) #{i+1}
       - prevI = i
-      //- - prevTotalPoints = user.totalPoints
+      - prevTotalPoints = user.totalPoints
     td(class=`${user.favTeam} ${className}`)= user.name
     //- if !bettor
     //-   td(class=`${className}`)= user.totalPoints
