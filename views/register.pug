@@ -4,28 +4,29 @@ include mixins/_teamOptions
 
 block content
   .inner
-    form.form(action="/join" method="POST")
-      h2 Join
-      label(for="name") Name
-      input(type="text" name="name")
-      label(for="email") Email
-      input(type="email" name="email")
-      label(for="password" name="password") Password
-      input(type="password" name="password")
-      label(for="password-confirm" name="password-confirm") Confirm Password
-      input(type="password" name="password-confirm")
-      label(for="favTeam" name="favTeam") What's your favorite Team?
-      .btn-group
-        select.btn-lg(type="text" name="favTeam")
-          +teamOptions()
-      p
-      label(for="isBettor" name="isBettor") $10 Bet Pool*?
-      .btn-group
-        select.btn-lg(type="boolean" name="isBettor")
-          option.noBettor(value="false") No
-          option.YesBet(value="true") Yes
-      input.button(type="submit" value="Register")
+  p Sorry, sign up is closed!
+    //- form.form(action="/join" method="POST")
+    //-   h2 Join
+    //-   label(for="name") Name
+    //-   input(type="text" name="name")
+    //-   label(for="email") Email
+    //-   input(type="email" name="email")
+    //-   label(for="password" name="password") Password
+    //-   input(type="password" name="password")
+    //-   label(for="password-confirm" name="password-confirm") Confirm Password
+    //-   input(type="password" name="password-confirm")
+    //-   label(for="favTeam" name="favTeam") What's your favorite Team?
+    //-   .btn-group
+    //-     select.btn-lg(type="text" name="favTeam")
+    //-       +teamOptions()
+    //-   p
+    //-   label(for="isBettor" name="isBettor") $10 Bet Pool*?
+    //-   .btn-group
+    //-     select.btn-lg(type="boolean" name="isBettor")
+    //-       option.noBettor(value="false") No
+    //-       option.YesBet(value="true") Yes
+    //-   input.button(type="submit" value="Register")
       
-      p
-      p *If you select "yes" to "$10 Bet Pool" then you are entering yourself into the $10 bet. The winner will receive $10 from everyone in the pool. Second place doesn't have to pay.
-      p See rules for all other details
+    //-   p
+    //-   p *If you select "yes" to "$10 Bet Pool" then you are entering yourself into the $10 bet. The winner will receive $10 from everyone in the pool. Second place doesn't have to pay.
+    //-   p See rules for all other details

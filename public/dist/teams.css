@@ -630,11 +630,11 @@
 }
 
 /* -------------Group of 5--------------- */
-.UCF {
+.Central.Florida {
   color: #FFC904;
 }
 
-.UCF.active {
+.Central.Florida.active {
   background-color: #FFC904;
   color: black;
 }
