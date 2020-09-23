@@ -638,3 +638,21 @@
   background-color: #FFC904;
   color: black;
 }
+
+.Cincinnati {
+  color: #E00122;
+}
+
+.Cincinnati.active {
+  background-color: #E00122;
+  color: black;
+}
+
+.Army {
+  color: #D4BF91;
+}
+
+.Army.active {
+  background-color: #D4BF91;
+  color: black;
+}
