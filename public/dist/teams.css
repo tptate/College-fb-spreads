@@ -656,3 +656,12 @@
   background-color: #D4BF91;
   color: black;
 }
+
+.SMU {
+  color: #C8102E;
+}
+
+.SMU.active {
+  background-color: #C8102E;
+  color: #0033A0;
+}
