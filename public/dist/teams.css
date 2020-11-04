@@ -665,3 +665,21 @@
   background-color: #C8102E;
   color: #0033A0;
 }
+
+.BYU {
+  color: #002E5D;
+}
+
+.BYU.active {
+  background-color: #002E5D;
+  color: #FFFFFF;
+}
+
+.Boise.State {
+  color: #0033A0;
+}
+
+.Boise.State.active {
+  background-color: #0033A0;
+  color: #D64309;
+}
