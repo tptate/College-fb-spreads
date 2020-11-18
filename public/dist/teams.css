@@ -422,7 +422,7 @@
 }
 
 .Indiana {
-  colo990000r: #990000;
+  color: #990000;
 }
 
 .Indiana.active {
@@ -682,4 +682,13 @@
 .Boise.State.active {
   background-color: #0033A0;
   color: #D64309;
+}
+
+.Liberty {
+  color: #0A254E;
+}
+
+.Liberty.active {
+  background-color: #0A254E;
+  color: #990000;
 }
