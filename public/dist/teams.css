@@ -692,3 +692,30 @@
   background-color: #0A254E;
   color: #990000;
 }
+
+.Coastal.Carolina {
+  color: #006F71;
+}
+
+.Coastal.Carolina.active {
+  background-color: #006F71;
+  color: #A27752;
+}
+
+.Louisiana {
+  color: #CE181E;
+}
+
+.Louisiana.active {
+  background-color: #CE181E;
+  color: #0A0203;
+}
+
+.Tulsa {
+  color: #002D72;
+}
+
+.Tulsa.active {
+  background-color: #002D72;
+  color: #C8102E;
+}
