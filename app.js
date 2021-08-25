@@ -84,5 +84,19 @@ if (app.get('env') === 'development') {
 // production error handler
 app.use(errorHandlers.productionErrors);
 
+
+// trying to connect mongodb atlas
+// const uri = process.env.ATLAS_URI;
+// mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true});
+// const connection = mongoose.connection;
+// connection.once('open', () => {
+//   console.log("Connected Database Successfully");
+// });
+
+// app.listen(3000,function(req,res){
+//   console.log("Server is started on port 3000");
+// });
+
+
 // done! we export it so we can start the site in start.js
 module.exports = app;

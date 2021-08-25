@@ -112,9 +112,10 @@ block content
           - let moneyWon = 21 * totalWins
           p= `Money bet: $${moneyBet}. Money won: $${moneyWon}. Net $${moneyBet - moneyWon}.`
     else
-      a(href="/login")
-        p.link Please sign in to make picks
-      +standingsCard(user)
+      p 2021 Spread Picks Coming Soon!
+      //- a(href="/login")
+      //-   p.link Please sign in to make picks
+      //- +standingsCard(user)
 
 
     script(src="/javascripts/modules/weeklyGames.js")
