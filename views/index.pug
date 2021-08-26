@@ -112,10 +112,15 @@ block content
           - let moneyWon = 21 * totalWins
           p= `Money bet: $${moneyBet}. Money won: $${moneyWon}. Net $${moneyBet - moneyWon}.`
     else
-      p 2021 Spread Picks Coming Soon!
+      p Welcome to the 2021 Spread Picks Club!
+      p If you have not yet this season, join the club to start (even if you played last year). Or sign in to update your picks.
+      a(href="/join")
+        p.link Join
+      a(href="/login")
+        p.link Login
       //- a(href="/login")
-      //-   p.link Please sign in to make picks
-      //- +standingsCard(user)
+      //-   p.link Please login to make your picks
+      +standingsCard(user)
 
 
     script(src="/javascripts/modules/weeklyGames.js")
